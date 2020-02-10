@@ -1,0 +1,263 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Assets/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/Assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="~/Assets/dist/css/adminlte.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/Assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <style>
+        .text-logo {
+            font-size: 24px;
+        }
+
+        .col-8 {
+            overflow: hidden;
+        }
+        img {
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="hold-transition register-page">
+    <div class="row">
+        <div class="col-8 full-height">
+            <img src="~/Assets/dist/img/background-signup.jpg" alt="Alternate Text"  />
+            @*<img src="~/Assets/dist/img/background-signup.jpg" alt="Alternate Text" height="701vh" />*@
+        </div>
+        <div class="col-4 full-height">
+            <div class="register-box">
+                <div class="register-logo">
+                    <a href="/">
+                        <b>Hệ thống bỏ phiếu</b>
+                    </a>
+                    <p class="text-logo">NCKH - Sinh viên</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-body register-card-body">
+                        <p class="login-box-msg">Tạo tài khoản mới</p>
+                        <!--<form action="/SignUp/register" method="post">-->
+                        <div class="input-group mb-3">
+                            <input name="user_name" type="text" class="form-control" placeholder="Họ và tên">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input name="email" type="email" class="form-control" placeholder="Email">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input name="account" type="text" class="form-control" placeholder="Tên đăng nhập">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    @*<img src="~/Assets/dist/img/name.png" alt="Alternate Text" width="20px" />*@
+                                    @*<span class="fas fa-envelope"></span>*@
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input name="password" type="password" class="form-control" placeholder="Mật khẩu">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input name="re_password" type="password" class="form-control" placeholder="Nhập lại mật khẩu">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="icheck-primary">
+                                    @*<input type="checkbox" id="agreeTerms" name="terms" value="agree">*@
+                                    <label for="agreeTerms">
+                                        @*I agree to the <a href="#">terms</a>*@
+                                    </label>
+                                    <a href="/" class="text-center">Đã có tài khoản?</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-primary btn-block ttk">Tạo tài khoản</button>
+                            </div>
+                        </div>
+                        <!-- </form>-->
+                        @*<div class="social-auth-links text-center">
+                                <p>- OR -</p>
+                                <a href="#" class="btn btn-block btn-primary">
+                                    <i class="fab fa-facebook mr-2"></i>
+                                    Sign up using Facebook
+                                </a>
+                                <a href="#" class="btn btn-block btn-danger">
+                                    <i class="fab fa-google-plus mr-2"></i>
+                                    Sign up using Google+
+                                </a>
+                            </div>
+                            <a href="/" class="text-center">Đã có tài khoản?</a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Assets/plugins/jquery/jquery.min.js"></script>
+    <script src="~/Assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Assets/dist/js/adminlte.min.js"></script>
+    <script src="~/Assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/Assets/plugins/jqueryFullHeight/fullHeight.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.full-height').fullHeight();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            $(document).on("click", ".ttk", function () {
+                user_name = $("input[name='user_name']").val();
+                email = $("input[name='email']").val();
+                account = $("input[name='account']").val();
+                password = $("input[name='password']").val();
+                re_password = $("input[name='re_password']").val();
+                if (user_name == "") {
+                    alert("bạn chưa nhập họ tên")
+                    $("input[name='user_name']").focus();
+                    return false;
+                }
+                if (email == "") {
+                    alert("bạn chưa nhập email");
+                    $("input[name='email']").focus();
+                    return false;
+                }
+                if (account == "") {
+                    alert("bạn chưa nhập tên đăng nhập");
+                    $("input[name='account']").focus();
+                    return false;
+                }
+                if (password == "") {
+                    alert("bạn chưa nhập mật khẩu");
+                    $("input[name='password']").focus();
+                    return false;
+                }
+                if (re_password == "") {
+                    alert("bạn chưa nhập lại mật khẩu");
+                    $("input[name='re_password']").focus();
+                    return false;
+                }
+                if (password != re_password) {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Mật khẩu không khớp!',
+                    });
+                    $("input[name='password']").focus();
+                    return false;
+                }
+                var data = {
+                    'action': 'taotk',
+                    'user_name': user_name,
+                    'account': account,
+                    'email': email,
+                    'password': password,
+                    're_password': re_password,
+                };
+                $.ajax({
+                    url: "/SignUp/register",
+                    type: 'POST',
+                    data: data,
+                    success: function (result) {
+                        switch (result) {
+                            case "taikhoan_tontai":
+                                {
+                                    Toast.fire({
+                                        type: 'error',
+                                        title: 'Tài khoản đã tồn tại!',
+                                    });
+                                    $("input[name='account']").focus();
+                                    break;
+                                }
+                            case "email_tontai":
+                                {
+                                    Toast.fire({
+                                        type: 'error',
+                                        title: 'Email đã tồn tại!',
+                                    });
+                                    $("input[name='email']").focus();
+                                    break;
+                                }
+                            case "matkhau_khongkhop":
+                                {
+                                    Toast.fire({
+                                        type: 'error',
+                                        title: 'Mật khẩu không khớp!',
+                                    });
+                                    $("input[name='password']").focus();
+                                }
+                            case "thatbai":
+                                {
+                                    Toast.fire({
+                                        type: 'error',
+                                        title: 'Có lỗi xảy ra!',
+                                    });
+                                }
+                            case "thanhcong":
+                                {
+                                    let timerInterval
+                                    Swal.fire({
+                                        title: 'Tạo tài khoản thành công!',
+                                        html: 'Chuyển qua trang đăng nhập trong <b></b>.',
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        onBeforeOpen: () => {
+                                            Swal.showLoading()
+                                            timerInterval = setInterval(() => {
+                                                Swal.getContent().querySelector('b')
+                                                    .textContent = Swal.getTimerLeft()
+                                            }, 100)
+                                        },
+                                        onClose: () => {
+                                            clearInterval(timerInterval)
+                                        }
+                                    }).then((result) => {
+                                        if (result.dismiss === Swal.DismissReason.timer) {
+                                            window.location.href = "/";
+                                            console.log('I was closed by the timer') 
+                                        }
+                                    })
+                                }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,76 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Assets/dist/css/welcome.css">
+
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-12">
+            <h2>Chào mừng @ViewBag.hoTen đến với hệ thống</h2>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-primary card-outline">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                    <h3 class="card-title">Danh sách các cuộc bỏ phiểu</h3>
+                </div>
+            </div>
+            <div class="card-body card-icon">
+                <div class="row">
+                    <a href="~/VotingList">
+                        <div class="block">
+                            <i class="hovicon effect-1 sub-a">
+                                <i class="fas fa-poll-h"></i>
+                            </i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-primary card-outline">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                    <h3 class="card-title">Tạo thêm đợt bỏ phiếu</h3>
+                </div>
+            </div>
+            <div class="card-body card-icon">
+                <div class="row">
+                    <a href="#">
+                        <div class="block">
+                            <i class="hovicon effect-1 sub-a">
+                                <i class="fas fa-plus"></i>
+                            </i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-primary card-outline">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                    <h3 class="card-title">Cá nhân</h3>
+                </div>
+            </div>
+            <div class="card-body card-icon">
+                <div class="row">
+                    <a href="#">
+                        <div class="block">
+                            <i class="hovicon effect-1 sub-a">
+                                <i class="fas fa-user"></i>
+                            </i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

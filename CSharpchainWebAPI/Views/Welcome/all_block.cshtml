@@ -1,0 +1,51 @@
+﻿@using CSharpchainWebAPI.Models;
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark"></h1>
+            </div><!-- /.col -->
+
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="text-center">
+    <h1>Chào mừng các bạn đã đến với Hệ thống bỏ phiếu kín</h1>
+    <div class="card-body">
+        <table id="example2" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Hash</th>
+                    <th>Pre Hash</th>
+                    <th>Time</th>
+                    <th class="text-center">Chi tiêt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var block in ViewBag.blockChain)
+                {
+                <tr>
+                    <td></td>
+                    <td class="text-center">@block.Hash</td>
+                    <td>@block.PreviousHash</td>
+                    <td>@block.TimeStamp</td>
+                    <td></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<canvas id="canvas">???</canvas>
+<script type="text/javascript" src="~/Assets/dist/js/script.js"></script>

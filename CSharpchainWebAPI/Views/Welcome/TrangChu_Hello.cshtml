@@ -1,0 +1,30 @@
+﻿@using CSharpchainWebAPI.Models;
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark"></h1>
+            </div><!-- /.col -->
+
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br /> <br /> <br /> <br /> <br />
+<div class="text-center">
+    <h1>Chào mừng các bạn đã đến với Hệ thống bỏ phiếu kín</h1>
+    <h2>Độ dài của blockchain: @ViewBag.bll</h2>
+    <ul>
+        <li>Hash: @ViewBag.block.Hash</li>
+        <li>Pre-Hash:</li>
+        <li>Nonce: </li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<canvas id="canvas">???</canvas>
+<script type="text/javascript" src="~/Assets/dist/js/script.js"></script>

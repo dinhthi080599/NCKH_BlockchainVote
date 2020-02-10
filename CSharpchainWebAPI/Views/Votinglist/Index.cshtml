@@ -1,0 +1,62 @@
+﻿
+@{
+}
+<link rel="stylesheet" href="~/Assets/plugins/datatables/dataTables.bootstrap4.css">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-hover dataTable">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên đợt bỏ phiếu</th>
+                            <th>Thời gian bỏ phiếu</th>
+                            <th>Thời gian kết thúc</th>
+                            <th class="text-center">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int @STT = 1;
+                        }
+                        @foreach (var dbc in ViewBag.list_dbc)
+                        {
+                            <tr>
+                                <td class="text-center">@STT</td>
+                                <td>@dbc.sTenDot</td>
+                                <td class="text-center">@dbc.dThoiGianBD</td>
+                                <td class="text-center">@dbc.dThoiGianKT</td>
+                                <td>
+                                    <a href="~/Election/@dbc.ma_dot" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a>
+                                </td>
+                            </tr>
+                            STT = STT + 1;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Assets/plugins/datatables/jquery.dataTables.js"></script>
+<script src="~/Assets/plugins/datatables/dataTables.bootstrap4.js"></script>
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            "language": {
+                "emptyTable":   "Không có cuộc bỏ phiếu nào!",
+                "info":         "Hiển thị _START_ đến _END_ của _TOTAL_ đợt bỏ phiếu",
+                "search":       "Tìm kiếm",
+                "lengthMenu":   "Hiển thị _MENU_ kết quả",
+            }
+        });
+    });
+</script>

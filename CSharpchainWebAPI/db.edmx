@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="admin_voteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="dm_trangthai_dotbaucu">
+          <Key>
+            <PropertyRef Name="ma_dm_trangthai_dotbaucu" />
+          </Key>
+          <Property Name="ma_dm_trangthai_dotbaucu" Type="int" Nullable="false" />
+          <Property Name="tenTrangThaiDotBauCu" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="icon" Type="varchar" MaxLength="50" />
+          <Property Name="title" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tbl_cutri">
+          <Key>
+            <PropertyRef Name="ma_cutri" />
+          </Key>
+          <Property Name="ma_cutri" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sHoten" Type="nvarchar" MaxLength="255" />
+          <Property Name="bGioitinh" Type="bit" />
+          <Property Name="dNgaysinh" Type="date" />
+          <Property Name="sEmail" Type="varchar" MaxLength="255" />
+          <Property Name="sDiachi" Type="varchar" MaxLength="255" />
+          <Property Name="ma_dotbaucu" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tbl_dotbaucu">
+          <Key>
+            <PropertyRef Name="ma_dot" />
+          </Key>
+          <Property Name="ma_dot" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sTendot" Type="nvarchar" MaxLength="255" />
+          <Property Name="dThoigianbd" Type="datetime" />
+          <Property Name="dThoigiankt" Type="datetime" />
+          <Property Name="sGhichu" Type="nvarchar" MaxLength="1" />
+          <Property Name="sNoiDung" Type="text" />
+          <Property Name="iTrangThai" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_dotbaucu_cutri">
+          <Key>
+            <PropertyRef Name="ma_cutri" />
+            <PropertyRef Name="ma_dotbaucu" />
+          </Key>
+          <Property Name="ma_cutri" Type="bigint" Nullable="false" />
+          <Property Name="ma_dotbaucu" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_taikhoan">
+          <Key>
+            <PropertyRef Name="ma_taikhoan" />
+          </Key>
+          <Property Name="ma_taikhoan" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sHovaten" Type="nvarchar" MaxLength="255" />
+          <Property Name="sTendangnhap" Type="varchar" MaxLength="255" />
+          <Property Name="sMatkhau" Type="varchar" MaxLength="255" />
+          <Property Name="dNgaysinh" Type="date" />
+          <Property Name="bGgioitinh" Type="bit" />
+          <Property Name="sEmail" Type="varchar" MaxLength="255" />
+          <Property Name="sSdt" Type="char" MaxLength="11" />
+          <Property Name="sDiachi" Type="nvarchar" MaxLength="255" />
+          <Property Name="iTrangthai" Type="bit" />
+          <Property Name="ma_quyen" Type="int" />
+        </EntityType>
+        <Association Name="FK__tbl_dotba__ma_cu__29572725">
+          <End Role="tbl_cutri" Type="Self.tbl_cutri" Multiplicity="1" />
+          <End Role="tbl_dotbaucu_cutri" Type="Self.tbl_dotbaucu_cutri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_cutri">
+              <PropertyRef Name="ma_cutri" />
+            </Principal>
+            <Dependent Role="tbl_dotbaucu_cutri">
+              <PropertyRef Name="ma_cutri" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_dotba__ma_do__2A4B4B5E">
+          <End Role="tbl_dotbaucu" Type="Self.tbl_dotbaucu" Multiplicity="1" />
+          <End Role="tbl_dotbaucu_cutri" Type="Self.tbl_dotbaucu_cutri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_dotbaucu">
+              <PropertyRef Name="ma_dot" />
+            </Principal>
+            <Dependent Role="tbl_dotbaucu_cutri">
+              <PropertyRef Name="ma_dotbaucu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="admin_voteModelStoreContainer">
+          <EntitySet Name="dm_trangthai_dotbaucu" EntityType="Self.dm_trangthai_dotbaucu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_cutri" EntityType="Self.tbl_cutri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_dotbaucu" EntityType="Self.tbl_dotbaucu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_dotbaucu_cutri" EntityType="Self.tbl_dotbaucu_cutri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_taikhoan" EntityType="Self.tbl_taikhoan" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_dotba__ma_cu__29572725" Association="Self.FK__tbl_dotba__ma_cu__29572725">
+            <End Role="tbl_cutri" EntitySet="tbl_cutri" />
+            <End Role="tbl_dotbaucu_cutri" EntitySet="tbl_dotbaucu_cutri" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_dotba__ma_do__2A4B4B5E" Association="Self.FK__tbl_dotba__ma_do__2A4B4B5E">
+            <End Role="tbl_dotbaucu" EntitySet="tbl_dotbaucu" />
+            <End Role="tbl_dotbaucu_cutri" EntitySet="tbl_dotbaucu_cutri" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="admin_voteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_cutri">
+          <Key>
+            <PropertyRef Name="ma_cutri" />
+          </Key>
+          <Property Name="ma_cutri" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sHoten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="bGioitinh" Type="Boolean" />
+          <Property Name="dNgaysinh" Type="DateTime" Precision="0" />
+          <Property Name="sEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sDiachi" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ma_dotbaucu" Type="Int64" />
+          <NavigationProperty Name="tbl_dotbaucu" Relationship="admin_voteModel.tbl_dotbaucu_cutri" FromRole="tbl_cutri" ToRole="tbl_dotbaucu" />
+        </EntityType>
+        <EntityType Name="tbl_taikhoan">
+          <Key>
+            <PropertyRef Name="ma_taikhoan" />
+          </Key>
+          <Property Name="ma_taikhoan" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sHovaten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sTendangnhap" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sMatkhau" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="dNgaysinh" Type="DateTime" Precision="0" />
+          <Property Name="bGgioitinh" Type="Boolean" />
+          <Property Name="sEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sSdt" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="sDiachi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="iTrangthai" Type="Boolean" />
+          <Property Name="ma_quyen" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="admin_voteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_cutri" EntityType="Self.tbl_cutri" />
+          <EntitySet Name="tbl_taikhoan" EntityType="Self.tbl_taikhoan" />
+          <EntitySet Name="tbl_dotbaucu" EntityType="admin_voteModel.tbl_dotbaucu" />
+          <AssociationSet Name="tbl_dotbaucu_cutri" Association="admin_voteModel.tbl_dotbaucu_cutri">
+            <End Role="tbl_cutri" EntitySet="tbl_cutri" />
+            <End Role="tbl_dotbaucu" EntitySet="tbl_dotbaucu" />
+          </AssociationSet>
+          <EntitySet Name="dm_trangthai_dotbaucu" EntityType="admin_voteModel.dm_trangthai_dotbaucu" />
+        </EntityContainer>
+        <EntityType Name="tbl_dotbaucu">
+          <Key>
+            <PropertyRef Name="ma_dot" />
+          </Key>
+          <Property Name="ma_dot" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sTendot" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="dThoigianbd" Type="DateTime" Precision="3" />
+          <Property Name="dThoigiankt" Type="DateTime" Precision="3" />
+          <Property Name="sGhichu" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="sNoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="iTrangThai" Type="Int32" />
+          <NavigationProperty Name="tbl_cutri" Relationship="admin_voteModel.tbl_dotbaucu_cutri" FromRole="tbl_dotbaucu" ToRole="tbl_cutri" />
+        </EntityType>
+        <Association Name="tbl_dotbaucu_cutri">
+          <End Type="admin_voteModel.tbl_cutri" Role="tbl_cutri" Multiplicity="*" />
+          <End Type="admin_voteModel.tbl_dotbaucu" Role="tbl_dotbaucu" Multiplicity="*" />
+        </Association>
+        <EntityType Name="dm_trangthai_dotbaucu">
+          <Key>
+            <PropertyRef Name="ma_dm_trangthai_dotbaucu" />
+          </Key>
+          <Property Name="ma_dm_trangthai_dotbaucu" Type="Int32" Nullable="false" />
+          <Property Name="tenTrangThaiDotBauCu" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="icon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="admin_voteModelStoreContainer" CdmEntityContainer="admin_voteEntities">
+          <EntitySetMapping Name="tbl_cutri">
+            <EntityTypeMapping TypeName="admin_voteModel.tbl_cutri">
+              <MappingFragment StoreEntitySet="tbl_cutri">
+                <ScalarProperty Name="ma_cutri" ColumnName="ma_cutri" />
+                <ScalarProperty Name="sHoten" ColumnName="sHoten" />
+                <ScalarProperty Name="bGioitinh" ColumnName="bGioitinh" />
+                <ScalarProperty Name="dNgaysinh" ColumnName="dNgaysinh" />
+                <ScalarProperty Name="sEmail" ColumnName="sEmail" />
+                <ScalarProperty Name="sDiachi" ColumnName="sDiachi" />
+                <ScalarProperty Name="ma_dotbaucu" ColumnName="ma_dotbaucu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_taikhoan">
+            <EntityTypeMapping TypeName="admin_voteModel.tbl_taikhoan">
+              <MappingFragment StoreEntitySet="tbl_taikhoan">
+                <ScalarProperty Name="ma_taikhoan" ColumnName="ma_taikhoan" />
+                <ScalarProperty Name="sHovaten" ColumnName="sHovaten" />
+                <ScalarProperty Name="sTendangnhap" ColumnName="sTendangnhap" />
+                <ScalarProperty Name="sMatkhau" ColumnName="sMatkhau" />
+                <ScalarProperty Name="dNgaysinh" ColumnName="dNgaysinh" />
+                <ScalarProperty Name="bGgioitinh" ColumnName="bGgioitinh" />
+                <ScalarProperty Name="sEmail" ColumnName="sEmail" />
+                <ScalarProperty Name="sSdt" ColumnName="sSdt" />
+                <ScalarProperty Name="sDiachi" ColumnName="sDiachi" />
+                <ScalarProperty Name="iTrangthai" ColumnName="iTrangthai" />
+                <ScalarProperty Name="ma_quyen" ColumnName="ma_quyen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_dotbaucu">
+            <EntityTypeMapping TypeName="admin_voteModel.tbl_dotbaucu">
+              <MappingFragment StoreEntitySet="tbl_dotbaucu">
+                <ScalarProperty Name="iTrangThai" ColumnName="iTrangThai" />
+                <ScalarProperty Name="sNoiDung" ColumnName="sNoiDung" />
+                <ScalarProperty Name="sGhichu" ColumnName="sGhichu" />
+                <ScalarProperty Name="dThoigiankt" ColumnName="dThoigiankt" />
+                <ScalarProperty Name="dThoigianbd" ColumnName="dThoigianbd" />
+                <ScalarProperty Name="sTendot" ColumnName="sTendot" />
+                <ScalarProperty Name="ma_dot" ColumnName="ma_dot" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="tbl_dotbaucu_cutri" TypeName="admin_voteModel.tbl_dotbaucu_cutri" StoreEntitySet="tbl_dotbaucu_cutri">
+            <EndProperty Name="tbl_dotbaucu">
+              <ScalarProperty Name="ma_dot" ColumnName="ma_dotbaucu" />
+            </EndProperty>
+            <EndProperty Name="tbl_cutri">
+              <ScalarProperty Name="ma_cutri" ColumnName="ma_cutri" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="dm_trangthai_dotbaucu">
+            <EntityTypeMapping TypeName="admin_voteModel.dm_trangthai_dotbaucu">
+              <MappingFragment StoreEntitySet="dm_trangthai_dotbaucu">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="tenTrangThaiDotBauCu" ColumnName="tenTrangThaiDotBauCu" />
+                <ScalarProperty Name="ma_dm_trangthai_dotbaucu" ColumnName="ma_dm_trangthai_dotbaucu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,75 @@
+﻿
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark"></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Danh sách đợt bỏ phiếu đã tham gia</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    ViewBag.Title = "Danh sách đợt bỏ phiếu đã tham gia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">&nbsp;Danh sách đợt bỏ phiếu đã tham gia</h3>
+                </div>
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên đợt bỏ phiếu</th>
+                                <th>Thời gian bỏ phiếu</th>
+                                <th>Thời gian kết thúc</th>
+                                <th>Số lượng người tham gia</th>
+                                <th class="text-center">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var _dbc in ViewBag.dbc)
+                            {
+                            <tr>
+                                <td class="text-center">@_dbc.ma_dot</td>
+                                <td>@_dbc.sTenDot</td>
+                                <td class="text-center">@_dbc.dThoiGianBD</td>
+                                <td class="text-center">@_dbc.dThoiGianKT</td>
+                                <td></td>
+                                <td>
+                                    <button value="@_dbc.ma_dot" type="button" class="btn btn-block btn-info btn-flat">
+                                        Xem chi tiết
+                                    </button>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+ $(document).ready(function () {
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>

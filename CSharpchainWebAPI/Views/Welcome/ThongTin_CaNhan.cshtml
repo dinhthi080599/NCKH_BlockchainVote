@@ -1,0 +1,90 @@
+﻿<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark"></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Thông tin cá nhân</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+@{
+    ViewBag.Title = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+                <div class="text-center">
+                    <img class="profile-user-img img-fluid img-circle"
+                         src="~/Assets/dist/img/user4-128x128.jpg"
+                         alt="User profile picture">
+                </div>
+                <h3 class="profile-username text-center">Trần Mạnh Hùng</h3>
+
+                <p class="text-muted text-center">Kỹ sư ăn hại</p>
+
+                <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                        <b>Ngày sinh</b> <a class="float-right">24/04/1999</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Số điện thoại</b> <a class="float-right">0147852369</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Số đợt bỏ phiếu đã tham gia</b> <a class="float-right">13,287</a>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <div class="card card-comment">
+            <div class="card-header">
+                <h3 class="card-title">Thông tin cá nhân</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <strong><i class="fa fa-book mr-1"></i>Đơn vị công tác</strong>
+
+                <p class="text-muted">
+                    B.S. in Computer Science from the University of Tennessee at Knoxville
+                </p>
+
+                <hr>
+
+                <strong><i class="fa fa-map-marker mr-1"></i> Địa chỉ</strong>
+
+                <p class="text-muted">Malibu, California</p>
+
+                <hr>
+
+                <strong><i class="fa fa-pencil mr-1"></i> Trình độ</strong>
+
+                <p class="text-muted">
+                    <span class="tag tag-danger">UI Design</span>
+                    <span class="tag tag-success">Coding</span>
+                    <span class="tag tag-info">Javascript</span>
+                    <span class="tag tag-warning">PHP</span>
+                    <span class="tag tag-primary">Node.js</span>
+                </p>
+
+                <hr>
+
+                <strong><i class="fa fa-file-text-o mr-1"></i> Ghi chú</strong>
+
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+</div>

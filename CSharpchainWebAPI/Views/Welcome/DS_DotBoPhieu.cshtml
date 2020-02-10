@@ -1,0 +1,159 @@
+﻿<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark"></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Danh sách đợt bỏ phiếu</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+@{
+    ViewBag.Title = "Danh sách đợt bỏ phiếu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">&nbsp;Danh sách đợt bỏ phiếu</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên đợt bỏ phiếu</th>
+                                <th>Thời gian bỏ phiếu</th>
+                                <th>Thời gian kết thúc</th>
+                                <th>Số lượng người tham gia</th>
+                                <th class="text-center">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td>Bầu cử Giáo Sư ngành Sinh học</td>
+                                <td class="text-center">
+                                    20/05/2019
+                                </td>
+                                <td class="text-center">20/05/2019</td>
+                                <td> 4</td>
+                                <td><a href="ChiTiet_DotBauCu" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2</td>
+                                <td>Bình chọn gái xinh nhất Khoa CNTT</td>
+                                <td class="text-center">
+                                    20/05/2019
+                                </td>
+                                <td class="text-center">20/05/2019</td>
+                                <td>5</td>
+                                <td><a href="ChiTiet_DotBauCu" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">3</td>
+                                <td>Bình chọn thành phố đáng sống nhất 2019</td>
+                                <td class="text-center">
+                                    20/05/2019
+                                </td>
+                                <td class="text-center">20/05/2019</td>
+                                <td>5.5</td>
+                                <td><a href="ChiTiet_DotBauCu" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">4</td>
+                                <td>Bầu cử Đảng viên khóa VII</td>
+                                <td class="text-center">
+                                    20/05/2019
+                                </td>
+                                <td class="text-center">20/05/2019</td>
+                                <td>6</td>
+                                <td><a href="ChiTiet_DotBauCu" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">5</td>
+                                <td>Bình chọn hộp sữa to nhất</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td>7</td>
+                                <td><a href="ChiTiet_DotBauCu" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">6</td>
+                                <td>Vote nhận phiếu bé ngoan</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td>6</td>
+                                <td><a href="ChiTiet_DotBauCu" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">7</td>
+                                <td>Hoa rơi cửa phật, vạn vật tùy duyên</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td>17</td>
+                                <td><a href="ChiTiet_DotBauCu" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">8</td>
+                                <td>Kẻ vô tình cắm liễu, liệu lại xanh</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td>18</td>
+                                <td><a href="ChiTiet_DotBauCu" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">9</td>
+                                <td>Có phải bố em là dân tổ</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td>18</td>
+                                <td><a href="ChiTiet_DotBauCu" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">10</td>
+                                <td>Úp vỉa vào  tim, gạt chân chống đánh lửa Ngã 3 Kim Đồng</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td>19</td>
+                                <td><a href="ChiTiet_DotBauCu" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">11</td>
+                                <td>Cục cứt biết đi</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td class="text-center">20/05/2019</td>
+                                <td>18</td>
+                                <td><a href="ChiTiet_DotBauCu" type="button" class="btn btn-block btn-info btn-flat">Xem chi tiết</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
+<script>
+ $(document).ready(function () {
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>
