@@ -1,0 +1,30 @@
+﻿
+@model CSharpchainWebAPI.Models.TestSendMailController
+<fieldset>
+    <legend>
+        Send Email
+    </legend>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        //<p>From: (Email address)</p>
+        //<p>@Html.TextBoxFor(m => m.From)</p>
+        <p>To: (Email address)</p>
+        <p>@Html.TextBoxFor(m => m.To)</p>
+        //<p>Subject: </p>
+        //<p>@Html.TextBoxFor(m => m.Subject)</p>
+        //<p>Body: </p>
+        //<p>@Html.TextAreaFor(m => m.Body)</p>
+        <input id="sendMail" type="submit" value="Send" />
+    }
+</fieldset>
+
+<script>
+    $(document).ready(function () {
+        $("#sendMail").on("click", function () {
+            alert('Gửi mail hành công');
+        });
+
+    });
+</script>
+

@@ -367,6 +367,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
+    <Compile Include="Controllers\TestSendMailController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VotinglistController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
@@ -397,6 +398,7 @@
     <Compile Include="Models\ElectionStatus.cs" />
     <Compile Include="Models\Program.cs" />
     <Compile Include="Models\Sha256.cs" />
+    <Compile Include="Models\TestSendMail.cs" />
     <Compile Include="MyHub1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -1483,6 +1485,7 @@
     <Content Include="Views\SignUp\Index.cshtml" />
     <Content Include="Views\Votinglist\Index.cshtml" />
     <Content Include="Views\Election\Index.cshtml" />
+    <Content Include="Views\TestSendMail\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\App_LocalResources\" />
