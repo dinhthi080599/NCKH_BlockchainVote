@@ -37,6 +37,9 @@
           <Property Name="sGhichu" Type="nvarchar" MaxLength="1" />
           <Property Name="sNoiDung" Type="text" />
           <Property Name="iTrangThai" Type="int" />
+          <Property Name="sHinhThuc" Type="nvarchar" MaxLength="50" />
+          <Property Name="sSoPhieu" Type="nvarchar" MaxLength="50" />
+          <Property Name="iNguoiTao" Type="int" />
         </EntityType>
         <EntityType Name="tbl_dotbaucu_cutri">
           <Key>
@@ -158,6 +161,9 @@
           <Property Name="sNoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="iTrangThai" Type="Int32" />
           <NavigationProperty Name="tbl_cutri" Relationship="admin_voteModel.tbl_dotbaucu_cutri" FromRole="tbl_dotbaucu" ToRole="tbl_cutri" />
+          <Property Name="sHinhThuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sSoPhieu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="iNguoiTao" Type="Int32" />
         </EntityType>
         <Association Name="tbl_dotbaucu_cutri">
           <End Type="admin_voteModel.tbl_cutri" Role="tbl_cutri" Multiplicity="*" />
@@ -212,6 +218,9 @@
           <EntitySetMapping Name="tbl_dotbaucu">
             <EntityTypeMapping TypeName="admin_voteModel.tbl_dotbaucu">
               <MappingFragment StoreEntitySet="tbl_dotbaucu">
+                <ScalarProperty Name="iNguoiTao" ColumnName="iNguoiTao" />
+                <ScalarProperty Name="sSoPhieu" ColumnName="sSoPhieu" />
+                <ScalarProperty Name="sHinhThuc" ColumnName="sHinhThuc" />
                 <ScalarProperty Name="iTrangThai" ColumnName="iTrangThai" />
                 <ScalarProperty Name="sNoiDung" ColumnName="sNoiDung" />
                 <ScalarProperty Name="sGhichu" ColumnName="sGhichu" />

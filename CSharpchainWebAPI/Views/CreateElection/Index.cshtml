@@ -1,0 +1,254 @@
+﻿
+@{
+}
+
+<link rel="stylesheet" href="~/Assets/dist/css/welcome.css">
+<link rel="stylesheet" href="~/Assets/dist/css/CreateElection.css">
+@*<link rel="stylesheet" href="~/Assets/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="~/Assets/plugins/daterangepicker/daterangepicker-bs3.css">*@
+<style>
+
+    input[type="radio"]:checked + label > .hovicon:after {
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        content: '';
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+    }
+
+    input[type="radio"]:checked + label > .hovicon:before {
+        speak: none;
+        font-size: 48px;
+        line-height: 90px;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        display: block;
+        -webkit-font-smoothing: antialiased;
+        opacity: 1;
+    }
+
+    input[type="radio"]:checked + label > .hovicon.effect-1:before {
+        top: -7px;
+        left: -7px;
+        box-shadow: 0 0 0 6px #007bff;
+        color: #007bff;
+        -webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
+        -webkit-transform: scale(0.8);
+        -moz-transition: -moz-transform 0.4s, opacity 0.4s;
+        -moz-transform: scale(0.8);
+        -ms-transform: scale(0.8);
+        transition: transform 0.4s, opacity 0.4s;
+        transform: scale(0.8);
+    }
+
+    /* Effect 1a */
+    input[type="radio"]:checked + label > .hovicon.effect-1.sub-a {
+        background: #007bff;
+        color: #ffffff;
+    }
+
+        input[type="radio"]:checked + label > .hovicon.effect-1.sub-a i {
+            color: #ffffff;
+        }
+
+        input[type="radio"]:checked + label > .hovicon.effect-1.sub-a:after {
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+            opacity: 1;
+        }
+</style>
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-12">
+
+            <div class="content">
+                <!--content inner-->
+                <div class="content__inner">
+                    <div class="container overflow-hidden">
+
+                        <!--progress bar-->
+                        <div class="row">
+                            <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
+                                <br />
+                                <div class="multisteps-form__progress">
+                                    <button class="multisteps-form__progress-btn js-active" type="button" name="btn_next_title" title="Hình thức">Hình thức</button>
+                                    <button class="multisteps-form__progress-btn" type="button" name="btn_next_title" title="Số phiếu" disabled>Số phiếu</button>
+                                    <button class="multisteps-form__progress-btn" type="button" name="btn_next_title" title="Thông tin" disabled>Thông tin</button>
+                                    <button class="multisteps-form__progress-btn" type="button" name="btn_next_title" title="Cử tri" disabled>Cử tri</button>
+                                    <button class="multisteps-form__progress-btn" type="button" name="btn_next_title" title="Nội dung" disabled>Nội dung</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--multisteps-form-->
+                        <div class="multisteps-form">
+                            <!--form panels-->
+                            <div class="row">
+                                <div class="col-12 m-auto">
+                                    <form class="multisteps-form__form">
+                                        <!--single form panel-->
+                                        <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
+                                            <h3 class="multisteps-form__title text-center">Chọn hình thức bỏ phiếu</h3>
+                                            <div class="multisteps-form__content">
+                                                <div class="form-row">
+                                                    <div class="card-body card-icon">
+                                                        <div class="row">
+                                                            <div class="block col-6 text-center">
+                                                                <input type="radio" id="type_vote_1" name="type_vote" value="private_voting" hidden />
+                                                                <label for="type_vote_1">
+                                                                    <i class="hovicon effect-1 sub-a">
+                                                                        <i class="fas fa-user-shield"></i>
+                                                                    </i>
+                                                                </label>
+                                                                <h4 class="mt-2">Bỏ phiếu kín</h4>
+                                                            </div>
+                                                            <div class="block col-6 text-center">
+                                                                <input type="radio" id="type_vote_2" name="type_vote" value="public_voting" hidden />
+                                                                <label for="type_vote_2">
+                                                                    <i class="hovicon effect-1 sub-a">
+                                                                        <i class="fas fa-unlock-alt"></i>
+                                                                    </i>
+                                                                </label>
+                                                                <h4 class="mt-2">Bỏ phiếu công khai</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="button-row d-flex">
+                                                    <button class="btn btn-primary ml-auto js-btn-next" type="button" name="btn_next" title="Next" disabled>Tiếp</button>
+                                                </div>
+                                            </div>
+                                        </div><!--single form panel-->
+                                        <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                            <h3 class="multisteps-form__title text-center">Chọn hình thức bỏ phiếu</h3>
+                                            <div class="multisteps-form__content">
+                                                <div class="form-row">
+                                                    <div class="card-body card-icon">
+                                                        <div class="row">
+                                                            <div class="block col-6 text-center">
+                                                                <input type="radio" id="amount_vote_1" name="amount_vote" value="one_vote" hidden />
+                                                                <label for="amount_vote_1">
+                                                                    <i class="hovicon effect-1 sub-a">
+                                                                        <i class="fas fa-vote-yea"></i>
+                                                                    </i>
+                                                                </label>
+                                                                <h4 class="mt-2">Một phiếu bầu</h4>
+                                                            </div>
+                                                            <div class="block col-6 text-center">
+                                                                <input type="radio" id="amount_vote_2" name="amount_vote" value="lost_vote" hidden />
+                                                                <label for="amount_vote_2">
+                                                                    <i class="hovicon effect-1 sub-a">
+                                                                        <i class="fas fa-tasks"></i>
+                                                                    </i>
+                                                                </label>
+                                                                <h4 class="mt-2">Nhiều phiếu bầu</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="button-row d-flex">
+                                                    <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Trước</button>
+                                                    <button class="btn btn-primary ml-auto js-btn-next" type="button" name="btn_next" title="Next" disabled>Tiếp</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--single form panel-->
+                                        <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                            <h3 class="multisteps-form__title">Thông tin đợt bỏ phiếu</h3>
+                                            <div class="multisteps-form__content">
+                                                <div class="form-row mt-4">
+                                                    <div class="col">
+                                                        <input id="name_election" class="multisteps-form__input form-control" name="information" type="text" placeholder="Tên đợt bỏ phiếu" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-row mt-4">
+                                                    <div class="col">
+                                                        <input id="time_start" class="multisteps-form__input form-control datepicker" name="datefilter" type="text" placeholder="Thời gian bắt đầu" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-row mt-4">
+                                                    <div class="col">
+                                                        <input id="time_end" class="multisteps-form__input form-control datepicker" name="information datefilter" type="text" placeholder="Thời gian kết thúc" />
+                                                    </div>
+                                                </div>
+                                                <div class="button-row d-flex mt-4">
+                                                    <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Trước</button>
+                                                    <button class="btn btn-primary ml-auto js-btn-next" type="button" name="btn_next" title="Next" disabled>Tiếp</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--single form panel-->
+                                        <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                            <h3 class="multisteps-form__title">Cử tri</h3>
+                                            <div class="multisteps-form__content">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-6 mt-4">
+                                                        <div class="card shadow-sm">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">Item Title</h5>
+                                                                <p class="card-text">Small and nice item description</p><a class="btn btn-primary" href="#" title="Item Link">Item Link</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mt-4">
+                                                        <div class="card shadow-sm">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">Item Title</h5>
+                                                                <p class="card-text">Small and nice item description</p><a class="btn btn-primary" href="#" title="Item Link">Item Link</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="button-row d-flex mt-4 col-12">
+                                                        <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Trước</button>
+                                                        <button class="btn btn-primary ml-auto js-btn-next" type="button" name="btn_next" title="Next" disabled>Tiếp</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--single form panel-->
+                                        <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
+                                            <h3 class="multisteps-form__title">Nội dung cuộc bầu cử</h3>
+                                            <div class="multisteps-form__content">
+                                                <div class="form-row mt-4">
+                                                    <textarea id="content" class="multisteps-form__textarea form-control" placeholder="Nội dung của cuộc bầu cử"></textarea>
+                                                </div>
+                                                <div class="button-row d-flex mt-4">
+                                                    <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Trước</button>
+                                                    <button class="btn btn-success ml-auto" id="xac_nhan" type="button" title="Send" disabled>Xác nhận</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Assets/dist/js/CreateElection.js"></script>
+@*<script src="~/Assets/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Assets/plugins/daterangepicker/moment.min.js"></script>
+    <script src="~/Assets/plugins/input-mask/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="~/Assets/plugins/select2/select2.full.min.js"></script>*@
+
+<script src="~/Assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script>
+    setAnimationType('slideHorz');
+</script>

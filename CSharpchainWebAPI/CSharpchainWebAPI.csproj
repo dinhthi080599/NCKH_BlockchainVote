@@ -364,6 +364,7 @@
     <Compile Include="ChatHub.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlockchainController.cs" />
+    <Compile Include="Controllers\CreateElectionController.cs" />
     <Compile Include="Controllers\ElectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -431,6 +432,7 @@
     <Content Include="Assets\build\npm\Publish.js" />
     <Content Include="Assets\dist\css\adminlte.css" />
     <Content Include="Assets\dist\css\adminlte.min.css" />
+    <Content Include="Assets\dist\css\CreateElection.css" />
     <Content Include="Assets\dist\css\style.css" />
     <Content Include="Assets\dist\css\welcome.css" />
     <Content Include="Assets\dist\img\1.jpg" />
@@ -440,6 +442,7 @@
     <Content Include="Assets\dist\img\mrt.jpg" />
     <Content Include="Assets\dist\img\name.png" />
     <Content Include="Assets\dist\img\bg.jpg" />
+    <Content Include="Assets\dist\js\CreateElection.js" />
     <Content Include="Assets\dist\js\script.js" />
     <Content Include="Assets\dist\js\adminlte.js" />
     <Content Include="Assets\dist\js\adminlte.min.js" />
@@ -949,6 +952,7 @@
     <Content Include="Assets\plugins\datepicker\locales\bootstrap-datepicker.zh-CN.js" />
     <Content Include="Assets\plugins\datepicker\locales\bootstrap-datepicker.zh-TW.js" />
     <Content Include="Assets\plugins\daterangepicker\daterangepicker-bs3.css" />
+    <Content Include="Assets\plugins\daterangepicker\daterangepicker.css" />
     <Content Include="Assets\plugins\daterangepicker\daterangepicker.js" />
     <Content Include="Assets\plugins\daterangepicker\moment.js" />
     <Content Include="Assets\plugins\daterangepicker\moment.min.js" />
@@ -1136,6 +1140,17 @@
     <Content Include="Assets\plugins\input-mask\jquery.inputmask.numeric.extensions.js" />
     <Content Include="Assets\plugins\input-mask\jquery.inputmask.phone.extensions.js" />
     <Content Include="Assets\plugins\input-mask\jquery.inputmask.regex.extensions.js" />
+    <Content Include="Assets\plugins\input-mask\min\inputmask\bindings\inputmask.binding.min.js" />
+    <Content Include="Assets\plugins\input-mask\min\inputmask\dependencyLibs\inputmask.dependencyLib.jqlite.min.js" />
+    <Content Include="Assets\plugins\input-mask\min\inputmask\dependencyLibs\inputmask.dependencyLib.jquery.min.js" />
+    <Content Include="Assets\plugins\input-mask\min\inputmask\dependencyLibs\inputmask.dependencyLib.min.js" />
+    <Content Include="Assets\plugins\input-mask\min\inputmask\global\window.min.js" />
+    <Content Include="Assets\plugins\input-mask\min\inputmask\inputmask.date.extensions.min.js" />
+    <Content Include="Assets\plugins\input-mask\min\inputmask\inputmask.extensions.min.js" />
+    <Content Include="Assets\plugins\input-mask\min\inputmask\inputmask.min.js" />
+    <Content Include="Assets\plugins\input-mask\min\inputmask\inputmask.numeric.extensions.min.js" />
+    <Content Include="Assets\plugins\input-mask\min\inputmask\jquery.inputmask.min.js" />
+    <Content Include="Assets\plugins\input-mask\min\jquery.inputmask.bundle.min.js" />
     <Content Include="Assets\plugins\input-mask\phone-codes\readme.txt" />
     <Content Include="Assets\plugins\ionslider\img\sprite-skin-flat.png" />
     <Content Include="Assets\plugins\ionslider\img\sprite-skin-nice.png" />
@@ -1486,6 +1501,7 @@
     <Content Include="Views\Votinglist\Index.cshtml" />
     <Content Include="Views\Election\Index.cshtml" />
     <Content Include="Views\TestSendMail\Index.cshtml" />
+    <Content Include="Views\CreateElection\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\App_LocalResources\" />
