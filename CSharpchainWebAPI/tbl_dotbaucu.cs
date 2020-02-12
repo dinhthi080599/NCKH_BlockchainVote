@@ -41,6 +41,12 @@ public partial class tbl_dotbaucu
 
     public Nullable<int> iTrangThai { get; set; }
 
+    public string sHinhThuc { get; set; }
+
+    public string sSoPhieu { get; set; }
+
+    public Nullable<int> iNguoiTao { get; set; }
+
 
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

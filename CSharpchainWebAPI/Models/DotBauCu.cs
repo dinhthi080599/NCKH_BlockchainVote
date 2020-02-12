@@ -16,6 +16,9 @@ namespace CSharpchainWebAPI.Models
         public string sNoiDung { get; set; }
         public int iTrangThai { get; set; }
         public string sGhiChu { get; set; }
+        public string sHinhThuc { get; set; }
+        public string sSoPhieu { get; set; }
+        public int iNguoiTao { get; set; }
 
         public List<DotBauCu> get_dotbaucu()
         {
@@ -80,6 +83,32 @@ namespace CSharpchainWebAPI.Models
                     .Where(s => s.ma_dot == ma_dot).FirstOrDefault<DotBauCu>();
             }
             return dotBauCu;
+        }
+
+        public string them_dotbaucu(DotBauCu dbc)
+        {
+            try
+            {
+                using (admin_voteEntities db = new admin_voteEntities())
+                {
+                    var dotbaucu = db.Set<tbl_dotbaucu>();
+                    dotbaucu.Add(new tbl_dotbaucu {
+                        sTendot = dbc.sTenDot,
+                        dThoigianbd = DateTime.ParseExact(dbc.dThoiGianBD, "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture),
+                        dThoigiankt = DateTime.ParseExact(dbc.dThoiGianKT, "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture),
+                        sNoiDung = dbc.sNoiDung,
+                        iTrangThai = dbc.iTrangThai,
+                        sHinhThuc = dbc.sHinhThuc,
+                        sSoPhieu = dbc.sSoPhieu,
+                        iNguoiTao = dbc.iNguoiTao
+                    });
+                    db.SaveChanges();
+                }
+            }catch(InvalidCastException e)
+            {
+                return "them_thatbai";
+            }
+            return "them_dotbaucu_thanhcong";
         }
 
     }
