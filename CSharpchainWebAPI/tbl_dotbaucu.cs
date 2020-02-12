@@ -39,7 +39,7 @@ public partial class tbl_dotbaucu
 
     public string sNoiDung { get; set; }
 
-    public int iTrangThai { get; set; }
+    public Nullable<int> iTrangThai { get; set; }
 
 
 

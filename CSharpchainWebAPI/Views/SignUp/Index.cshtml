@@ -229,33 +229,78 @@
                                 }
                             case "thanhcong":
                                 {
-                                    let timerInterval
-                                    Swal.fire({
-                                        title: 'Tạo tài khoản thành công!',
-                                        html: 'Chuyển qua trang đăng nhập trong <b></b>.',
-                                        timer: 3000,
-                                        timerProgressBar: true,
-                                        onBeforeOpen: () => {
-                                            Swal.showLoading()
-                                            timerInterval = setInterval(() => {
-                                                Swal.getContent().querySelector('b')
-                                                    .textContent = Swal.getTimerLeft()
-                                            }, 100)
-                                        },
-                                        onClose: () => {
-                                            clearInterval(timerInterval)
-                                        }
-                                    }).then((result) => {
-                                        if (result.dismiss === Swal.DismissReason.timer) {
-                                            window.location.href = "/";
-                                            console.log('I was closed by the timer') 
-                                        }
-                                    })
+                                    xacthuc_email(email);
+                                    //let timerInterval
+                                    //Swal.fire({
+                                    //    title: 'Tạo tài khoản thành công!',
+                                    //    html: 'Chuyển qua trang đăng nhập trong <b></b>.',
+                                    //    timer: 3000,
+                                    //    timerProgressBar: true,
+                                    //    onBeforeOpen: () => {
+                                    //        Swal.showLoading()
+                                    //        timerInterval = setInterval(() => {
+                                    //            Swal.getContent().querySelector('b')
+                                    //                .textContent = Swal.getTimerLeft()
+                                    //        }, 100)
+                                    //    },
+                                    //    onClose: () => {
+                                    //        clearInterval(timerInterval)
+                                    //    }
+                                    //}).then((result) => {
+                                    //    if (result.dismiss === Swal.DismissReason.timer) {
+                                    //        window.location.href = "/";
+                                    //        console.log('I was closed by the timer') 
+                                    //    }
+                                    //})
                                 }
                         }
                     }
                 });
             });
+            function xacthuc_email(email) {
+                Swal.fire({
+                    title: 'Xác thực email',
+                    text: 'Hệ thống đã gửi mã xác thực đến email của bạn. Vui lòng kiểm tra email và nhập mã xác thực',
+                    input: 'text',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    showCancelButton: false,
+                    confirmButtonText: 'Xác nhận',
+                    showLoaderOnConfirm: true,
+                    preConfirm: (login) => {
+                        return fetch(`/SignUp/reliable_email/`,
+                            {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    eliable_code: login,
+                                    email: email
+                                })
+                            })
+                            .then(response => {
+                                return response
+                            })
+                            .catch(error => {
+                                Swal.showValidationMessage(
+                                    `Request failed: ${error}`
+                                )
+                            })
+                        },
+                    allowOutsideClick: () => !Swal.isLoading()
+                        }).then((result) => {
+                            Swal.fire({
+                                type: 'success',
+                                title: 'Xác thực tài khoản thành công',
+                                text: 'Xin chúc mừng bạn đã đăng ký tài khoản thành công!',
+                                confirmButtonText: 'Đăng nhập',
+                            }).then(function(){
+                                window.location.href = "/";
+                            })
+                        })
+            }
         });
     </script>
 </body>

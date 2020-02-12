@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
 using CSharpchainWebAPI.Models;
+using System.Net.Mail;
 
 namespace CSharpchainWebAPI.Controllers
 {
@@ -20,6 +21,31 @@ namespace CSharpchainWebAPI.Controllers
                     );
             }
             base.OnActionExecuting(filterContext);
+        }
+        public int RandomNumber()
+        {
+            Random random = new Random();
+            return random.Next(100000, 999999);
+        }
+        public void SendMail(string Email, string NoiDung)
+        {
+            Models.TestSendMailController _objModelMail = new Models.TestSendMailController();
+            _objModelMail.To = Email;
+            MailMessage mail = new MailMessage();
+            mail.To.Add(_objModelMail.To);
+            mail.From = new MailAddress("NCKHBlockchainVote@gmail.com");
+            mail.Subject = "Xác thực tài khoản NCKH BlockChain Vote";
+            string Body = NoiDung;
+            mail.Body = Body;
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.EnableSsl = true;
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new System.Net.NetworkCredential("NCKHBlockchainVote@gmail.com", "Admin10110!"); // Enter seders User name and password  
+            smtp.EnableSsl = true;
+            smtp.Send(mail);
         }
     }
 }
