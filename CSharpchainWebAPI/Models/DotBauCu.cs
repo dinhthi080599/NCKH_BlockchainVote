@@ -14,7 +14,7 @@ namespace CSharpchainWebAPI.Models
         public string dThoiGianBD { get; set; }
         public string dThoiGianKT { get; set; }
         public string sNoiDung { get; set; }
-        public long iTrangThai { get; set; }
+        public int iTrangThai { get; set; }
         public string sGhiChu { get; set; }
 
         public List<DotBauCu> get_dotbaucu()
@@ -41,7 +41,7 @@ namespace CSharpchainWebAPI.Models
                                             + SqlFunctions.Replicate("/", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart().Length)
                                             + SqlFunctions.DateName("year", s.dThoigiankt),
                                 sNoiDung = s.sNoiDung.ToString(),
-                                iTrangThai = s.iTrangThai,
+                                iTrangThai = (int)s.iTrangThai,
                                 sTenDot = s.sTendot.ToString(),
                                 sGhiChu = s.sGhichu.ToString(),
                             }).ToList<DotBauCu>();
@@ -73,7 +73,7 @@ namespace CSharpchainWebAPI.Models
                                             + SqlFunctions.Replicate("/", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart().Length)
                                             + SqlFunctions.DateName("year", s.dThoigiankt),
                         sNoiDung = s.sNoiDung.ToString(),
-                        iTrangThai = s.iTrangThai,
+                        iTrangThai = (int)s.iTrangThai,
                         sTenDot = s.sTendot.ToString(),
                         sGhiChu = s.sGhichu.ToString(),
                     })

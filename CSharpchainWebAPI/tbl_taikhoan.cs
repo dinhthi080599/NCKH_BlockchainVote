@@ -40,6 +40,8 @@ public partial class tbl_taikhoan
 
     public Nullable<int> ma_quyen { get; set; }
 
+    public Nullable<int> ma_xacthuc { get; set; }
+
 }
 
 }

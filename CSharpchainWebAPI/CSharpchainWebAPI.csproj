@@ -328,6 +328,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin_vote.Context.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -376,15 +377,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>db.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="db.cs">
+    <Compile Include="db.cs" />
+    <Compile Include="db.Designer.cs">
+      <DependentUpon>db.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="db1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="db.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>db.edmx</DependentUpon>
     </Compile>
     <Compile Include="dm_trangthai_dotbaucu.cs">
       <DependentUpon>db.tt</DependentUpon>
@@ -1244,13 +1246,11 @@
     <Content Include="Content\Login.css" />
     <Content Include="db.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>db.edmx</DependentUpon>
       <LastGenOutput>db.Context.cs</LastGenOutput>
     </Content>
     <Content Include="db.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>db.edmx</DependentUpon>
-      <LastGenOutput>db.cs</LastGenOutput>
+      <LastGenOutput>db1.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
