@@ -61,6 +61,7 @@
           <Property Name="sDiachi" Type="nvarchar" MaxLength="255" />
           <Property Name="iTrangthai" Type="bit" />
           <Property Name="ma_quyen" Type="int" />
+          <Property Name="ma_xacthuc" Type="int" />
         </EntityType>
         <Association Name="FK__tbl_dotba__ma_cu__29572725">
           <End Role="tbl_cutri" Type="Self.tbl_cutri" Multiplicity="1" />
@@ -133,6 +134,7 @@
           <Property Name="sDiachi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="iTrangthai" Type="Boolean" />
           <Property Name="ma_quyen" Type="Int32" />
+          <Property Name="ma_xacthuc" Type="Int32" />
         </EntityType>
         <EntityContainer Name="admin_voteEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbl_cutri" EntityType="Self.tbl_cutri" />
@@ -192,6 +194,7 @@
           <EntitySetMapping Name="tbl_taikhoan">
             <EntityTypeMapping TypeName="admin_voteModel.tbl_taikhoan">
               <MappingFragment StoreEntitySet="tbl_taikhoan">
+                <ScalarProperty Name="ma_xacthuc" ColumnName="ma_xacthuc" />
                 <ScalarProperty Name="ma_taikhoan" ColumnName="ma_taikhoan" />
                 <ScalarProperty Name="sHovaten" ColumnName="sHovaten" />
                 <ScalarProperty Name="sTendangnhap" ColumnName="sTendangnhap" />

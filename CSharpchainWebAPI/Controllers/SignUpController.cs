@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
+using CSharpchainWebAPI.Controllers;
 using CSharpchainWebAPI.Models;
 //using System.Web.Http;
 
@@ -19,7 +20,8 @@ namespace CSharpchainWebAPI.Controllers
         [HttpPost]
         public string register()
         {
-
+            BaseController bc = new BaseController();
+            int rd = bc.RandomNumber();
             var sTendangnhap = Request["account"];
             var sMatkhau = Request["password"];
             var sHoTen = Request["user_name"];
@@ -63,9 +65,18 @@ namespace CSharpchainWebAPI.Controllers
                 using (admin_voteEntities db = new admin_voteEntities())
                 {
                     var customers = db.Set<tbl_taikhoan>();
-                    customers.Add(new tbl_taikhoan { sTendangnhap = sTendangnhap, sMatkhau = sha_matkhau, sHovaten = sHoTen, sEmail = email });
+                    customers.Add(new tbl_taikhoan { 
+                        sTendangnhap = sTendangnhap, 
+                        sMatkhau = sha_matkhau, 
+                        sHovaten = sHoTen, 
+                        sEmail = email, 
+                        ma_xacthuc = rd,
+                        iTrangthai = false
+                    });
                     db.SaveChanges();
                 }
+                string nd = "Mã xác thực đăng ký tài khoản cho hệ thống bỏ phiếu trực tuyến của bạn là: " + rd.ToString();
+                bc.SendMail(email, nd);
                 return "thanhcong";
             }
             else
@@ -73,6 +84,29 @@ namespace CSharpchainWebAPI.Controllers
                 return "thatbai";
             }
         }
-
+        [HttpPost]
+        public ContentResult reliable_email(int eliable_code, string email)
+        {
+            if (email != "" && eliable_code != 0)
+            {
+                using (admin_voteEntities db = new admin_voteEntities())
+                {
+                    if(db.tbl_taikhoan.Any(s => s.sEmail == email && s.ma_xacthuc == (int)eliable_code))
+                    {
+                        var result = db.tbl_taikhoan.SingleOrDefault(b => b.sEmail == email);
+                        if (result != null)
+                        {
+                            result.iTrangthai = true;
+                            db.SaveChanges();
+                        }
+                    }
+                    else
+                    {
+                        return Content("khong_chinh_xac");
+                    }
+                }
+            }
+            return Content("chinh_xac");
+        }
     }
 }
