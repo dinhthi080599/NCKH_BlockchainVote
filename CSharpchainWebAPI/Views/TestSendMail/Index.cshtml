@@ -9,20 +9,39 @@
         @Html.ValidationSummary()
         //<p>From: (Email address)</p>
         //<p>@Html.TextBoxFor(m => m.From)</p>
-        <p>To: (Email address)</p>
-        <p>@Html.TextBoxFor(m => m.To)</p>
+        //<p>To: (Email address)</p>
+        //<p>@Html.TextBoxFor(m => m.To)</p>
         //<p>Subject: </p>
         //<p>@Html.TextBoxFor(m => m.Subject)</p>
         //<p>Body: </p>
         //<p>@Html.TextAreaFor(m => m.Body)</p>
-        <input id="sendMail" type="submit" value="Send" />
+        <input id="emailTo" type="email" class="form-control" placeholder="Email">
+        <input id="sendMail" type="button" value="Send" />
     }
 </fieldset>
 
 <script>
     $(document).ready(function () {
         $("#sendMail").on("click", function () {
-            alert('Gửi mail hành công');
+            email = $("#emailTo").val();
+            if (email == "") {
+                alert("bạn chưa nhập email");
+                $("#emailTo").focus();
+                return false;
+            }
+            var data = {
+                'action': 'sendMail',
+                'email': email
+            };
+            $.ajax({
+                url: "/TestSendMail/sendMail",
+                type: 'POST',
+                data: data,
+                success: function (result) {
+                    alert(result);
+                    $("#emailTo").val("");
+                }
+            });
         });
 
     });

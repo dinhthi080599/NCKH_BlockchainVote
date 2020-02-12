@@ -16,9 +16,14 @@ namespace CSharpchainWebAPI.Controllers
             ViewBag.Title = "Đợt bầu cử:";
             Dictionary<string, ElectionStatus> dict = electionStatus.get_trangthai_dotbaucu();
             ViewBag.dotBauCu = dbc.get_dotbaucu_by_ID(ID);
-            int i = (int) ViewBag.dotBauCu.iTrangThai;
+            int i = (int)ViewBag.dotBauCu.iTrangThai;
             ViewBag.ES = dict[dict.Keys.ElementAt(i)];
             return View();
+        }
+        [HttpPost]
+        public string createElector()
+        {
+            return "success";
         }
     }
 }
