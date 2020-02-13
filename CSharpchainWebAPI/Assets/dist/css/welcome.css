@@ -67,9 +67,6 @@
     -webkit-transition: background 0.2s, color 0.2s;
     -moz-transition: background 0.2s, color 0.2s;
     transition: background 0.2s, color 0.2s;
-    -webkit-transition-delay: color 0.2s;
-    -moz-transition-delay: color 0.2s;
-    transition-delay: color 0.2s;
 }
 
 .hovicon.effect-1:after {

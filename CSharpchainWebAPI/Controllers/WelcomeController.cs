@@ -18,7 +18,7 @@ namespace CSharpchainWebAPI.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Trang chủ";
-            ViewBag.hoTen = Session["sHovaten"]; // lấy tên trong session lúc đăng nhập
+            ViewBag.hoTen = Session["sHovaten"];
             return View();
         }
         public ActionResult DS_DotBoPhieu()
