@@ -399,6 +399,7 @@
     <Compile Include="Models\DotBauCu.cs" />
     <Compile Include="Models\db.cs" />
     <Compile Include="Models\ElectionStatus.cs" />
+    <Compile Include="Models\Elector.cs" />
     <Compile Include="Models\Program.cs" />
     <Compile Include="Models\Sha256.cs" />
     <Compile Include="Models\TestSendMail.cs" />

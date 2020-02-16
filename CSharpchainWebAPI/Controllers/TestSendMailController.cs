@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace CSharpchainWebAPI.Controllers
 {
-    public class TestSendMailController : Controller
+    public class TestSendMailController : BaseController
     {
         // GET: TestSendMail
         public ActionResult Index()

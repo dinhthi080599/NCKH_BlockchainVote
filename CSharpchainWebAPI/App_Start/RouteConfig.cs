@@ -15,7 +15,7 @@ namespace CSharpchainWebAPI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Election", "Election/{ID}",
+                "Election", "Election/{ID}/{action}",
                 defaults: new { controller = "Election", action = "Index" }
                 );
             routes.MapRoute(
