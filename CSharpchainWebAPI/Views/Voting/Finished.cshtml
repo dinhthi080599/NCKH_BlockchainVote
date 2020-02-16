@@ -1,0 +1,98 @@
+﻿
+@{
+}
+<style>
+    .head_content {
+        background-color: #337AB7;
+    }
+</style>
+<div class="row">
+    <div class="col-12 height_30 head_content text-center pt-4 pb-4">
+        <i class="far fa-calendar-check fa-8x text-light"></i>
+        <h2 class="text-light pt-4">Cuộc bỏ phiếu đã kết thúc vào @ViewBag.dbc.dThoiGianKT</h2>
+    </div>
+    <div class="row col-12 height_70 pt-5">
+        <div class="col-5 col-sm-3">
+            <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Kết quả</a>
+                <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false">Thống kê</a>
+                <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false">Danh sách cử tri</a>
+            </div>
+        </div>
+        <div class="col-7 col-sm-9">
+            <div class="tab-content" id="vert-tabs-tabContent">
+                <div class="tab-pane text-left fade show active" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+                    @*<i class="fas fa-flag"></i>*@
+                    <div class="col-6 align-items-stretch">
+                        <div class="card bg-light">
+                            <div class="card-body pt-0">
+                                <div class="row pt-4 pb-2">
+                                    <div class="col-7">
+                                        <h2 class="lead"><b>Nguyễn Đình Thi</b></h2>
+                                        <p class="text-muted text-sm">
+                                            <b></b> 
+                                            Cảm ơn đã bầu cử cho tôi!        
+                                        </p>
+                                    </div>
+                                    <div class="col-5 text-center">
+                                        <img src="~/Assets/img/avata/ava.jpg" alt="" class="img-circle img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="vert-tabs-profile" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
+                </div>
+                <div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function($){
+        $.fn.fullHeight_40 = function(){
+            var self = this;
+            var windowHeight = $(window)[0].innerHeight;
+            var fullHeightFunction = function(){
+              return self.each(function() {
+                self.css({
+                    'height': (windowHeight - 112) / 100 * 40
+                });
+            });
+        }
+        $(window).on('resize', function(){
+          windowHeight = $(window)[0].innerHeight;
+          fullHeightFunction();
+        });
+        fullHeightFunction();
+        return self;
+    }
+    })(jQuery);
+    (function($){
+        $.fn.fullHeight_60 = function(){
+            var self = this;
+            var windowHeight = $(window)[0].innerHeight;
+            var fullHeightFunction = function(){
+              return self.each(function() {
+                self.css({
+                    'height': (windowHeight - 112) / 100 * 60
+                });
+            });
+        }
+        $(window).on('resize', function(){
+          windowHeight = $(window)[0].innerHeight;
+          fullHeightFunction();
+        });
+        fullHeightFunction();
+        return self;
+    }
+    })(jQuery);
+    $(document).ready(function () {
+        $(".height_40").fullHeight_40();
+        $(".height_60").fullHeight_60();
+        $(".content-header").remove();
+    });
+</script>

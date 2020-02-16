@@ -1,0 +1,41 @@
+﻿
+@{
+
+}
+<style>
+    .head_content{
+        background-color: #337AB7;
+    }
+</style>
+<div class="row">
+    <div class="col-12 height_30 head_content text-center pt-4">
+        <i class="far fa-calendar-alt fa-8x text-light"></i>
+        <h2 class="text-light pt-4">Cuộc bỏ phiếu sẽ bắt đầu vào @ViewBag.dbc.dThoiGianBD</h2>
+    </div>
+</div>
+
+<script>
+    (function($){
+        $.fn.fullHeight_30 = function(){
+            var self = this;
+            var windowHeight = $(window)[0].innerHeight;
+            var fullHeightFunction = function(){
+              return self.each(function() {
+                self.css({
+                    'height': (windowHeight - 112) / 100 * 40
+                });
+            });
+        }
+        $(window).on('resize', function(){
+          windowHeight = $(window)[0].innerHeight;
+          fullHeightFunction();
+        });
+        fullHeightFunction();
+        return self;
+    }
+    })(jQuery);
+    $(document).ready(function () {
+        $(".height_30").fullHeight_30();
+        $(".content-header").remove();
+    });
+</script>
