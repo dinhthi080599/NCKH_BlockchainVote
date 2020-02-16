@@ -368,10 +368,12 @@
     <Compile Include="Controllers\ElectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\TestSendMailController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VotinglistController.cs" />
+    <Compile Include="Controllers\VotingController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="db.Context.cs">
       <AutoGen>True</AutoGen>
@@ -1503,11 +1505,15 @@
     <Content Include="Views\Election\Index.cshtml" />
     <Content Include="Views\TestSendMail\Index.cshtml" />
     <Content Include="Views\CreateElection\Index.cshtml" />
+    <Content Include="Views\Voting\Waiting.cshtml" />
+    <Content Include="Views\Voting\Index.cshtml" />
+    <Content Include="Views\Voting\Finished.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\App_LocalResources\" />
     <Folder Include="DynamicData\FieldTemplates\" />
     <Folder Include="Views\ElectionStatus\" />
+    <Folder Include="Views\Logout\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

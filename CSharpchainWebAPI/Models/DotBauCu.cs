@@ -67,14 +67,28 @@ namespace CSharpchainWebAPI.Models
                                             + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)s.dThoigianbd.Value.Month).TrimStart().Length)
                                             + SqlFunctions.StringConvert((double)s.dThoigianbd.Value.Month).TrimStart()
                                             + SqlFunctions.Replicate("/", 2 - SqlFunctions.StringConvert((double)s.dThoigianbd.Value.Month).TrimStart().Length)
-                                            + SqlFunctions.DateName("year", s.dThoigianbd),
+                                            + SqlFunctions.DateName("year", s.dThoigianbd)
+                                            + SqlFunctions.Replicate(" ", 2 - SqlFunctions.StringConvert((double)s.dThoigianbd.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)s.dThoigianbd.Value.Hour).TrimStart().Length)
+                                            + SqlFunctions.DateName("HH", s.dThoigiankt)
+                                            + SqlFunctions.Replicate(":", 2 - SqlFunctions.StringConvert((double)s.dThoigianbd.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)s.dThoigianbd.Value.Minute).TrimStart().Length)
+                                            + SqlFunctions.DateName("minute", s.dThoigiankt)
+                                            ,
                         dThoiGianKT = SqlFunctions.Replicate("0", 2 - SqlFunctions.DateName("dd", s.dThoigiankt).Trim().Length)
                                             + SqlFunctions.DateName("dd", s.dThoigiankt).Trim()
                                             + SqlFunctions.Replicate("/", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart().Length)
                                             + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart().Length)
                                             + SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart()
                                             + SqlFunctions.Replicate("/", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart().Length)
-                                            + SqlFunctions.DateName("year", s.dThoigiankt),
+                                            + SqlFunctions.DateName("year", s.dThoigiankt)
+                                            + SqlFunctions.Replicate(" ", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Hour).TrimStart().Length)
+                                            + SqlFunctions.DateName("HH", s.dThoigiankt)
+                                            + SqlFunctions.Replicate(":", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Minute).TrimStart().Length)
+                                            + SqlFunctions.DateName("minute", s.dThoigiankt)
+                                            ,
                         sNoiDung = s.sNoiDung.ToString(),
                         iTrangThai = (int)s.iTrangThai,
                         sTenDot = s.sTendot.ToString(),
