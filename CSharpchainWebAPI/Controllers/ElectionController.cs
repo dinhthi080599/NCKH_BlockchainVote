@@ -29,7 +29,7 @@ namespace CSharpchainWebAPI.Controllers
         }
 
         [HttpPost]
-        public bool createElector()
+        public JsonResult createElector()
         {
             var sHoten = Request["sHoten"];
             var sDiachi = Request["sDiachi"];
@@ -38,12 +38,15 @@ namespace CSharpchainWebAPI.Controllers
             var dNgaysinh = Request["dNgaysinh"];
             var bGioitinh = Request["bGioitinh"];
             var sGhichu = Request["sGhichu"];
-            DateTime dt1 = DateTime.ParseExact(dNgaysinh, "M/d/yyyy", CultureInfo.InvariantCulture);
+            DateTime dt1 = DateTime.ParseExact(dNgaysinh, "dd/mm/yyyy", CultureInfo.InvariantCulture);
             Elector e = new Elector();
             if (e.createNewElector(sHoten, bGioitinh, dNgaysinh, sEmail, sDiachi, dbcid, sGhichu))
-                return true;
+            {
+                el = e.getElectorbyId(int.Parse(dbcid));
+                return Json(el);
+            }
             else
-                return false;
+                return null;
         }
 
         [HttpPost]
@@ -56,7 +59,7 @@ namespace CSharpchainWebAPI.Controllers
             el = e.getElectorbyId(ID);
             for (i = 0; i < el.Count(); i++)
             {
-                if (el[i].ma_cutri == selectedId)
+                if (el[i].ma_ungcuvien == selectedId)
                 {
                     result = el[i];
                 }

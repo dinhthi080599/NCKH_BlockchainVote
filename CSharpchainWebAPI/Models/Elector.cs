@@ -9,7 +9,7 @@ namespace CSharpchainWebAPI.Models
 {
     public partial class Elector
     {
-        public long ma_cutri { get; set; }
+        public long ma_ungcuvien { get; set; }
         public string sHoten { get; set; }
         public string bGioitinh { get; set; }
         public string dNgaysinh { get; set; }
@@ -39,7 +39,7 @@ namespace CSharpchainWebAPI.Models
                                 sEmail = s.sEmail,
                                 sDiachi = s.sDiachi,
                                 sGhichu = s.sGhichu,
-                                ma_cutri = s.ma_ungcuvien
+                                ma_ungcuvien = s.ma_ungcuvien
                             }).Where(s => s.ma_dotbaucu == i).ToList<Elector>();
             }
             return ElectorList;
@@ -55,7 +55,7 @@ namespace CSharpchainWebAPI.Models
                     electorDB.Add(new tbl_ungcuvien
                     {
                         sHoten = sHoten,
-                        dNgaysinh = DateTime.ParseExact(dNgaysinh, "M/d/yyyy", CultureInfo.InvariantCulture),
+                        dNgaysinh = DateTime.ParseExact(dNgaysinh, "dd/mm/yyyy", CultureInfo.InvariantCulture),
                         bGioitinh = bGioitinh == "Nam" ? true : false,
                         sEmail = sEmail,
                         sDiachi = sDiachi,
