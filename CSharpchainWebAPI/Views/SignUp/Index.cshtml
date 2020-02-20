@@ -3,7 +3,6 @@
     Layout = null;
     ViewBag.Title = "Index";
 }
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +33,6 @@
     <div class="row">
         <div class="col-8 full-height">
             <img src="~/Assets/dist/img/background-signup.jpg" alt="Alternate Text"  />
-            @*<img src="~/Assets/dist/img/background-signup.jpg" alt="Alternate Text" height="701vh" />*@
         </div>
         <div class="col-4 full-height">
             <div class="register-box">
@@ -48,76 +46,60 @@
                 <div class="card">
                     <div class="card-body register-card-body">
                         <p class="login-box-msg">Tạo tài khoản mới</p>
-                        <!--<form action="/SignUp/register" method="post">-->
-                        <div class="input-group mb-3">
-                            <input name="user_name" type="text" class="form-control" placeholder="Họ và tên">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
+                        <form action="" method="post" class="form-signup">
+                            <div class="input-group mb-3">
+                                <input name="user_name" type="text" class="form-control" placeholder="Họ và tên">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input name="email" type="email" class="form-control" placeholder="Email">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
+                            <div class="input-group mb-3">
+                                <input name="email" type="email" class="form-control" placeholder="Email">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input name="account" type="text" class="form-control" placeholder="Tên đăng nhập">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    @*<img src="~/Assets/dist/img/name.png" alt="Alternate Text" width="20px" />*@
-                                    @*<span class="fas fa-envelope"></span>*@
-                                    <span class="fas fa-user"></span>
+                            <div class="input-group mb-3">
+                                <input name="account" type="text" class="form-control" placeholder="Tên đăng nhập">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input name="password" type="password" class="form-control" placeholder="Mật khẩu">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
+                            <div class="input-group mb-3">
+                                <input name="password" type="password" class="form-control" placeholder="Mật khẩu">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input name="re_password" type="password" class="form-control" placeholder="Nhập lại mật khẩu">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
+                            <div class="input-group mb-3">
+                                <input name="re_password" type="password" class="form-control" placeholder="Nhập lại mật khẩu">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="icheck-primary">
-                                    @*<input type="checkbox" id="agreeTerms" name="terms" value="agree">*@
-                                    <label for="agreeTerms">
-                                        @*I agree to the <a href="#">terms</a>*@
-                                    </label>
-                                    <a href="/" class="text-center">Đã có tài khoản?</a>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="icheck-primary">
+                                        <label for="agreeTerms">
+                                        </label>
+                                        <a href="/" class="text-center">Đã có tài khoản?</a>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary btn-block ttk">Tạo tài khoản</button>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-primary btn-block ttk">Tạo tài khoản</button>
-                            </div>
-                        </div>
-                        <!-- </form>-->
-                        @*<div class="social-auth-links text-center">
-                                <p>- OR -</p>
-                                <a href="#" class="btn btn-block btn-primary">
-                                    <i class="fab fa-facebook mr-2"></i>
-                                    Sign up using Facebook
-                                </a>
-                                <a href="#" class="btn btn-block btn-danger">
-                                    <i class="fab fa-google-plus mr-2"></i>
-                                    Sign up using Google+
-                                </a>
-                            </div>
-                            <a href="/" class="text-center">Đã có tài khoản?</a>*@
+                        </form>
                     </div>
                 </div>
             </div>
@@ -141,7 +123,7 @@
                 showConfirmButton: false,
                 timer: 3000
             });
-            $(document).on("click", ".ttk", function () {
+            $(document).on("submit", ".form-signup", function () {
                 user_name = $("input[name='user_name']").val();
                 email = $("input[name='email']").val();
                 account = $("input[name='account']").val();
@@ -230,36 +212,15 @@
                             case "thanhcong":
                                 {
                                     xacthuc_email(email);
-                                    //let timerInterval
-                                    //Swal.fire({
-                                    //    title: 'Tạo tài khoản thành công!',
-                                    //    html: 'Chuyển qua trang đăng nhập trong <b></b>.',
-                                    //    timer: 3000,
-                                    //    timerProgressBar: true,
-                                    //    onBeforeOpen: () => {
-                                    //        Swal.showLoading()
-                                    //        timerInterval = setInterval(() => {
-                                    //            Swal.getContent().querySelector('b')
-                                    //                .textContent = Swal.getTimerLeft()
-                                    //        }, 100)
-                                    //    },
-                                    //    onClose: () => {
-                                    //        clearInterval(timerInterval)
-                                    //    }
-                                    //}).then((result) => {
-                                    //    if (result.dismiss === Swal.DismissReason.timer) {
-                                    //        window.location.href = "/";
-                                    //        console.log('I was closed by the timer') 
-                                    //    }
-                                    //})
                                 }
                         }
                     }
                 });
+                return false;
             });
             function xacthuc_email(email) {
                 Swal.fire({
-                    title: 'Xác thực email',
+                    title: 'Tạo tài khoản thành công!',
                     text: 'Hệ thống đã gửi mã xác thực đến email của bạn. Vui lòng kiểm tra email và nhập mã xác thực',
                     input: 'text',
                     inputAttributes: {

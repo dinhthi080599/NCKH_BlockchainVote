@@ -112,7 +112,7 @@ namespace CSharpchainWebAPI.Models
                         dThoigiankt = DateTime.ParseExact(dbc.dThoiGianKT, "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture),
                         sNoiDung = dbc.sNoiDung,
                         iTrangThai = dbc.iTrangThai,
-                        sHinhThuc = dbc.sHinhThuc,
+                        //sHinhThuc = dbc.sHinhThuc,
                         sSoPhieu = dbc.sSoPhieu,
                         iNguoiTao = dbc.iNguoiTao
                     });

@@ -25,7 +25,7 @@ namespace CSharpchainWebAPI.Controllers
         public ActionResult check_login()
         {
             var sTendangnhap = Request["tai_khoan"];
-            var sMatkhau = Request["mat_khau"];
+            var sMatkhau = Sha256.sha256_hash(Request["mat_khau"]);
             using (admin_voteEntities db = new admin_voteEntities())
             {
                 var obj = db.tbl_taikhoan
@@ -37,10 +37,10 @@ namespace CSharpchainWebAPI.Controllers
                     Session["ma_taikhoan"] = obj.ma_taikhoan.ToString();
                     Session["ma_quyen"] = obj.ma_quyen.ToString();
                     Session["sHovaten"] = obj.sHovaten.ToString();
-                    return RedirectToAction("Login");
+                    return Redirect("~/Welcome");
                 }
             }
-            return RedirectToAction("Index");
+            return Redirect("~/");
         }
         [HttpPost]
         public ActionResult them_dotbaucu()
