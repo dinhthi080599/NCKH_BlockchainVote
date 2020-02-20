@@ -15,6 +15,7 @@ namespace CSharpchainWebAPI.Models
         public string dNgaysinh { get; set; }
         public string sEmail { get; set; }
         public string sDiachi { get; set; }
+        public string sGhichu { get; set; }
         public long ma_dotbaucu { get; set; }
 
         public List<Elector> getElectorbyId(int i)
@@ -37,13 +38,14 @@ namespace CSharpchainWebAPI.Models
                                             + SqlFunctions.DateName("year", s.dNgaysinh),
                                 sEmail = s.sEmail,
                                 sDiachi = s.sDiachi,
+                                sGhichu = s.sGhichu,
                                 ma_cutri = s.ma_cutri
                             }).Where(s => s.ma_dotbaucu == i).ToList<Elector>();
             }
             return ElectorList;
         }
 
-        public bool createNewElector(string sHoten, string bGioitinh, string dNgaysinh, string sEmail, string sDiachi, string ma_dotbaucu)
+        public bool createNewElector(string sHoten, string bGioitinh, string dNgaysinh, string sEmail, string sDiachi, string ma_dotbaucu, string sGhichu)
         {
             try
             {
@@ -57,6 +59,7 @@ namespace CSharpchainWebAPI.Models
                         bGioitinh = bGioitinh == "Nam" ? true : false,
                         sEmail = sEmail,
                         sDiachi = sDiachi,
+                        sGhichu = sGhichu,
                         ma_dotbaucu = long.Parse(ma_dotbaucu)
                     });
                     db.SaveChanges();
