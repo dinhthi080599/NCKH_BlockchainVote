@@ -23,7 +23,7 @@ namespace CSharpchainWebAPI.Models
             List<Elector> ElectorList = null;
             using (var db = new admin_voteEntities())
             {
-                ElectorList = db.tbl_cutri
+                ElectorList = db.tbl_ungcuvien
                             .Select(s => new Elector()
                             {
                                 ma_dotbaucu = (long)s.ma_dotbaucu,
@@ -39,7 +39,7 @@ namespace CSharpchainWebAPI.Models
                                 sEmail = s.sEmail,
                                 sDiachi = s.sDiachi,
                                 sGhichu = s.sGhichu,
-                                ma_cutri = s.ma_cutri
+                                ma_cutri = s.ma_ungcuvien
                             }).Where(s => s.ma_dotbaucu == i).ToList<Elector>();
             }
             return ElectorList;
@@ -51,8 +51,8 @@ namespace CSharpchainWebAPI.Models
             {
                 using (admin_voteEntities db = new admin_voteEntities())
                 {
-                    var electorDB = db.Set<tbl_cutri>();
-                    electorDB.Add(new tbl_cutri
+                    var electorDB = db.Set<tbl_ungcuvien>();
+                    electorDB.Add(new tbl_ungcuvien
                     {
                         sHoten = sHoten,
                         dNgaysinh = DateTime.ParseExact(dNgaysinh, "M/d/yyyy", CultureInfo.InvariantCulture),

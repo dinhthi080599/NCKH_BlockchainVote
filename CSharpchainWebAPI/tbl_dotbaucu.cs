@@ -22,7 +22,7 @@ public partial class tbl_dotbaucu
     public tbl_dotbaucu()
     {
 
-        this.tbl_cutri = new HashSet<tbl_cutri>();
+        this.tbl_dotbaucu_ungcuvien = new HashSet<tbl_dotbaucu_ungcuvien>();
 
     }
 
@@ -51,7 +51,7 @@ public partial class tbl_dotbaucu
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<tbl_cutri> tbl_cutri { get; set; }
+    public virtual ICollection<tbl_dotbaucu_ungcuvien> tbl_dotbaucu_ungcuvien { get; set; }
 
 }
 

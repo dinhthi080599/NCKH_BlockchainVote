@@ -32,13 +32,17 @@ public partial class admin_voteEntities : DbContext
     }
 
 
-    public virtual DbSet<tbl_cutri> tbl_cutri { get; set; }
-
     public virtual DbSet<tbl_taikhoan> tbl_taikhoan { get; set; }
 
     public virtual DbSet<tbl_dotbaucu> tbl_dotbaucu { get; set; }
 
     public virtual DbSet<dm_trangthai_dotbaucu> dm_trangthai_dotbaucu { get; set; }
+
+    public virtual DbSet<tbl_dotbaucu_ungcuvien> tbl_dotbaucu_ungcuvien { get; set; }
+
+    public virtual DbSet<tbl_ungcuvien> tbl_ungcuvien { get; set; }
+
+    public virtual DbSet<dm_dauphieu> dm_dauphieu { get; set; }
 
 }
 

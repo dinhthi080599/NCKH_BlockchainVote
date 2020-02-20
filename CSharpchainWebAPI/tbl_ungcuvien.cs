@@ -15,19 +15,10 @@ namespace CSharpchainWebAPI
 using System;
     using System.Collections.Generic;
     
-public partial class tbl_cutri
+public partial class tbl_ungcuvien
 {
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tbl_cutri()
-    {
-
-        this.tbl_dotbaucu = new HashSet<tbl_dotbaucu>();
-
-    }
-
-
-    public long ma_cutri { get; set; }
+    public long ma_ungcuvien { get; set; }
 
     public string sHoten { get; set; }
 
@@ -42,12 +33,6 @@ public partial class tbl_cutri
     public Nullable<long> ma_dotbaucu { get; set; }
 
     public string sGhichu { get; set; }
-
-
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<tbl_dotbaucu> tbl_dotbaucu { get; set; }
 
 }
 

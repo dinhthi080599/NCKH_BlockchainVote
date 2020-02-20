@@ -27,7 +27,7 @@ namespace CSharpchainWebAPI
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tbl_cutri> tbl_cutri { get; set; }
+        public virtual DbSet<tbl_ungcuvien> tbl_ungcuvien { get; set; }
         public virtual DbSet<tbl_dotbaucu> tbl_dotbaucu { get; set; }
         public virtual DbSet<tbl_taikhoan> tbl_taikhoan { get; set; }
     
