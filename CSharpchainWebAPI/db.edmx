@@ -22,9 +22,10 @@
           <Property Name="sHoten" Type="nvarchar" MaxLength="255" />
           <Property Name="bGioitinh" Type="bit" />
           <Property Name="dNgaysinh" Type="date" />
-          <Property Name="sEmail" Type="varchar" MaxLength="255" />
-          <Property Name="sDiachi" Type="varchar" MaxLength="255" />
+          <Property Name="sEmail" Type="nvarchar" MaxLength="255" />
+          <Property Name="sDiachi" Type="nvarchar" MaxLength="255" />
           <Property Name="ma_dotbaucu" Type="bigint" />
+          <Property Name="sGhichu" Type="text" />
         </EntityType>
         <EntityType Name="tbl_dotbaucu">
           <Key>
@@ -117,10 +118,11 @@
           <Property Name="sHoten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="bGioitinh" Type="Boolean" />
           <Property Name="dNgaysinh" Type="DateTime" Precision="0" />
-          <Property Name="sEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="sDiachi" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sDiachi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ma_dotbaucu" Type="Int64" />
           <NavigationProperty Name="tbl_dotbaucu" Relationship="admin_voteModel.tbl_dotbaucu_cutri" FromRole="tbl_cutri" ToRole="tbl_dotbaucu" />
+          <Property Name="sGhichu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_taikhoan">
           <Key>
@@ -187,6 +189,7 @@
           <EntitySetMapping Name="tbl_cutri">
             <EntityTypeMapping TypeName="admin_voteModel.tbl_cutri">
               <MappingFragment StoreEntitySet="tbl_cutri">
+                <ScalarProperty Name="sGhichu" ColumnName="sGhichu" />
                 <ScalarProperty Name="ma_cutri" ColumnName="ma_cutri" />
                 <ScalarProperty Name="sHoten" ColumnName="sHoten" />
                 <ScalarProperty Name="bGioitinh" ColumnName="bGioitinh" />

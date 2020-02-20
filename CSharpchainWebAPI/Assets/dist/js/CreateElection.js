@@ -184,6 +184,44 @@ const setAnimationType = newType => {
 //});
 
 $(document).ready(function () {
+    $('.datepicker_1').daterangepicker({
+        "singleDatePicker": true,
+        "timePicker": false,
+        "drops": "up",
+        "locale": {
+            "autoApply": true,
+            "format": "DD/MM/YYYY",
+            "applyLabel": "Áp dụng",
+            "cancelLabel": "Hủy",
+            "fromLabel": "From",
+            "toLabel": "To",
+            "customRangeLabel": "Custom",
+            "daysOfWeek": [
+                "CN",
+                "T2",
+                "T3",
+                "T4",
+                "T5",
+                "T6",
+                "T7"
+            ],
+            "monthNames": [
+                "Tháng 1",
+                "Tháng 2",
+                "Tháng 3",
+                "Tháng 4",
+                "Tháng 5",
+                "Tháng 6",
+                "Tháng 7",
+                "Tháng 8",
+                "Tháng 9",
+                "Tháng 10",
+                "Tháng 11",
+                "Tháng 12",
+            ],
+            "firstDay": 1
+        }
+    });
     $('.datepicker').daterangepicker({
         "singleDatePicker": true,
         "timePicker": true,
@@ -237,7 +275,7 @@ $(document).ready(function () {
             else {
                 tt = true;
             }
-            $(btn_next_title[i]).prop('disabled', false);
+            $(btn_next_title[i]).prop('disabled', tt);
         }
     }
     
@@ -283,9 +321,9 @@ $(document).ready(function () {
         $(this).parent().parent().parent().parent().find('.d-flex').find('.js-btn-next').prop('disabled', tt);
         count_btn_next_enabled();
     });
-    $(document).on('keyup', '#content', function () {
+    $(document).on('keyup', '.content_election', function () {
         var tt = false;
-        if ($(this).val() == "") {
+        if ($('.content_election').val() == "") {
             tt = true;
         }
         $('#xac_nhan').prop('disabled', tt);
@@ -299,13 +337,39 @@ $(document).ready(function () {
         timer: 3000
     });
 
+    $(document).on('click', '#addElector', function () {
+        var name, sex, birthday;
+        name = $('#newElectorName').val();
+        sex = $('#newElectorGender').children("option:selected").val();
+        birthday = $('#newElectorBirthDay').val();
+        var html = `
+            <div class="col-12 col-md-4 ungvien">
+                <div class="card shadow-sm">
+                    <div class="row">
+                        <div class="block col-12 pl-4 pt-4">
+                            <label class="pt-2 name" style="font-size: 20px;">`+name+`</label>
+                            <p class="pt-1">
+                                <i class="sex">` + sex + `</i>
+                                <br />
+                                <i class="birthday">` + birthday + `</i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        $(".ds_ungvien").prepend(html);
+        if ($(".ungvien").length > 0) {
+        };
+        $('#exampleModal').modal('hide');
+    });
+
     $(document).on('click', '#xac_nhan', function () {
         var data = {
             'ten_dot': $('#name_election').val(),
             'thoigian_bd': $('#time_start').val(),
             'thoigian_kt': $('#time_end').val(),
-            'noidung': $('#content').val(),
-            'hinhthuc': $('input[name="type_vote"]:checked').val(),
+            'noidung': $('.content_election').val(),
             'sophieu': $('input[name="amount_vote"]:checked').val(),
         }
         $.ajax({

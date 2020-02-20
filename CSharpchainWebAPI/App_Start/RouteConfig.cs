@@ -19,6 +19,10 @@ namespace CSharpchainWebAPI
                 defaults: new { controller = "Election", action = "Index" }
                 );
             routes.MapRoute(
+                "Voting", "Voting/{ID}/{action}",
+                defaults: new { controller = "Voting", action = "Index" }
+                );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
