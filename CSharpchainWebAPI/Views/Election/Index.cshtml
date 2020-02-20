@@ -39,27 +39,29 @@
             </div>
         </div>
     </div>
-    <div class="text-center col-sm-12 row">
-        <h3 class="col-sm-12">Danh sách cử tri</h3>
-        @foreach (var elector in ViewBag.ElectorList)
-        {
-            <div class="col-sm-4">
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h3>@elector.sHoten</h3>
-                        <p>@elector.bGioitinh</p>
-                        <p class="cutri_@elector.ma_cutri hide">@elector.ma_cutri</p>
+    <div id="electorListParent">
+        <div id="electorsList" class="text-center col-sm-12 row">
+            <h3 class="col-sm-12">Danh sách cử tri</h3>
+            @foreach (var elector in ViewBag.ElectorList)
+            {
+                <div class="col-sm-4">
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>@elector.sHoten</h3>
+                            <p>@elector.bGioitinh</p>
+                            <p class="cutri_@elector.ma_cutri hide">@elector.ma_cutri</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <a onclick="showDetail(@elector.ma_cutri)" class="small-box-footer" data-toggle="modal" data-target="#electorModal">
+                            Thêm thông tin
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </a>
                     </div>
-                    <div class="icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <a onclick="showDetail(@elector.ma_cutri)" class="small-box-footer" data-toggle="modal" data-target="#electorModal">
-                        Thêm thông tin
-                        <i class="fas fa-arrow-circle-right"></i>
-                    </a>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
 
@@ -127,6 +129,7 @@
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="newElectorName" placeholder="Nguyễn Văn XHF">
                     </div>
+                    <span id="newElectorNameEmpty" class="text-center text-danger w-100">Bạn chưa điền đầy đủ họ tên cử tri</span>
                 </div>
                 <div class="col-sm-12 form-group row">
                     <label class="col-sm-2 col-form-label font-weight-normal">Giới tính</label>
@@ -147,17 +150,26 @@
                             </span>
                         </div>
                     </div>
+                    <span id="newElectorNsEmpty" class="text-center text-danger w-100">Bạn chưa điền Ngày sinh</span>
                 </div>
                 <div class="col-sm-12 form-group row">
                     <label class="col-sm-2 col-form-label font-weight-normal">Địa chỉ</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="newElectorAddress">
                     </div>
+                    <span id="newElectorAddressEmpty" class="text-center text-danger w-100">Bạn chưa điền Địa chỉ</span>
                 </div>
                 <div class="col-sm-12 form-group row">
                     <label class="col-sm-2 col-form-label font-weight-normal">Email</label>
                     <div class="col-sm-10">
                         <input type="email" class="form-control" id="newElectorEmail">
+                    </div>
+                    <span id="newElectorEmailEmpty" class="text-center text-danger w-100">Bạn chưa điền Email</span>
+                </div>
+                <div class="col-sm-12 form-group row">
+                    <label class="col-sm-2 col-form-label font-weight-normal">Mô tả</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="newElectorNote" />
                     </div>
                 </div>
             </div>
@@ -168,9 +180,14 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <script>
     $(document).ready(function () {
+        $('#newElectorNameEmpty').hide();
+        $('#newElectorNsEmpty').hide();
+        $('#newElectorAddressEmpty').hide();
+        $('#newElectorEmailEmpty').hide();
         $('#newElectorNs').datepicker({
             uiLibrary: 'bootstrap'
         });
@@ -181,19 +198,28 @@
             let address = $("#newElectorAddress").val();
             let email = $("#newElectorEmail").val();
             let gender = $("#newElectorGenderl").val();
-            $.ajax({
-                url: window.location.href + "/createElector",
-                type: "POST",
-                data: { dbcId: x, sHoten: name, dNgaysinh: ns, sDiachi: address, sEmail: email, bGioitinh: gender }
-            }).then(function (result) {
-                if (result) {
-                    alert("Thành công");
-                    $('#newElectorModal').modal('hide');
-                    location.reload();
-                } else {
-                    alert("Thất bại");
-                }
-            });
+            let note = $("#newElectorNote").val();
+            if (validateForm("name", name, $("#newElectorName"), "newElectorName") &&
+                validateForm("address", address, $("#newElectorAddress"), "newElectorAddress") &&
+                validateForm("email", email, $("#newElectorEmail"), "newElectorEmail") &&
+                validateForm("date", ns, $("#newElectorNs"), "newElectorNs")) {
+                $.ajax({
+                    url: window.location.href + "/createElector",
+                    type: "POST",
+                    data: { dbcId: x, sHoten: name.trim(), dNgaysinh: ns, sDiachi: address.trim(), sEmail: email.trime(), bGioitinh: gender, sGhichu: note }
+                }).then(function (result) {
+                    if (result) {
+                        alert("Thành công");
+                        $('#newElectorModal').modal('hide');
+                        $('#electorsList').remove();
+                        appendNewElectorList(result);
+                    } else {
+                        alert("Thất bại");
+                    }
+                });
+            } else {
+                alert("Thất bại");
+            }
         });
     });
 
@@ -203,7 +229,6 @@
             if (value && value.length === 8) {
                 if (value.indexOf("-") === -1 && value.indexOf("/") === -1) {
                     const returnDate = replaceDate(value);
-                    // this.model[model] = returnDate;
                     if (returnDate && returnDate.length > 0) {
                         $("#newElectorNs").val(returnDate);
                         //const dateParts = returnDate.split("/");
@@ -257,11 +282,9 @@
                     year = parseInt('19' + year, 0);
                 }
             }
-
             if (parseInt(day, 0) > 31) {
                 day = 30;
             }
-
             if (parseInt(month, 0) > 12) {
                 month = 12;
             }
@@ -274,4 +297,45 @@
         }
         return returnDate;
     };
+
+    function validateForm(code, str, obj, strName) {
+        let result = true;
+        if (str == "") {
+            $('#' + strName + 'Empty').show();
+            console.log(strName + 'Empty');
+            obj.focus();
+            return false;
+        } else {
+            $('#' + strName + 'Empty').hide();
+            if (code === "email") {
+                var re = /^(([^<>()[\]\\.,;:\s@@\"]+(\.[^<>()[\]\\.,;:\s@@\"]+)*)|(\".+\"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if (re.test(str)) {
+                    return true;
+                } else {
+                    obj.focus();
+                    return false;
+                }
+            }
+            if (code == "date") {
+                if (moment().diff(moment(str + '', 'DD/MM/YYYY'), 'years') < 18) {
+                    obj.focus()
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            if (code == "name") {
+                if (str.split(' ').length < 2) {
+                    obj.focus();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+    }
+
+    function appendNewElectorList(list) {
+        $("p").append("<b>Appended text</b>");
+    }
 </script>

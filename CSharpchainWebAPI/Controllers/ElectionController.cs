@@ -37,9 +37,10 @@ namespace CSharpchainWebAPI.Controllers
             var dbcid = Request["dbcId"];
             var dNgaysinh = Request["dNgaysinh"];
             var bGioitinh = Request["bGioitinh"];
+            var sGhichu = Request["sGhichu"];
             DateTime dt1 = DateTime.ParseExact(dNgaysinh, "M/d/yyyy", CultureInfo.InvariantCulture);
             Elector e = new Elector();
-            if (e.createNewElector(sHoten, bGioitinh, dNgaysinh, sEmail, sDiachi, dbcid))
+            if (e.createNewElector(sHoten, bGioitinh, dNgaysinh, sEmail, sDiachi, dbcid, sGhichu))
                 return true;
             else
                 return false;
