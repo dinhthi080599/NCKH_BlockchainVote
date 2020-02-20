@@ -41,6 +41,8 @@ public partial class tbl_cutri
 
     public Nullable<long> ma_dotbaucu { get; set; }
 
+    public string sGhichu { get; set; }
+
 
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

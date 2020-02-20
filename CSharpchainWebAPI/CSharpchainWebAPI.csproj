@@ -445,6 +445,7 @@
     <Content Include="Assets\dist\img\mrt.jpg" />
     <Content Include="Assets\dist\img\name.png" />
     <Content Include="Assets\dist\img\bg.jpg" />
+    <Content Include="Assets\dist\js\config_ckediter.js" />
     <Content Include="Assets\dist\js\CreateElection.js" />
     <Content Include="Assets\dist\js\script.js" />
     <Content Include="Assets\dist\js\adminlte.js" />
@@ -664,6 +665,7 @@
     <Content Include="Assets\plugins\chartjs-old\Chart.js" />
     <Content Include="Assets\plugins\chartjs-old\Chart.min.js" />
     <Content Include="Assets\plugins\ckeditor\ckeditor.js" />
+    <Content Include="Assets\plugins\ckeditor\ckeditor1.js" />
     <Content Include="Assets\plugins\ckeditor\translations\ar.js" />
     <Content Include="Assets\plugins\ckeditor\translations\ast.js" />
     <Content Include="Assets\plugins\ckeditor\translations\bg.js" />
