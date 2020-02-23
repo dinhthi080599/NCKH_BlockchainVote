@@ -66,31 +66,34 @@
 
 <!-- elector detail-->
 <div class="modal" id="electorModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Thông tin ứng cử viên</h4>
             </div>
             <div class="modal-body row">
                 <div class="col-sm-12 row">
-                    <p class="col-sm-6"> Họ tên ứng cử viên</p>
-                    <p class="col-sm-6" id="ElectorModalName"></p>
+                    <p class="col-sm-4"> Họ tên ứng cử viên</p>
+                    <p class="col-sm-8" id="ElectorModalName"></p>
                 </div>
                 <div class="col-sm-12 row">
-                    <p class="col-sm-6"> Ngày sinh</p>
-                    <p class="col-sm-6" id="ElectorModalNs"></p>
+                    <p class="col-sm-4"> Ngày sinh</p>
+                    <p class="col-sm-8" id="ElectorModalNs"></p>
                 </div>
                 <div class="col-sm-12 row">
-                    <p class="col-sm-6"> Địa chỉ</p>
-                    <p class="col-sm-6" id="ElectorModalAddress"></p>
+                    <p class="col-sm-4"> Địa chỉ</p>
+                    <p class="col-sm-8" id="ElectorModalAddress"></p>
                 </div>
                 <div class="col-sm-12 row">
-                    <p class="col-sm-6"> Email</p>
-                    <p class="col-sm-6" id="ElectorModalEmail"></p>
+                    <p class="col-sm-4"> Email</p>
+                    <p class="col-sm-8" id="ElectorModalEmail"></p>
+                </div>
+                <div class="col-sm-12 row">
+                    <p class="col-sm-4"> Mô tả về bản thân </p>
+                    <p class="col-sm-8" id="ElectorModalNote"></p>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Xác nhận</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
             </div>
         </div>
@@ -153,7 +156,7 @@
                 <div class="col-sm-12 form-group row">
                     <label class="col-sm-2 col-form-label font-weight-normal">Mô tả</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="newElectorNote"> </textarea>
+                        <textarea style="resize:none;" class="form-control" id="newElectorNote"> </textarea>
                     </div>
                 </div>
             </div>
@@ -245,6 +248,7 @@
                 $("#ElectorModalNs").html(result.dNgaysinh);
                 $("#ElectorModalAddress").html(result.sDiachi);
                 $("#ElectorModalEmail").html(result.sEmail);
+                $("#ElectorModalNote").html(result.sGhichu);
             }
         });
     }
