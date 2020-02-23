@@ -7,7 +7,7 @@
             <h2>@ViewBag.dotBauCu.sTenDot</h2>
         </div>
         <div class="col-md-4 text-right">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+            <button id="attendVoting" type="button" class="btn btn-info">
                 Tham gia bỏ phiếu
             </button>
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newElectorModal" data-backdrop="static" data-keyboard="false">
@@ -64,24 +64,6 @@
     </div>
 </div>
 
-<!-- The Modal -->
-<div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Phiếu bầu</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                Đây là cái phiếu
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Xác nhận</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- elector detail-->
 <div class="modal" id="electorModal">
     <div class="modal-dialog">
@@ -227,6 +209,12 @@
             } else {
                 alert("Thất bại");
             }
+        });
+
+        $("#attendVoting").on("click", function () {
+            let x = window.location.pathname.split('/')[2];
+            let url = window.location.origin + "/Voting/" + x
+            window.location.href = url;
         });
     });
 
