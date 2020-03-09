@@ -3,5 +3,74 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@*@if (ViewBag.dbc.sHinhThuc == "multiple_vote" || ViewBag.dbc.sHinhThuc == "ranked_vote")
+    {
 
+    }*@
+<h1>Hãy bình chọn cho ứng cử viên</h1>
+<div class="col-sm-12 row">
+    @foreach (var elector in ViewBag.ElectorList)
+    {
+        <div class="col-sm-4">
+            <div class="small-box bg-info electorListChild" id="child_@elector.ma_ungcuvien">
+                <div class="inner">
+                    <h3>@elector.sHoten</h3>
+                    <p>@elector.bGioitinh</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <a onclick="Vote(@elector.ma_ungcuvien)" class="small-box-footer" data-toggle="modal" data-target="#electorModal">
+                    Chọn
+                    <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+<div class="row mt-5 mb-3" style="justify-content:center;">
+    <button class="btn btn-lg btn-success disabled" id="confirmChange">Xác nhận</button>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#confirmChange").on("click", function () {
+            if ($("#confirmChange").hasClass("disabled")) return false;
+            else { console.log("do sth") };
+        })
+        @*if ("@ViewBag.dbc.sHinhThuc" == "single_vote") {
+
+        }
+        if ("@ViewBag.dbc.sHinhThuc" == "multiple_vote") {
+
+        }
+        else {
+
+        }*@
+    });
+
+    function Vote(id) {
+        if ("@ViewBag.dbc.sHinhThuc" == "single_vote") {
+            voteforone(id);
+        }
+        if ("@ViewBag.dbc.sHinhThuc" == "multiple_vote") {
+            multipleVote(id);
+        }
+        else {
+            multipleVote(id);
+        }
+    }
+
+    function voteforone(id) {
+        $(".electorListChild").removeClass("bg-info");
+        $(".electorListChild").addClass("bg-danger");
+        $("#child_" + id).removeClass("bg-danger");
+        $("#child_" + id).addClass("bg-success");
+        $("#confirmChange").removeClass("disabled");
+    };
+
+    function multipleVote(id) {
+        $("#child_" + id).removeClass("bg-info");
+        $("#child_" + id).addClass("bg-success");
+        $("#confirmChange").removeClass("disabled");
+    };
+</script>
