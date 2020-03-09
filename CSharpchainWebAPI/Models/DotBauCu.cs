@@ -102,12 +102,14 @@ namespace CSharpchainWebAPI.Models
 
         public string them_dotbaucu(DotBauCu dbc)
         {
+            long id;
             try
             {
                 using (admin_voteEntities db = new admin_voteEntities())
                 {
                     var dotbaucu = db.Set<tbl_dotbaucu>();
-                    dotbaucu.Add(new tbl_dotbaucu {
+                    tbl_dotbaucu _dbc = new tbl_dotbaucu()
+                    {
                         sTendot = dbc.sTenDot,
                         dThoigianbd = DateTime.ParseExact(dbc.dThoiGianBD, "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture),
                         dThoigiankt = DateTime.ParseExact(dbc.dThoiGianKT, "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture),
@@ -116,14 +118,17 @@ namespace CSharpchainWebAPI.Models
                         //sHinhThuc = dbc.sHinhThuc,
                         sSoPhieu = dbc.sSoPhieu,
                         iNguoiTao = dbc.iNguoiTao
-                    });
+                    };
+                    dotbaucu.Add(_dbc);
                     db.SaveChanges();
+                    id = _dbc.ma_dot;
                 }
-            }catch(InvalidCastException e)
+            }
+            catch(InvalidCastException e)
             {
                 return "them_thatbai";
             }
-            return "them_dotbaucu_thanhcong";
+            return id.ToString();
         }
 
     }

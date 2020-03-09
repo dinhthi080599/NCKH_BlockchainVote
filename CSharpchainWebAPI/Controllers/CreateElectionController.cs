@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using CSharpchainWebAPI.Models;
 
@@ -21,11 +22,28 @@ namespace CSharpchainWebAPI.Controllers
             dbc.dThoiGianBD = Request["thoigian_bd"];
             dbc.dThoiGianKT = Request["thoigian_kt"];
             dbc.sNoiDung = Request["noidung"];
-            dbc.iTrangThai = 1;
-            dbc.sHinhThuc= Request["hinhthuc"];
+            dbc.iTrangThai = 1; 
+            dbc.sHinhThuc = Request["hinhthuc"];
             dbc.sSoPhieu = Request["sophieu"];
             dbc.iNguoiTao = Convert.ToInt32(Session["ma_taikhoan"]);
-            return dbc.them_dotbaucu(dbc);
+            List<UngCuVien> ucv = new List<UngCuVien>();
+            var tt = dbc.them_dotbaucu(dbc);
+            if (tt != "them_thatbai")
+            {
+                int ma_dbc = Int32.Parse(tt);
+                return ma_dbc.ToString();
+            }
+            else
+            {
+                return "them_thatbai";
+            }
+        }
+
+        [HttpPost]
+        public string them_ungvien_dbc(List<UngCuVien> array_ungvien)
+        {
+            UngCuVien abc = new UngCuVien();
+            return abc.themUngCuVien(array_ungvien);
         }
     }
 }
