@@ -377,12 +377,34 @@ $(document).ready(function () {
             type: 'POST',
             data: data,
             success: function (result) {
-                if (result == "them_dotbaucu_thanhcong") {
-                    Swal.fire({
-                        icon: 'succes',
-                        title: 'Thành công',
-                        text: 'Chúc mừng, bạn đã thêm đợt bầu cử thành công!',
-                    })
+                if (result != "them_thatbai") {
+                    var list_ungvien = $('.ungvien');
+                    var array_ungvien = [];
+                    for (let i = 0; i < list_ungvien.length; i++) {
+                        array_ungvien[i] = {
+                            'sHoTen': $(list_ungvien[i]).find('.name').text(),
+                            'bGioiTinh': $(list_ungvien[i]).find('.sex').text() == "Nam" ? true : false,
+                            'dNgaySinh': $(list_ungvien[i]).find('.birthday').text(),
+                            'ma_dotbaucu': result,
+                        }
+                    }
+                    var array_ungvien = JSON.stringify({ 'array_ungvien': array_ungvien });
+                    $.ajax({
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        type: 'POST',
+                        url: "/CreateElection/them_ungvien_dbc",
+                        data: array_ungvien,
+                        success: function (result) {
+                            if (result != "them_thatbai") {
+                                Swal.fire({
+                                    icon: 'succes',
+                                    title: 'Thành công',
+                                    text: 'Chúc mừng, bạn đã thêm đợt bầu cử thành công!',
+                                })
+                            }
+                        }
+                    });
                 }
             }
         });
