@@ -9,6 +9,7 @@ namespace CSharpchainWebAPI.Controllers
 {
     public class VotingController : BaseController
     {
+        List<Elector> el = null;
         public string get_action(int ID)
         {
             using(admin_voteEntities db = new admin_voteEntities())
@@ -40,7 +41,9 @@ namespace CSharpchainWebAPI.Controllers
         {
             string action = get_action(id);
             DotBauCu dbc = new DotBauCu();
-            ViewBag.dbc = dbc.get_dotbaucu_by_ID(id);
+            DotBauCu temp = new DotBauCu();
+            temp = dbc.get_dotbaucu_by_ID(id);
+            ViewBag.dbc = temp;
             switch (action)
             {
                 case "Waiting":
@@ -55,6 +58,9 @@ namespace CSharpchainWebAPI.Controllers
                     }
                 case "Index":
                     {
+                        Elector e = new Elector();
+                        el = e.getElectorbyId(id);
+                        ViewBag.ElectorList = el;
                         break;
                     }
                 case "Error":

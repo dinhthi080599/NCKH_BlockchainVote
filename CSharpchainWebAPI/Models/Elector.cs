@@ -18,6 +18,32 @@ namespace CSharpchainWebAPI.Models
         public string sGhichu { get; set; }
         public long ma_dotbaucu { get; set; }
 
+        public List<Elector> getElector()
+        {
+            List<Elector> elecList = null;
+            using (var db = new admin_voteEntities())
+            {
+                elecList = db.tbl_ungcuvien
+                            .Select(s => new Elector()
+                            {
+                                ma_dotbaucu = (long)s.ma_dotbaucu,
+                                sHoten = s.sHoten,
+                                bGioitinh = s.bGioitinh == true ? "Nam" : "Nữ",
+                                dNgaysinh = SqlFunctions.Replicate("0", 2 - SqlFunctions.DateName("dd", s.dNgaysinh).Trim().Length)
+                                            + SqlFunctions.DateName("dd", s.dNgaysinh).Trim()
+                                            + SqlFunctions.Replicate("/", 2 - SqlFunctions.StringConvert((double)s.dNgaysinh.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)s.dNgaysinh.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.StringConvert((double)s.dNgaysinh.Value.Month).TrimStart()
+                                            + SqlFunctions.Replicate("/", 2 - SqlFunctions.StringConvert((double)s.dNgaysinh.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.DateName("year", s.dNgaysinh),
+                                sEmail = s.sEmail,
+                                sDiachi = s.sDiachi,
+                                sGhichu = s.sGhichu,
+                                ma_ungcuvien = s.ma_ungcuvien
+                            }).ToList<Elector>();
+            }
+            return elecList;
+        }
         public List<Elector> getElectorbyId(int i)
         {
             List<Elector> ElectorList = null;

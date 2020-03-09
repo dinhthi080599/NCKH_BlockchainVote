@@ -90,6 +90,7 @@ namespace CSharpchainWebAPI.Models
                                             + SqlFunctions.DateName("minute", s.dThoigiankt)
                                             ,
                         sNoiDung = s.sNoiDung.ToString(),
+                        sHinhThuc = s.sHinhThuc,
                         iTrangThai = (int)s.iTrangThai,
                         sTenDot = s.sTendot.ToString(),
                         sGhiChu = s.sGhichu.ToString(),
