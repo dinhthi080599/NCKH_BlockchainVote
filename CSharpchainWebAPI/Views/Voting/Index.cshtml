@@ -2,75 +2,151 @@
 @{
     ViewBag.Title = "Index";
 }
-
-@*@if (ViewBag.dbc.sHinhThuc == "multiple_vote" || ViewBag.dbc.sHinhThuc == "ranked_vote")
-    {
-
-    }*@
-<h1>Hãy bình chọn cho ứng cử viên</h1>
+<div class="col-12">
+    <h2>
+        <i class="far fa-clone"></i>
+        @ViewBag.dbc.sTenDot
+    </h2>
+    <p>Chọn ứng cử viên của bạn</p>
+</div>
 <div class="col-sm-12 row">
-    @foreach (var elector in ViewBag.ElectorList)
-    {
-        <div class="col-sm-4">
-            <div class="small-box bg-info electorListChild" id="child_@elector.ma_ungcuvien">
-                <div class="inner">
-                    <h3>@elector.sHoten</h3>
-                    <p>@elector.bGioitinh</p>
+    <div class="form-group-lg">
+        @foreach (var elector in ViewBag.ElectorList)
+        {
+            <div class="col-12">
+                <br />
+                <div class="custom-control custom-@ViewBag.dbc.type">
+                    <input class="custom-control-input custom-select-lg" type="@ViewBag.dbc.type" id="@elector.ma_ungcuvien" value="@elector.ma_ungcuvien" name="elector">
+                    <label for="@elector.ma_ungcuvien" id="@elector.ma_ungcuvien" class="custom-control-label font-weight-normal" >
+                        @elector.sHoten
+                    </label>
+                    <button id="@elector.ma_ungcuvien" title="Click vào tên để xem chi tiết thông tin ứng cử viên" class="btn btn-info btn-sm name_elector" data-toggle="modal" data-target="#electorModal">
+                        <i class="fas fa-info fa-xs"></i>
+                    </button>
                 </div>
-                <div class="icon">
-                    <i class="fas fa-user"></i>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- profile elector-->
+<div class="modal" id="electorModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông tin của ứng cử viên</h4>
+                <button type="button" class="btn btn-info" data-dismiss="modal">
+                    <i class="far fa-arrow-alt-circle-left"></i> &nbsp; Quay lại
+                </button>
+            </div>
+            <div class="modal-body row">
+                <div class="col-sm-12 form-group row">
+                    <label class="col-sm-2 col-form-label font-weight-normal">Họ tên:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="newElectorName" disabled>
+                    </div>
                 </div>
-                <a onclick="Vote(@elector.ma_ungcuvien)" class="small-box-footer" data-toggle="modal" data-target="#electorModal">
-                    Chọn
-                    <i class="fas fa-arrow-circle-right"></i>
-                </a>
+                <div class="col-sm-12 form-group row">
+                    <label class="col-sm-2 col-form-label font-weight-normal">Giới tính:</label>
+                    <div class="col-sm-10 input-group">
+                        <select style="-webkit-appearance:none;" class="custom-select" id="newElectorGender" disabled>
+                            <option value="Nam">Nam</option>
+                            <option value="Nu">Nữ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 form-group row">
+                    <label class="col-sm-2 col-form-label font-weight-normal">Ngày sinh:</label>
+                    <div class="col-sm-10 input-group">
+                        <input class="form-control" id="newElectorNs" name="newElectorNs" type="text" disabled/>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-calendar-week"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 form-group row">
+                    <label class="col-sm-2 col-form-label font-weight-normal">Địa chỉ:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="newElectorAddress"disabled>
+                    </div>
+                </div>
+                <div class="col-sm-12 form-group row">
+                    <label class="col-sm-2 col-form-label font-weight-normal">Email:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="newElectorEmail" disabled>
+                    </div>
+                </div>
+                <div class="col-sm-12 form-group row">
+                    <label class="col-sm-2 col-form-label font-weight-normal">Mô tả:</label>
+                    <div class="col-sm-10">
+                        <textarea style="resize:none;" class="form-control" id="newElectorNote" disabled> </textarea>
+                    </div>
+                </div>
             </div>
         </div>
-    }
+    </div>
 </div>
+
+<script src="~/Assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
+</script>
 <div class="row mt-5 mb-3" style="justify-content:center;">
-    <button class="btn btn-lg btn-success disabled" id="confirmChange">Xác nhận</button>
+    <button class="btn btn-lg btn-info disabled" id="confirmChange">Xác nhận</button>
 </div>
 <script>
     $(document).ready(function () {
-        $("#confirmChange").on("click", function () {
-            if ($("#confirmChange").hasClass("disabled")) return false;
-            else { console.log("do sth") };
-        })
-        @*if ("@ViewBag.dbc.sHinhThuc" == "single_vote") {
 
+        $('input[name=elector]').on('change', function () {
+            if ($('input[name=elector]:checked').length > 0) {
+                $("#confirmChange").removeClass("disabled");
+            }
+            else {
+                $("#confirmChange").addClass("disabled");
+            }
+        });
+
+        $(".name_elector").on('click', function () {
+            data = {
+                id: $(this).attr('id')
+            }
+            $.ajax({
+                url: window.location.href + "/get_elector",
+                data: data,
+                type: "POST",
+            }).then(function (result) {
+                if (result) {
+                    $('#newElectorName').val(result.sHoten);
+                    $('#newElectorGender').val(result.bGioitinh == 'Nam' ? 'Nam' : 'Nu');
+                    $('#newElectorNs').val(result.dNgaysinh);
+                    $('#newElectorAddress').val(result.sEmail);
+                    $('#newElectorEmail').val(result.sDiachi);
+                    $('#newElectorNote').val(result.sGhichu);
+                }
+            });
+        });
+
+        $('#confirmChange').on('click', function () {
+        var list_ID = $('input[name=elector]:checked');
+        var _arrayID = [];
+        for (let i = 0; i < list_ID.length; i++) {
+            _arrayID[i] = $(list_ID[i]).val();
         }
-        if ("@ViewBag.dbc.sHinhThuc" == "multiple_vote") {
-
-        }
-        else {
-
-        }*@
+        var arrayID = JSON.stringify(arrayID);
+        $.ajax({
+            url: window.location.href + "/vote",
+            type: 'POST',
+            data: { arrayID: _arrayID },
+            success: function (result) {
+                if (result != "them_thatbai") {
+                }
+            }
+        });
+        });
+            
     });
-
-    function Vote(id) {
-        if ("@ViewBag.dbc.sHinhThuc" == "single_vote") {
-            voteforone(id);
-        }
-        if ("@ViewBag.dbc.sHinhThuc" == "multiple_vote") {
-            multipleVote(id);
-        }
-        else {
-            multipleVote(id);
-        }
-    }
-
-    function voteforone(id) {
-        $(".electorListChild").removeClass("bg-info");
-        $(".electorListChild").addClass("bg-danger");
-        $("#child_" + id).removeClass("bg-danger");
-        $("#child_" + id).addClass("bg-success");
-        $("#confirmChange").removeClass("disabled");
-    };
-
-    function multipleVote(id) {
-        $("#child_" + id).removeClass("bg-info");
-        $("#child_" + id).addClass("bg-success");
-        $("#confirmChange").removeClass("disabled");
-    };
 </script>

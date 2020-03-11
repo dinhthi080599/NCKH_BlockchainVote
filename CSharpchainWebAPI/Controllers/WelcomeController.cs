@@ -64,13 +64,7 @@ namespace CSharpchainWebAPI.Controllers
         int test = 1;
 
         public ActionResult all_block()
-        {   if (this.   test == 1)
-            {
-                WebApiApplication.CommandBlockchainMine("admin");
-                WebApiApplication.CommandBlockchainMine("admin");
-                WebApiApplication.CommandBlockchainMine("admin");
-                this.test = 4;
-            }
+        {   
             Block[] block = new Block[WebApiApplication.CommandBlockchainLength()];
             for (var i=0; i< WebApiApplication.CommandBlockchainLength(); i++)
             {
