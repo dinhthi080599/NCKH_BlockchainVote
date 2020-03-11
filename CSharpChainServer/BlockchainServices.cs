@@ -70,7 +70,17 @@ namespace CSharpChainServer
             //clear pending transactions (all pending transactions are in a block
 			blockchain.PendingTransactions = new List<Transaction>();
 			return block;
-		}
+        }
+        public Block MineBlock(string miningRewardAddress, Block block)
+        {
+            // add mining reward transaction to block
+            var blockServices = new BlockServices(block);
+            blockServices.MineBlock(blockchain.Difficulty);
+            blockchain.Chain.Add(block);
+            //clear pending transactions (all pending transactions are in a block
+            blockchain.PendingTransactions = new List<Transaction>();
+            return block;
+        }
         public bool isBlockchainValid()
 		{
 			for (long i = 1; i < blockchain.Chain.LongCount(); i++)
@@ -89,25 +99,50 @@ namespace CSharpChainServer
 				blockServices = null;
 			}
 			return true;
-		}
+        }
         public decimal Balance(string address)
-		{
-			decimal balance = 0;
+        {
+            decimal balance = 0;
             foreach (Block block in blockchain.Chain)
-			{
-				foreach (Transaction transaction in block.Transactions)
-				{
-					if (transaction.SenderAddress == address)
-					{
-						balance = balance - transaction.Amount;
-					}
+            {
+                foreach (Transaction transaction in block.Transactions)
+                {
+                    if (transaction.SenderAddress == address)
+                    {
+                        balance = balance - transaction.Amount;
+                    }
                     if (transaction.ReceiverAddress == address)
-					{
-						balance = balance + transaction.Amount;
-					}
-				}
-			}
-			return balance;
-		}
+                    {
+                        balance = balance + transaction.Amount;
+                    }
+                }
+            }
+            return balance;
+        }
+        public Dictionary<int, int> number_of_vote(int voteParty)
+        {
+            Dictionary<int, int> number_of_vote = new Dictionary<int, int>();
+            foreach (Block block in blockchain.Chain)
+            {
+                if(block.Vote.Count > 0)
+                {
+                    foreach (Vote vote in block.Vote)
+                    {
+                        if (vote.voteParty == voteParty)
+                        {
+                            if(number_of_vote.ContainsKey(int.Parse(vote.voterID)))
+                            {
+                                number_of_vote[int.Parse(vote.voterID)]++;
+                            }
+                            else
+                            {
+                                number_of_vote[int.Parse(vote.voterID)] = 1;
+                            }
+                        }
+                    }
+                }
+            }
+            return number_of_vote;
+        }
     }
 }

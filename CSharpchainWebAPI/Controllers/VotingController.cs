@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Web.SessionState;
 using System.Web.Mvc;
 using CSharpchainWebAPI.Models;
+using CSharpChainModel;
+using CSharpChainServer;
 
 namespace CSharpchainWebAPI.Controllers
 {
@@ -44,6 +46,9 @@ namespace CSharpchainWebAPI.Controllers
             DotBauCu temp = new DotBauCu();
             temp = dbc.get_dotbaucu_by_ID(id);
             ViewBag.dbc = temp;
+            Elector e = new Elector();
+            el = e.getElectorbyId(id);
+            ViewBag.ElectorList = el;
             switch (action)
             {
                 case "Waiting":
@@ -54,13 +59,12 @@ namespace CSharpchainWebAPI.Controllers
                 case "Finished":
                     {
                         ViewBag.title = "Bầu cử kết thúc";
+                        Dictionary<string, int> number_of_vote = WebApiApplication.number_of_vote(id);
+                        ViewBag.number_of_vote = number_of_vote;
                         break;
                     }
                 case "Index":
                     {
-                        Elector e = new Elector();
-                        el = e.getElectorbyId(id);
-                        ViewBag.ElectorList = el;
                         break;
                     }
                 case "Error":
@@ -70,6 +74,34 @@ namespace CSharpchainWebAPI.Controllers
                     }
             }
             return View("~/Views/Voting/" + action + ".cshtml");
+        }
+        [HttpPost]
+        public ActionResult get_elector(int id)
+        {
+            Elector e = new Elector();
+            e = e.getElectorbyIdE(id);
+            return Json(e, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult vote(int id, int[] arrayID)
+        {
+            BlockchainServices blockchainServices = new BlockchainServices();
+            String ma_tk = System.Web.HttpContext.Current.Session["ma_taikhoan"].ToString();
+            List <Vote> list_vote = new List<Vote>();
+            foreach(int i in arrayID)
+            {
+                Vote v = new Vote();
+                v.voterID = ma_tk;
+                v.voteParty = i;
+                v.electorID = id;
+                list_vote.Add(v);
+            }
+            Block block = new Block(DateTime.UtcNow, list_vote, blockchainServices.LatestBlock().Hash);
+            BlockServices bs = new BlockServices(block);
+            bs.MineBlock(4);
+            WebApiApplication.CommandBlockchainMine(System.Web.HttpContext.Current.Session["sHovaten"].ToString(), block);
+            return Json("taoBlockThanhCong", JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -395,16 +395,12 @@ $(document).ready(function () {
                         type: 'POST',
                         url: "/CreateElection/them_ungvien_dbc",
                         data: array_ungvien,
-                        success: function (result) {
-                            if (result != "them_thatbai") {
-                                Swal.fire({
-                                    icon: 'succes',
-                                    title: 'Thành công',
-                                    text: 'Chúc mừng, bạn đã thêm đợt bầu cử thành công!',
-                                })
-                            }
-                        }
                     });
+                    Swal.fire({
+                        ion: 'succes',
+                        title: 'Thành công',
+                        text: 'Chúc mừng, bạn đã thêm đợt bầu cử thành công!',
+                    })
                 }
             }
         });

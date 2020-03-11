@@ -24,6 +24,8 @@ public partial class dm_dauphieu
 
     public string icon { get; set; }
 
+    public string type { get; set; }
+
 }
 
 }

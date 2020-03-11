@@ -40,10 +40,10 @@ namespace CSharpchainWebAPI
             return block;
         }// cần bổ sung thêm kiểm tra nếu mà block k tồn tại thì return block 0 hoặc báo về block k tồn tại.
 
-        public static void CommandBlockchainMine(string RewardAddress) // tạo blockchain mới
+        public static void CommandBlockchainMine(string RewardAddress, Block block) // tạo blockchain mới
         {
             //Console.WriteLine($"  Mining new block... Difficulty {blockchainServices.Blockchain.Difficulty}.");
-            blockchainServices.MineBlock(RewardAddress);
+            blockchainServices.MineBlock(RewardAddress, block);
             //Console.WriteLine($"  Block has been added to blockchain. Blockhain length is {blockchainServices.BlockchainLength().ToString()}.");
             Block lastestBlock = blockchainServices.LatestBlock();
             NetworkBlockchainMine(lastestBlock);
@@ -238,6 +238,37 @@ namespace CSharpchainWebAPI
         static List<Transaction> CommandListPendingTransactions() // trả về các transaction chưa được giao dịch :)
         {
             return blockchainServices.Blockchain.PendingTransactions;
+        }
+
+        public static Dictionary<string, int> number_of_vote(int electorID) // get vote
+        {
+            Dictionary<string, int> number_of_vote = new Dictionary<string, int>();
+            Block[] blockchain = new Block[WebApiApplication.CommandBlockchainLength()];
+            for (var i = 0; i < WebApiApplication.CommandBlockchainLength(); i++)
+            {
+                blockchain[i] = WebApiApplication.CommandBlock(i);
+            }
+            foreach (Block block in blockchain)
+            {
+                if (block.Vote.Count > 0)
+                {
+                    foreach (Vote vote in block.Vote)
+                    {
+                        if (vote.electorID == electorID)
+                        {
+                            if (number_of_vote.ContainsKey(vote.voteParty.ToString()))
+                            {
+                                number_of_vote[vote.voteParty.ToString()]++;
+                            }
+                            else
+                            {
+                                number_of_vote[vote.voteParty.ToString()] = 1;
+                            }
+                        }
+                    }
+                }
+            }
+            return number_of_vote;
         }
     }
 }

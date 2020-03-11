@@ -590,6 +590,8 @@
     <Content Include="Assets\plugins\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Assets\plugins\bootstrap\js\bootstrap.js" />
     <Content Include="Assets\plugins\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Assets\plugins\bs-custom-file-input\bs-custom-file-input.js" />
+    <Content Include="Assets\plugins\bs-custom-file-input\bs-custom-file-input.min.js" />
     <Content Include="Assets\plugins\chart.js\Chart.bundle.js" />
     <Content Include="Assets\plugins\chart.js\Chart.bundle.min.js" />
     <Content Include="Assets\plugins\chart.js\Chart.js" />
@@ -1462,6 +1464,8 @@
     <Content Include="db.edmx.diagram">
       <DependentUpon>db.edmx</DependentUpon>
     </Content>
+    <Content Include="Assets\plugins\bs-custom-file-input\bs-custom-file-input.js.map" />
+    <Content Include="Assets\plugins\bs-custom-file-input\bs-custom-file-input.min.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\default.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
