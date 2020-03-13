@@ -258,31 +258,43 @@
                 <h4 class="modal-title">Thêm ứng cử viên</h4>
             </div>
             <div class="modal-body row">
-                <div class="col-sm-12 form-group row">
-                    <label class="col-sm-2 col-form-label font-weight-normal">Họ và tên</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="newElectorName" placeholder="Nguyễn Văn A">
-                    </div>
-                </div>
-                <div class="col-sm-12 form-group row">
-                    <label class="col-sm-2 col-form-label font-weight-normal">Giới tính</label>
-                    <div class="col-sm-10 input-group">
-                        <select style="-webkit-appearance:none;" class="custom-select" id="newElectorGender">
-                            <option value="Nam">Nam</option>
-                            <option value="Nu">Nữ</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-12 form-group row">
-                    <label class="col-sm-2 col-form-label font-weight-normal">Ngày sinh</label>
-                    <div class="col-sm-10 input-group">
-                        <input class="form-control datepicker_1" id="newElectorBirthDay" name="newElectorBirthDay" type="text" onkeypress="changeDate()" />
-                        <div class="input-group-append">
-                            <span class="input-group-text">
-                                <i class="fas fa-calendar-week"></i>
-                            </span>
+                <div class="col-8">
+                    <div class="col-sm-12 form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-normal">Họ và tên</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="newElectorName" placeholder="Nguyễn Văn A">
                         </div>
                     </div>
+                    <div class="col-sm-12 form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-normal">Giới tính</label>
+                        <div class="col-sm-8 input-group">
+                            <select style="-webkit-appearance:none;" class="custom-select" id="newElectorGender">
+                                <option value="Nam">Nam</option>
+                                <option value="Nu">Nữ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group row">
+                        <label class="col-sm-4 col-form-label font-weight-normal">Ngày sinh</label>
+                        <div class="col-sm-8 input-group">
+                            <input class="form-control datepicker_1" id="newElectorBirthDay" name="newElectorBirthDay" type="text" onkeypress="changeDate()" />
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-calendar-week"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-center pointer">
+                        <label for="file-input">
+                            <img class="profile-user-img center-cropped img-circle avata" src="/Assets/img/avata/ava.jpg" alt="User profile picture">
+                        </label>
+                    </div>
+                    <br />
+                    <h3 class="profile-username text-center">Ảnh đại diện</h3>
+                    <input id="file-input" type="file" accept="image/*" hidden/>
                 </div>
             </div>
             <div class="modal-footer">

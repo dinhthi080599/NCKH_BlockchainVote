@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-5">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <div class="text-center">
+                    <img class="profile-user-img img-fluid img-circle"
+                         src="~/Assets/img/avata/ava.jpg"
+                         alt="User profile picture">
+                </div>
+                <h3 class="profile-username text-center">@ViewBag.account.userAccount</h3>
+            </div>
+            <div class="card-body box-profile">
+                <strong><i class="fas fa-birthday-cake"></i> Ngày sinh</strong>
+                <p class="text-muted">
+                    @ViewBag.account.sNgaysinh
+                </p>
+                <hr>
+                <strong><i class="fas fa-venus-mars"></i> Giới tính</strong>
+                <p class="text-muted">
+                    @ViewBag.account.sGioitinh
+                </p>
+                <hr>
+                <strong><i class="fas fa-mobile-alt"></i> Số điện thoại</strong>
+                <p class="text-muted">
+                    @ViewBag.account.sSodienthoai
+                </p>
+                <hr>
+                <strong><i class="far fa-envelope"></i> Email</strong>
+                <p class="text-muted">
+                    @ViewBag.account.sEmail
+                </p>
+                <strong><i class="far fa-envelope"></i> Địa chỉ</strong>
+                <p class="text-muted">
+                    @ViewBag.account.sDiachi
+                </p>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+    <div class="col-7">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h2>Số đợt bỏ phiếu đã tham gia: <a>@ViewBag.soDot</a></h2>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    @foreach (var dbc in ViewBag.list_dbc)
+                    {
+                        <b>@dbc.sTenDot</b> <a class="float-right">@dbc.dThoiGianBD</a>
+                        <hr />
+                    }
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+    </div>

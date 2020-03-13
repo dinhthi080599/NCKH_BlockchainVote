@@ -19,15 +19,20 @@ namespace CSharpChainServer
         public object Program { get; private set; }
         private Blockchain blockchain;
         public BlockchainServices()
-		{
-			// generate initial blockchain with genesis block
-			blockchain = new Blockchain();
+        {
+            // generate initial blockchain with genesis block
+            blockchain = new Blockchain();
             // calculate hash of genesis block
-			Block genesisBlock = blockchain.Chain[0];
-			BlockServices blockServices = new BlockServices(genesisBlock);
-			string genesisBlockHash = blockServices.BlockHash();
-			blockchain.Chain[0].Hash = genesisBlockHash;
-		}
+            Block genesisBlock = blockchain.Chain[0];
+            BlockServices blockServices = new BlockServices(genesisBlock);
+            string genesisBlockHash = blockServices.BlockHash();
+            blockchain.Chain[0].Hash = genesisBlockHash;
+        }
+        public BlockchainServices(List<Block> chain)
+        {
+            this.blockchain = new Blockchain();
+            this.blockchain.Chain = chain;
+        }
         public void UpdateWithLongestBlockchain ()
 		{
 			string longestBlockchainNode = "";

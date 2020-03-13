@@ -5,6 +5,7 @@ using System.Web;
 
 namespace CSharpChainModel
 {
+    [Serializable]
     public class Vote
     {
         public String voterID { get; set; }

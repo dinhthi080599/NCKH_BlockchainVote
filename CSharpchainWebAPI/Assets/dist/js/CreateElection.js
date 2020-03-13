@@ -184,6 +184,18 @@ const setAnimationType = newType => {
 //});
 
 $(document).ready(function () {
+    $("#file-input").on("change", function () {
+        var input = this
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.avata').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }); 
+
+
     $('.datepicker_1').daterangepicker({
         "singleDatePicker": true,
         "timePicker": false,

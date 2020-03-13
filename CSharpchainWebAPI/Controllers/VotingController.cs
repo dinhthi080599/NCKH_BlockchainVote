@@ -101,6 +101,8 @@ namespace CSharpchainWebAPI.Controllers
             BlockServices bs = new BlockServices(block);
             bs.MineBlock(4);
             WebApiApplication.CommandBlockchainMine(System.Web.HttpContext.Current.Session["sHovaten"].ToString(), block);
+            ReadWriteData wd = new ReadWriteData();
+            wd.write(block);
             return Json("taoBlockThanhCong", JsonRequestBehavior.AllowGet);
         }
     }

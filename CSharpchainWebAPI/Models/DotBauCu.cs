@@ -109,6 +109,39 @@ namespace CSharpchainWebAPI.Models
             return dotBauCu;
         }
 
+        public List<DotBauCu> get_dotbaucu_by_array(long[] id)
+        {
+            List<DotBauCu> dotBauCu = null;
+            using (var ctx = new admin_voteEntities())
+            {
+                dotBauCu = ctx.tbl_dotbaucu
+                            .Where(s => id.Contains(s.ma_dot))
+                            .Select(s => new DotBauCu()
+                            {
+                                ma_dot = s.ma_dot,
+                                dThoiGianBD = SqlFunctions.Replicate("0", 2 - SqlFunctions.DateName("dd", s.dThoigianbd).Trim().Length)
+                                            + SqlFunctions.DateName("dd", s.dThoigianbd).Trim()
+                                            + SqlFunctions.Replicate("/", 2 - SqlFunctions.StringConvert((double)s.dThoigianbd.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)s.dThoigianbd.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.StringConvert((double)s.dThoigianbd.Value.Month).TrimStart()
+                                            + SqlFunctions.Replicate("/", 2 - SqlFunctions.StringConvert((double)s.dThoigianbd.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.DateName("year", s.dThoigianbd),
+                                dThoiGianKT = SqlFunctions.Replicate("0", 2 - SqlFunctions.DateName("dd", s.dThoigiankt).Trim().Length)
+                                            + SqlFunctions.DateName("dd", s.dThoigiankt).Trim()
+                                            + SqlFunctions.Replicate("/", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart()
+                                            + SqlFunctions.Replicate("/", 2 - SqlFunctions.StringConvert((double)s.dThoigiankt.Value.Month).TrimStart().Length)
+                                            + SqlFunctions.DateName("year", s.dThoigiankt),
+                                sNoiDung = s.sNoiDung.ToString(),
+                                iTrangThai = (int)s.iTrangThai,
+                                sTenDot = s.sTendot.ToString(),
+                                sGhiChu = s.sGhichu.ToString(),
+                            }).ToList<DotBauCu>();
+            }
+            return dotBauCu;
+        }
+
         public string them_dotbaucu(DotBauCu dbc)
         {
             long id;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace CSharpChainModel
 {
+    [Serializable]
     public class Transaction
     {
 		public string SenderAddress;
