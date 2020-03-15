@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace CSharpChainModel
 {
-	public class Block
+    [Serializable]
+    public class Block
 	{
 		public string PreviousHash;
 		public DateTime TimeStamp;

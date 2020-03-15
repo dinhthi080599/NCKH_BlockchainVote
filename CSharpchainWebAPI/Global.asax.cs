@@ -17,11 +17,21 @@ namespace CSharpchainWebAPI
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
-        static BlockchainServices blockchainServices = new BlockchainServices();
+        static ReadWriteData wd = new ReadWriteData();
+        static List<Block> blockchain = wd.read();
+        static BlockchainServices blockchainServices;
         static NodeServices nodeServices;
         static string baseAddress = "http://localhost:44394/";
         protected void Application_Start()
         {
+            if(blockchain.Count() == 0)
+            {
+                blockchainServices = new BlockchainServices();
+            }
+            else
+            {
+                blockchainServices = new BlockchainServices(blockchain);
+            }
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -269,6 +279,30 @@ namespace CSharpchainWebAPI
                 }
             }
             return number_of_vote;
+        }
+
+        public static HashSet<long> list_voted_byID(int id)
+        {
+            HashSet<long> list_voted_byID = new HashSet<long>();
+            Block[] blockchain = new Block[WebApiApplication.CommandBlockchainLength()];
+            for (var i = 0; i < WebApiApplication.CommandBlockchainLength(); i++)
+            {
+                blockchain[i] = WebApiApplication.CommandBlock(i);
+            }
+            foreach (Block block in blockchain)
+            {
+                if (block.Vote.Count > 0)
+                {
+                    foreach (Vote vote in block.Vote)
+                    {
+                        if(vote.voterID == id.ToString())
+                        {
+                            list_voted_byID.Add(vote.electorID); 
+                        }
+                    }
+                }
+            }
+            return list_voted_byID; 
         }
     }
 }

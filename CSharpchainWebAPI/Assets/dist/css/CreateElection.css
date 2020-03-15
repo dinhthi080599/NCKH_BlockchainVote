@@ -219,3 +219,12 @@ body {
             -webkit-transform: scale(1);
             transform: scale(1);
         }
+.pointer {
+    cursor: pointer;
+}
+.center-cropped {
+    width: 130px;
+    height: 130px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
