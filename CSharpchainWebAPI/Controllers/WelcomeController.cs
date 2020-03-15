@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Net;
-using System.Net.Http;
-using System.IO;
-using Newtonsoft.Json;
 using CSharpChainModel;
-using CSharpChainServer;
 using CSharpchainWebAPI.Models;
+using System.Web.Http.Cors;
+using Microsoft.AspNetCore.Cors;
+using EnableCorsAttribute = System.Web.Http.Cors.EnableCorsAttribute;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Net;
+using System.IO;
 
 namespace CSharpchainWebAPI.Controllers
 {
+    [EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
     public class WelComeController : BaseController
     {
         public ActionResult Index()
@@ -61,8 +64,6 @@ namespace CSharpchainWebAPI.Controllers
         {
             return View();
         }
-        int test = 1;
-
         public ActionResult all_block()
         {   
             Block[] block = new Block[WebApiApplication.CommandBlockchainLength()];
@@ -75,6 +76,37 @@ namespace CSharpchainWebAPI.Controllers
             ViewBag.bll = WebApiApplication.CommandBlockchainLength();
             ViewBag.Title = "Hệ thống bỏ phiếu, bình chọn";
             return View();
+        }
+        [HttpGet]
+        public string test()
+        {
+            string url = "http://localhost:8080/api/blockchain/ping";
+            StringBuilder sb = new StringBuilder();
+            byte[] buf = new byte[8192];
+
+            HttpWebRequest request = (HttpWebRequest)
+                WebRequest.Create(url);
+            HttpWebResponse response = (HttpWebResponse)
+                request.GetResponse();
+            Stream resStream = response.GetResponseStream();
+            string tempString = null;
+            int count = 0;
+
+            do
+            {
+                count = resStream.Read(buf, 0, buf.Length);
+
+                if (count != 0)
+                {
+
+                    tempString = Encoding.ASCII.GetString(buf, 0, count);
+                    // continue building the string
+                    sb.Append(tempString);
+                }
+            }
+            while (count > 0); // any more data to read?
+
+            return sb.ToString();
         }
     }
 }

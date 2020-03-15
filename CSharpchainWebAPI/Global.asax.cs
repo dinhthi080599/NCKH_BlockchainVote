@@ -24,7 +24,8 @@ namespace CSharpchainWebAPI
         static string baseAddress = "http://localhost:44394/";
         protected void Application_Start()
         {
-            if(blockchain.Count() == 0)
+            //WebApiConfig.Register(GlobalConfiguration.Configuration);
+            if (blockchain.Count() == 0)
             {
                 blockchainServices = new BlockchainServices();
             }
