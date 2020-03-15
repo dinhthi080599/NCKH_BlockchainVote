@@ -340,7 +340,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="admin_vote.Context.cs" />
-    <Compile Include="AllowCrossSiteJsonAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -425,16 +424,6 @@
     <Compile Include="Controllers\ReadWriteData.cs" />
     <Compile Include="MyHub1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="tbl_dotbaucu.cs">
       <DependentUpon>db.tt</DependentUpon>
@@ -1492,10 +1481,6 @@
     </Content>
     <Content Include="Assets\plugins\bs-custom-file-input\bs-custom-file-input.js.map" />
     <Content Include="Assets\plugins\bs-custom-file-input\bs-custom-file-input.min.js.map" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\default.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -1606,12 +1591,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
