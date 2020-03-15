@@ -120,37 +120,37 @@
                                         </div>
                                         <!--single form panel-->
                                         @*<div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
-                                            <h3 class="multisteps-form__title text-center">Cử tri</h3>
-                                            <div class="multisteps-form__content">
-                                                <div class="form-row">
-                                                    <div class="card-body card-icon">
-                                                        <div class="row">
-                                                            <div class="block col-6 text-center">
-                                                                <input type="radio" id="type_vote_2" name="type_vote" value="public_voting" hidden />
-                                                                <label for="type_vote_2">
-                                                                    <i class="hovicon effect-1 sub-a">
-                                                                        <i class="fas fa-unlock-alt"></i>
-                                                                    </i>
-                                                                </label>
-                                                                <h4 class="mt-2">Bất kể ai cũng có thể bỏ phiếu</h4>
-                                                            </div>
-                                                            <div class="block col-6 text-center">
-                                                                <input type="radio" id="type_vote_1" name="type_vote" value="private_voting" hidden />
-                                                                <label for="type_vote_1">
-                                                                    <i class="hovicon effect-1 sub-a">
-                                                                        <i class="fas fa-user-shield"></i>
-                                                                    </i>
-                                                                </label>
-                                                                <h4 class="mt-2">Chỉ những người được mời</h4>
+                                                <h3 class="multisteps-form__title text-center">Cử tri</h3>
+                                                <div class="multisteps-form__content">
+                                                    <div class="form-row">
+                                                        <div class="card-body card-icon">
+                                                            <div class="row">
+                                                                <div class="block col-6 text-center">
+                                                                    <input type="radio" id="type_vote_2" name="type_vote" value="public_voting" hidden />
+                                                                    <label for="type_vote_2">
+                                                                        <i class="hovicon effect-1 sub-a">
+                                                                            <i class="fas fa-unlock-alt"></i>
+                                                                        </i>
+                                                                    </label>
+                                                                    <h4 class="mt-2">Bất kể ai cũng có thể bỏ phiếu</h4>
+                                                                </div>
+                                                                <div class="block col-6 text-center">
+                                                                    <input type="radio" id="type_vote_1" name="type_vote" value="private_voting" hidden />
+                                                                    <label for="type_vote_1">
+                                                                        <i class="hovicon effect-1 sub-a">
+                                                                            <i class="fas fa-user-shield"></i>
+                                                                        </i>
+                                                                    </label>
+                                                                    <h4 class="mt-2">Chỉ những người được mời</h4>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="button-row d-flex">
+                                                        <button class="btn btn-primary ml-auto js-btn-next" type="button" name="btn_next" title="Next" disabled>Tiếp</button>
+                                                    </div>
                                                 </div>
-                                                <div class="button-row d-flex">
-                                                    <button class="btn btn-primary ml-auto js-btn-next" type="button" name="btn_next" title="Next" disabled>Tiếp</button>
-                                                </div>
-                                            </div>
-                                        </div>*@
+                                            </div>*@
                                         <!--single form panel-->
                                         <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
                                             <h3 class="multisteps-form__title text-center">Chọn loại đầu phiếu</h3>
@@ -231,7 +231,8 @@
                                             <h3 class="multisteps-form__title">Nội dung cuộc bầu cử</h3>
                                             <div class="multisteps-form__content">
                                                 <div class="form-row mt-4">
-                                                    <textarea name="editor1" id="editor1" class="content_election" width="100%"></textarea>
+                                                    @*<textarea name="editor1" id="editor1" class="content_election" width="100%"></textarea>*@
+                                                    <textarea name="editor1" id="mytextarea"></textarea>
                                                 </div>
                                                 <div class="button-row d-flex mt-4">
                                                     <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Trước</button>
@@ -298,18 +299,26 @@
     <script src="~/Assets/plugins/daterangepicker/moment.min.js"></script>
     <script src="~/Assets/plugins/input-mask/min/jquery.inputmask.bundle.min.js"></script>
     <script src="~/Assets/plugins/select2/select2.full.min.js"></script>*@
-<script src="~/Assets/plugins/ckeditor/ckeditor1.js"></script>
+@*<script src="~/Assets/plugins/ckeditor/ckeditor1.js"></script>*@
 <script src="~/Assets/plugins/sweetalert2/sweetalert2.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+<script src="~/Scripts/ckeditor/adapters/jquery.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
+    $(document).ready(function () {
+        $("#xac_nhan").on("click", function () {
+            var data = CKEDITOR.instances.mytextarea.getData();
+            console.log(data);
+        });
+    })
+
+    $(function () {
+        CKEDITOR.replace('mytextarea', { width: "100%", height: "400px" });
+    });
     setAnimationType('slideHorz');
-    //CKEDITOR.replace('editor1', {
-    //    customConfig: 'https://localhost:44394/Assets/dist/js/config_ckediter.js',
-    //    language: "vi",
-    //    width: "100%"
-    //});
-    
+
+
 </script>
