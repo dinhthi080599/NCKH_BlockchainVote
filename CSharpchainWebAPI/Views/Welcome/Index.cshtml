@@ -74,3 +74,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        var url = "https://localhost:44394/Welcome/test"
+
+        $.get(url, function(data) {
+          console.log("We expect this to succeed.");
+          console.log(data);
+        });
+    });
+
+</script>
