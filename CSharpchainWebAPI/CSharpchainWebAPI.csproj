@@ -374,7 +374,6 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="ChatHub.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\BlockchainController.cs" />
     <Compile Include="Controllers\CreateElectionController.cs" />
     <Compile Include="Controllers\ElectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
