@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using EnableCorsAttribute = System.Web.Http.Cors.EnableCorsAttribute;
 using CSharpchainWebAPI.Models;
+using System.Net.Http;
 
 namespace CSharpchainWebAPI.Controllers
 {
+    [EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -34,6 +40,7 @@ namespace CSharpchainWebAPI.Controllers
                     ).FirstOrDefault();
                 if(obj != null)
                 {
+                    this.add_node(obj.ma_taikhoan.ToString());
                     Session["ma_taikhoan"] = obj.ma_taikhoan.ToString();
                     Session["ma_quyen"] = obj.ma_quyen.ToString();
                     Session["sHovaten"] = obj.sHovaten.ToString();
@@ -51,7 +58,6 @@ namespace CSharpchainWebAPI.Controllers
             var thoigian_ketthuc = Request["thoigian_ketthuc"];
             DateTime dt1 = DateTime.ParseExact(thoigian_batdau, "M/d/yyyy", CultureInfo.InvariantCulture);
             DateTime dt2 = DateTime.ParseExact(thoigian_ketthuc, "M/d/yyyy", CultureInfo.InvariantCulture);
-            // insert
             using (admin_voteEntities db = new admin_voteEntities())
             {
                 var dotbaucu = db.Set<tbl_dotbaucu>();
@@ -60,6 +66,23 @@ namespace CSharpchainWebAPI.Controllers
             }
             return RedirectToAction("/Them_BauCu");
         }
+        public string add_node(String new_node)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = "http://localhost:8080/api/blockchain/AddNode?node="+new_node;
+                string node = new_node;
+                client.BaseAddress = new Uri(url);
+                var response = client.PostAsJsonAsync("", node).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return "Success";
+                }
+                else
+                    return "Error";
+            }
+        }
+
     }
 
 }

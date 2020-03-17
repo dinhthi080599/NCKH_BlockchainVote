@@ -55,8 +55,6 @@ namespace CSharpchainWebAPI.Controllers
         public ActionResult Trangchu_Hello()
         {
             // ViewData["DotBauCu"] = dotBauCu;
-            ViewBag.block = WebApiApplication.CommandBlock(0);
-            ViewBag.bll = WebApiApplication.CommandBlockchainLength();
             ViewBag.Title = "Hệ thống bỏ phiếu, bình chọn";
             return View();
         }
@@ -66,14 +64,7 @@ namespace CSharpchainWebAPI.Controllers
         }
         public ActionResult all_block()
         {   
-            Block[] block = new Block[WebApiApplication.CommandBlockchainLength()];
-            for (var i=0; i< WebApiApplication.CommandBlockchainLength(); i++)
-            {
-                block[i] = WebApiApplication.CommandBlock(i);
-            }
             // ViewData["DotBauCu"] = dotBauCu;
-            ViewBag.blockChain = block;
-            ViewBag.bll = WebApiApplication.CommandBlockchainLength();
             ViewBag.Title = "Hệ thống bỏ phiếu, bình chọn";
             return View();
         }

@@ -41,7 +41,7 @@ namespace CSharpchainWebAPI.Models
 
         public HashSet<long> list_voted_byID(int id)
         {
-            HashSet<long> list_voted = WebApiApplication.list_voted_byID(id);
+            HashSet<long> list_voted = new HashSet<long>();
             return list_voted;
         }
     }
