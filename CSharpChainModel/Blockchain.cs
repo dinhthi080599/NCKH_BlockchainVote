@@ -11,6 +11,7 @@ namespace CSharpChainModel
 		public List<string> Nodes;
 		public int Difficulty;
 		public List<Transaction> PendingTransactions;
+        public List<Vote> PendingVote;
 		public int MiningReward;
 
 		public Blockchain()
@@ -18,6 +19,7 @@ namespace CSharpChainModel
 			this.Chain = new List<Block>();
 			this.Chain.Add(CreateGenesisBlock());
 			this.Nodes = new List<string>();
+            this.PendingVote = new List<Vote>();
 			this.Difficulty = 4;
 			this.PendingTransactions = new List<Transaction>();
 			this.MiningReward = 100;

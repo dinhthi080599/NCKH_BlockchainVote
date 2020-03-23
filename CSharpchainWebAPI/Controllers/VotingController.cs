@@ -147,13 +147,13 @@ namespace CSharpchainWebAPI.Controllers
 
         public Boolean checkVoted(string voterID, int electorID)
         {
-            String status = "";
+            bool status = false;
             using (var client = new HttpClient())
             {
                 try
                 {
                     var response = client.PostAsJsonAsync<string>("http://localhost:8080/api/blockchain/checkVoted?voterID=" + voterID + "&&electorID=" + electorID.ToString(), "").Result;
-                    //status = );
+                    status = response.Content.ReadAsAsync<bool>().Result;
                 }
                 catch (Exception ex)
                 {
@@ -162,14 +162,7 @@ namespace CSharpchainWebAPI.Controllers
                     Console.ResetColor();
                 }
             }
-            if(status == "true")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return status;
         }
     }
 }

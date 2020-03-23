@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -339,7 +342,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="admin_vote.Context.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -375,6 +377,7 @@
     <Compile Include="ChatHub.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CreateElectionController.cs" />
+    <Compile Include="Controllers\CreateSignatureController.cs" />
     <Compile Include="Controllers\ElectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -386,32 +389,48 @@
     <Compile Include="Controllers\VotinglistController.cs" />
     <Compile Include="Controllers\VotingController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
-    <Compile Include="db.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>db.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="db.cs" />
-    <Compile Include="db.Designer.cs">
-      <DependentUpon>db.edmx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="db1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="dm_dauphieu.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="dm_trangthai_dotbaucu.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\admin_vote.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>admin_vote.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\admin_vote.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>admin_vote.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\admin_vote.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>admin_vote.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dm_dauphieu.cs">
+      <DependentUpon>admin_vote.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dm_trangthai_dotbaucu.cs">
+      <DependentUpon>admin_vote.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RSAConvert.cs" />
+    <Compile Include="Models\RSAEnc.cs" />
+    <Compile Include="Models\tbl_dotbaucu.cs">
+      <DependentUpon>admin_vote.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_dotbaucu_ungcuvien.cs">
+      <DependentUpon>admin_vote.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_signature.cs">
+      <DependentUpon>admin_vote.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_taikhoan.cs">
+      <DependentUpon>admin_vote.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ungcuvien.cs">
+      <DependentUpon>admin_vote.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UngCuVien.cs" />
     <Compile Include="Models\DotBauCu.cs" />
     <Compile Include="Models\db.cs" />
@@ -421,21 +440,10 @@
     <Compile Include="Models\Sha256.cs" />
     <Compile Include="Models\TestSendMail.cs" />
     <Compile Include="Controllers\ReadWriteData.cs" />
+    <Compile Include="Models\_RSA.cs" />
     <Compile Include="MyHub1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="tbl_dotbaucu.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tbl_dotbaucu_ungcuvien.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tbl_taikhoan.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tbl_ungcuvien.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\admin_vote.mdf" />
@@ -443,8 +451,6 @@
       <DependentUpon>admin_vote.mdf</DependentUpon>
     </Content>
     <Content Include=".editorconfig" />
-    <None Include="blockchain" />
-    <Content Include="text.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Assets\build\js\AdminLTE.js" />
     <Content Include="Assets\build\js\ControlSidebar.js" />
@@ -1288,19 +1294,19 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Login.css" />
-    <Content Include="db.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>db.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="db.edmx.sql" />
-    <Content Include="db.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>db1.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="index.html" />
+    <Content Include="Models\admin_vote.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>admin_vote.edmx</DependentUpon>
+      <LastGenOutput>admin_vote.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\admin_vote.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>admin_vote.edmx</DependentUpon>
+      <LastGenOutput>admin_vote.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -1818,16 +1824,16 @@
     <Content Include="Assets\plugins\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Assets\plugins\icheck-bootstrap\LICENSE" />
     <Content Include="Assets\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.scss" />
-    <EntityDeploy Include="db.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>db.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="db.edmx.diagram">
-      <DependentUpon>db.edmx</DependentUpon>
-    </Content>
     <Content Include="Assets\plugins\bs-custom-file-input\bs-custom-file-input.js.map" />
     <Content Include="Assets\plugins\bs-custom-file-input\bs-custom-file-input.min.js.map" />
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
+    <EntityDeploy Include="Models\admin_vote.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>admin_vote.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\admin_vote.edmx.diagram">
+      <DependentUpon>admin_vote.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\default.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -1886,6 +1892,7 @@
     <Content Include="Views\Voting\Index.cshtml" />
     <Content Include="Views\Voting\Finished.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\CreateSignature\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\App_LocalResources\" />

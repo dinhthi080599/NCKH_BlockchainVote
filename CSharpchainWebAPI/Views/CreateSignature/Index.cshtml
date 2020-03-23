@@ -1,0 +1,77 @@
+﻿
+@{
+
+}
+<style>
+    .head_content {
+        background-color: #337AB7;
+    }
+</style>
+<div class="row">
+    <div class="col-12 height_30 head_content text-center pt-4">
+        <i class="fas fa-user-lock fa-8x text-light"></i>
+        <h2 class="text-light pt-4">Tạo khóa riêng tư</h2>
+    </div>
+    <div class="row col-12 pt-4">
+        <div class="col-md-6 pl-4">
+            <h5 style="font-family:roboto;">Khóa công khai</h5>
+            <textarea class="miEditor" disabled>@ViewBag._publicKeyString</textarea>
+        </div>
+        <div class="col-md-6 pl-4">
+            <h5 style="font-family:roboto;">Khóa riêng tư</h5>
+            <textarea class="miEditor">@ViewBag._privateKeyString</textarea>
+        </div>
+    </div>
+    <div class="col-12 pl-4">
+        <button class="btn btn-info">Tạo khóa</button>
+        <button class="btn btn-success">Lưu khóa</button>
+    </div>
+</div>
+
+<script>
+    (function($){
+        $.fn.fullHeight_30 = function(){
+            var self = this;
+            var windowHeight = $(window)[0].innerHeight;
+            var fullHeightFunction = function(){
+              return self.each(function() {
+                self.css({
+                    'height': (windowHeight - 112) / 100 * 40
+                });
+            });
+        }
+        $(window).on('resize', function(){
+          windowHeight = $(window)[0].innerHeight;
+          fullHeightFunction();
+        });
+        fullHeightFunction();
+        return self;
+    }
+    })(jQuery);
+    $(document).ready(function () {
+        $(".height_30").fullHeight_30();
+        $(".content-header").remove();
+    });
+</script>
+
+<style>
+    .miEditor {
+        -moz-appearance: textfield-multiline;
+        -webkit-appearance: textarea;
+        border: 1px solid gray;
+        font: medium -moz-fixed;
+        font: -webkit-small-control;
+        height: 240px;
+        max-height: 240px;
+        min-height: 240px;
+        overflow: auto;
+        padding: 2px;
+        resize: both;
+        width: 100%;
+        resize: vertical;
+        margin: 0 auto;
+        border-radius: 5px;
+        border-color: lightgrey;
+    }
+
+</style>

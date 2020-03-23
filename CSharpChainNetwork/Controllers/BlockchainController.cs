@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CSharpChainServer;
 
 namespace CSharpChainNetwork.Controllers
 {
@@ -54,12 +56,12 @@ namespace CSharpChainNetwork.Controllers
             return blockChain;
         }
 
-        [HttpGet]
-        public string TestApi()
+        [HttpPost]
+        public string MineBlock()
         {
-            string blockChain = "Connected";
-
-            return blockChain;
+            Program.blockchainServices.MineBlock();
+            Console.WriteLine("Mined Block!");
+            return "MinedBlock";
         }
 
         [HttpPost]
@@ -82,5 +84,51 @@ namespace CSharpChainNetwork.Controllers
 			Console.ResetColor();
 			Program.ShowCommandLine();
 		}
+
+        [HttpPost]
+        public string AddNode(String node)
+        {
+            string add_node = Program.nodeServices.AddNodeAPI(node);
+            if(add_node == "NodeAdded")
+            {
+                Console.WriteLine("New node added: " + node);
+            }
+            return add_node;
+        }
+
+        [HttpGet]
+        public List<String> NodeList()
+        {
+            return Program.nodeServices.Nodes;
+        }
+        [HttpGet]
+        public int BlockchainLength()
+        {
+            return Program.blockchainServices.Blockchain.Chain.Count();
+        }
+
+        [HttpGet]
+        public Block Block(int id)
+        {
+            return Program.blockchainServices.Blockchain.Chain[id];
+        }
+
+        [HttpPost]
+        public Boolean checkVoted(string voterID, int electorID)
+        {
+            List<Block> chain = Program.blockchainServices.Blockchain.Chain;
+            foreach(Block block in chain)
+            {
+                foreach(Vote vote in block.Vote)
+                {
+                    if(vote.voterID == voterID && vote.electorID == electorID)
+                    {
+                        Console.WriteLine("ID: " + voterID + "was Voted elector " + electorID.ToString()+ "!");
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 	}
 }

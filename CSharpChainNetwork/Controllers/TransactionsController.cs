@@ -16,7 +16,7 @@ namespace CSharpChainNetwork.Controllers
 			return "  Transactions Contoller Ping";
 		}
 
-		[HttpPost]
+        [HttpPost]
 		public void Add(Transaction Transaction)
 		{
 			Console.ForegroundColor = ConsoleColor.Cyan;

@@ -6,12 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using CSharpChainServer;
-using CSharpChainModel;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using CSharpchainWebAPI.Controllers;
+using CSharpchainWebAPI.Models;
 
 namespace CSharpchainWebAPI
 {

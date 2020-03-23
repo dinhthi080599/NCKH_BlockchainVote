@@ -1,22 +1,29 @@
 ﻿using CSharpChainModel;
 using CSharpChainServer;
-    using Microsoft.Owin.Hosting;
-    using Newtonsoft.Json;
+using Microsoft.Owin.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using System.IO;
 
 namespace CSharpChainNetwork
 {
 	static class Program
 	{
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        const int SW_HIDE = 0;
+        const int SW_SHOW = 5;
         static string baseAddress;
 		public static BlockchainServices blockchainServices;
 		public static NodeServices nodeServices;
-
 		static bool useNetwork = true;
 
 		public static void ShowCommandLine()
@@ -28,8 +35,11 @@ namespace CSharpChainNetwork
 		}
 
 		static void Main(string[] args)
-		{
-            //Console.OutputEncoding = Encoding.UTF8;
+        {
+            RSAEnc rsa = new RSAEnc();
+            rsa.ExportPublicKey();
+
+            // ShowWindow(handle, SW_HIDE);
             //if(args.Length == 0)
             //{
             //args = new string[1];
@@ -44,10 +54,20 @@ namespace CSharpChainNetwork
             // Start OWIN host 
             baseAddress = "http://localhost:8080/";
             using (WebApp.Start<Startup>(url: baseAddress))
-			{
-				Console.WriteLine("This CSharpChain node is running on " + baseAddress);
+            {
+                ReadWriteData rw = new ReadWriteData();
+                List<Block> chain = new List<Block>();
+                chain = rw.read();
+                Console.WriteLine("This CSharpChain node is running on " + baseAddress);
                 Console.WriteLine("Nhận 'trogiup' nếu bạn không chắc phải làm gì ;)");
-				blockchainServices = new BlockchainServices();
+                if (chain.Count() > 0)
+                {
+                    blockchainServices = new BlockchainServices(chain);
+                }
+                else
+                {
+                    blockchainServices = new BlockchainServices();
+                }
                 nodeServices = new NodeServices(blockchainServices.Blockchain);
 				string commandLine;
 				do
@@ -72,6 +92,7 @@ namespace CSharpChainNetwork
                             // if param1 is numeric then translate to localhost port
                             //if (command[1].All(char.IsDigit)) command[1] = "http://localhost:" + command[1];
                             //CommandNodeAdd(command[1]);
+                            // node add sẽ chứa ID của các cử tri mỗi khi đăng nhập
                             CommandNodeAdd("http://localhost:" + command[1].ToString());
 							break;
 
@@ -462,8 +483,6 @@ namespace CSharpChainNetwork
 				}
 			}
 		}
-
-
 
 		#endregion
 	}
