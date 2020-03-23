@@ -35,11 +35,6 @@ namespace CSharpChainServer
                 hashString = block.PreviousHash + block.TimeStamp.ToString() + JsonConvert.SerializeObject(block.Vote, Formatting.Indented) + block.Nonce;
             }
             byte[] hashBytes = Encoding.ASCII.GetBytes(hashString);
-            if (n==1)
-            {
-                Console.Write("Hash String: " + hashString);
-                Console.Write(JsonConvert.SerializeObject(hashBytes, Formatting.Indented));
-            }
 
             Byte[] hashResult = CryptoService.GetHash(hashBytes);
 			return ByteArrayToString(hashResult);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSharpChainServer;
 
 namespace CSharpChainServer
 {
@@ -54,11 +55,15 @@ namespace CSharpChainServer
         public int BlockchainLength()
 		{
 			return blockchain.Chain.Count();
-		}
+        }
         public void AddTransaction(Transaction transaction)
-		{
-			blockchain.PendingTransactions.Add(transaction);
-		}
+        {
+            blockchain.PendingTransactions.Add(transaction);
+        }
+        public void AddVote(Vote vote)
+        {
+            blockchain.PendingVote.Add(vote);
+        }
         public List<Transaction> PendingTransactions()
 		{
 			return blockchain.PendingTransactions;
@@ -76,14 +81,16 @@ namespace CSharpChainServer
 			blockchain.PendingTransactions = new List<Transaction>();
 			return block;
         }
-        public Block MineBlock(string miningRewardAddress, Block block)
+        public Block MineBlock()
         {
-            // add mining reward transaction to block
+            ReadWriteData rw = new ReadWriteData();
+            Block block = new Block(DateTime.Now, blockchain.PendingVote, LatestBlock().Hash);
             var blockServices = new BlockServices(block);
             blockServices.MineBlock(blockchain.Difficulty);
             blockchain.Chain.Add(block);
-            //clear pending transactions (all pending transactions are in a block
             blockchain.PendingTransactions = new List<Transaction>();
+            blockchain.PendingVote = new List<Vote>();
+            rw.write(block);
             return block;
         }
         public bool isBlockchainValid()

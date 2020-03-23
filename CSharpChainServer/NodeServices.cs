@@ -25,15 +25,27 @@ namespace CSharpChainServer
 		}
 
 
-		public void AddNode(string nodeUrl)
-		{
-			if (!blockchain.Nodes.Contains(nodeUrl))
-			{
-				blockchain.Nodes.Add(nodeUrl);
-			}
-		}
+        public void AddNode(string nodeUrl)
+        {
+            if (!blockchain.Nodes.Contains(nodeUrl))
+            {
+                blockchain.Nodes.Add(nodeUrl);
+            }
+        }
+        public string AddNodeAPI(string nodeUrl)
+        {
+            if (!blockchain.Nodes.Contains(nodeUrl))
+            {
+                blockchain.Nodes.Add(nodeUrl);
+                return "NodeAdded";
+            }
+            else
+            {
+                return "NodeNotAdded";
+            }
+        }
 
-		public void RemoveNode(string nodeUrl)
+        public void RemoveNode(string nodeUrl)
 		{
 			blockchain.Nodes.Remove(nodeUrl);
 		}
