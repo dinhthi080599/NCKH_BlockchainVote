@@ -15,10 +15,14 @@ namespace CSharpchainWebAPI.Controllers
         {
             DotBauCu dbc = new DotBauCu();
             ElectionStatus electionStatus = new ElectionStatus();
-            ViewBag.Title = "Đợt bầu cử:";
+            ViewBag.Title = "Đợt bầu cử";
             Dictionary<string, ElectionStatus> dict = electionStatus.get_trangthai_dotbaucu();
             ViewBag.dotBauCu = dbc.get_dotbaucu_by_ID(ID);
             int i = (int)ViewBag.dotBauCu.iTrangThai;
+            if ((int)ViewBag.dotBauCu.iNguoiTao == int.Parse(Session["ma_taikhoan"].ToString()))
+            {
+                ViewBag.nguoiTao = true;
+            }
             ViewBag.ES = dict[dict.Keys.ElementAt(i)];
             Elector e = new Elector();
             ViewBag.ElecterModal = new Elector();

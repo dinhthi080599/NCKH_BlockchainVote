@@ -58,6 +58,28 @@ namespace CSharpchainWebAPI.Models
             var plaintext = csp.Decrypt(dataBytes, false);
             return Encoding.Unicode.GetString(plaintext);
         }
+
+        public string decrypt_with_pem(string cypher_text, string private_key)
+        {
+            var plaintext = "";
+            try
+            {
+                var bytesToDecrypt = Convert.FromBase64String(cypher_text);
+                AsymmetricCipherKeyPair keyPair;
+                var pemReader = new PemReader(new StringReader(private_key));
+                keyPair = (AsymmetricCipherKeyPair)pemReader.ReadObject();
+                var decryptEngine = new Pkcs1Encoding(new RsaEngine());
+                decryptEngine.Init(false, keyPair.Private);
+                var decrypted = Encoding.UTF8.GetString(decryptEngine.ProcessBlock(bytesToDecrypt, 0, bytesToDecrypt.Length));
+                plaintext = decrypted.Replace("\0", "");
+                return plaintext;
+            }
+            catch (Exception ex)
+            {
+                return "false";
+            }
+        }
+
         public void ExportPrivateKey()
         {
             using (StreamWriter outputStream = new StreamWriter("testRSA.pem"))
@@ -359,6 +381,13 @@ namespace CSharpchainWebAPI.Models
 
             sb.AppendFormat("-----END {0}-----\n", keyType);
             return sb.ToString();
+        }
+        long LongRandom(long min, long max, Random rand)
+        {
+            long result = rand.Next((Int32)(min >> 32), (Int32)(max >> 32));
+            result = (result << 32);
+            result = result | (long)rand.Next((Int32)min, (Int32)max);
+            return result;
         }
     }
 }

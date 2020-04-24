@@ -10,10 +10,10 @@ using System.Web.Mvc;
 using EnableCorsAttribute = System.Web.Http.Cors.EnableCorsAttribute;
 using CSharpchainWebAPI.Models;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace CSharpchainWebAPI.Controllers
 {
-    [EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -41,6 +41,7 @@ namespace CSharpchainWebAPI.Controllers
                 if(obj != null)
                 {
                     this.add_node(obj.ma_taikhoan.ToString());
+                    WebApiApplication.add_node(obj.ma_taikhoan.ToString());
                     Session["ma_taikhoan"] = obj.ma_taikhoan.ToString();
                     Session["ma_quyen"] = obj.ma_quyen.ToString();
                     Session["sHovaten"] = obj.sHovaten.ToString();
@@ -66,20 +67,24 @@ namespace CSharpchainWebAPI.Controllers
             }
             return RedirectToAction("/Them_BauCu");
         }
-        public string add_node(String new_node)
+
+
+        public async Task<String> add_node(String new_node)
         {
             using (var client = new HttpClient())
             {
-                string url = "http://localhost:8080/api/blockchain/AddNode?node="+new_node;
-                string node = new_node;
-                client.BaseAddress = new Uri(url);
-                var response = client.PostAsJsonAsync("", node).Result;
-                if (response.IsSuccessStatusCode)
+                try
                 {
+                    string url = "http://localhost:808" + new_node + "/api/blockchain/AddNode?node=" + new_node;
+                    string node = new_node;
+                    client.BaseAddress = new Uri(url);
+                    var response = await client.PostAsJsonAsync("", node);
                     return "Success";
                 }
-                else
+                catch (Exception ex)
+                {
                     return "Error";
+                }
             }
         }
 

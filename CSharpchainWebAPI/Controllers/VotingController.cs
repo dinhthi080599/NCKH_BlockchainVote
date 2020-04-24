@@ -5,14 +5,20 @@ using System.Web.Mvc;
 using CSharpchainWebAPI.Models;
 using CSharpChainModel;
 using CSharpChainServer;
+using CSharpChainNetwork;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Text;
+using Org.BouncyCastle.Crypto.Encodings;
+using Org.BouncyCastle.Crypto.Engines;
+using Newtonsoft.Json;
 
 namespace CSharpchainWebAPI.Controllers
 {
     public class VotingController : BaseController
     {
         List<Elector> el = null;
+        Dictionary<string, int> number_of_Vote;
 
         public string get_action(int ID)
         {
@@ -26,6 +32,7 @@ namespace CSharpchainWebAPI.Controllers
                 {
                     if (obj.dThoigianbd > DateTime.Now)
                     {
+                        checkCreatedSignature(ID);
                         return "Waiting";
                     }
                     else if (obj.dThoigiankt < DateTime.Now)
@@ -38,6 +45,7 @@ namespace CSharpchainWebAPI.Controllers
                     return "Error";
                 }
             }
+            checkCreatedSignature(ID);
             return "Index";
         }
         // GET: Voting
@@ -46,9 +54,10 @@ namespace CSharpchainWebAPI.Controllers
             string action = get_action(id);
             DotBauCu dbc = new DotBauCu();
             DotBauCu temp = new DotBauCu();
+            Signature signature = new Signature();
+            Elector e = new Elector();
             temp = dbc.get_dotbaucu_by_ID(id);
             ViewBag.dbc = temp;
-            Elector e = new Elector();
             el = e.getElectorbyId(id);
             ViewBag.ElectorList = el;
             switch (action)
@@ -61,13 +70,15 @@ namespace CSharpchainWebAPI.Controllers
                 case "Finished":
                     {
                         ViewBag.title = "Bầu cử kết thúc";
-                        Dictionary<string, int> number_of_vote = new Dictionary<string, int>();
-                        ViewBag.number_of_vote = number_of_vote;
+                        get_number_of_vote(id);
+                        ViewBag.number_of_vote = this.number_of_Vote;
                         break;
                     }
                 case "Index":
                     {
+                        ViewBag.public_key = signature.Get_PublicKey(id, int.Parse(Session["ma_taikhoan"].ToString()));
                         ViewBag.voted = checkVoted(Session["ma_taikhoan"].ToString(), id);
+                        ViewBag.title = "Bầu cử";
                         break;
                     }
                 case "Error":
@@ -85,64 +96,66 @@ namespace CSharpchainWebAPI.Controllers
             e = e.getElectorbyIdE(id);
             return Json(e, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
-        public ActionResult vote(int id, int[] arrayID)
+        public async Task<string> add_vote(int id, int[] arrayID, string _private_key)
         {
-            BlockchainServices blockchainServices = new BlockchainServices();
-            String ma_tk = System.Web.HttpContext.Current.Session["ma_taikhoan"].ToString();
-            List <Vote> list_vote = new List<Vote>();
-            foreach(int i in arrayID)
+            if(_ktkhoa(id, _private_key) == "saikhoa_riengtu")
             {
-                Vote v = new Vote();
-                v.voterID = ma_tk;
-                v.voteParty = i;
-                v.electorID = id;
-                list_vote.Add(v);
+                // kiểm tra khóa riêng tư có chính xác k
+                return "saikhoa_riengtu";
             }
-            Block block = new Block(DateTime.UtcNow, list_vote, blockchainServices.LatestBlock().Hash);
-            BlockServices bs = new BlockServices(block);
-            bs.MineBlock(4);
-            ReadWriteData wd = new ReadWriteData();
-            wd.write(block);
-            return Json("taoBlockThanhCong", JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public async Task<string> add_vote(int id, int[] arrayID)
-        {
             String ma_tk = System.Web.HttpContext.Current.Session["ma_taikhoan"].ToString();
+            if (checkVoted(ma_tk, id)) {
+                // kiểm tra nếu bỏ phiếu rồi thì k cho phép bỏ phiếu nữa
+                return "banDaBoPhieu";
+            }
             List<Vote> list_vote = new List<Vote>();
+            Signature signature = new Signature();
+            Digital_Signature digital_Signature = new Digital_Signature();
+            RSAEnc rSAEnc = new RSAEnc();
+            // khóa riêng tư của chữ ký số
+            string cypher_private_key = signature.Get_Cypertext(id, int.Parse(Session["ma_taikhoan"].ToString())); // khóa riêng tư bị mã hóa
+            string private_key = rSAEnc.decrypt_with_pem(cypher_private_key, _private_key); // khóa riêng tư đã giải mã
+            string public_key = digital_Signature.GetPublicKeyFromPrivateKeyEx(private_key); // khóa công khai của chữ ký số
             foreach (int i in arrayID)
             {
                 Vote v = new Vote();
                 v.voterID = ma_tk;
                 v.voteParty = i;
                 v.electorID = id;
+                v.public_key = public_key;
                 list_vote.Add(v);
+                v.signature = digital_Signature.GetSignature(private_key, v.vote_tostring());
             }
-            _ = await add_vote_(list_vote);
-            return "taoBlockThanhCong";
+            string tt = await add_vote_(list_vote);
+            if(tt =="thanhcong")
+            {
+                return "taoBlockThanhCong";
+            }
+            else
+            {
+                return "taoBlockThatBai";
+            }
         }
-        static async Task<String> add_vote_(List<Vote> list_vote)
+        //static 
+        async Task<String> add_vote_(List<Vote> list_vote)
         {
             using (var client = new HttpClient())
             {
                 try
                 {
-                    var response = await client.PostAsJsonAsync<List<Vote>>("http://localhost:8080/api/Vote/VoteAdd", list_vote);
+                    var response = await client.PostAsJsonAsync<List<Vote>>(base.get_base_url() + "/api/Vote/VoteAdd", list_vote);
                     if(response.IsSuccessStatusCode)
                     {
-                        var _response = await client.PostAsJsonAsync("http://localhost:8080/api/Blockchain/MineBlock", "");
+                        var _response = await client.PostAsJsonAsync(base.get_base_url() + "/api/Blockchain/MineBlock", "");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("  " + ex.Message);
-                    Console.ResetColor();
+                    return "thatbai";
                 }
             }
-            return "string";
+            return "thanhcong";
         }
 
         public Boolean checkVoted(string voterID, int electorID)
@@ -152,17 +165,71 @@ namespace CSharpchainWebAPI.Controllers
             {
                 try
                 {
-                    var response = client.PostAsJsonAsync<string>("http://localhost:8080/api/blockchain/checkVoted?voterID=" + voterID + "&&electorID=" + electorID.ToString(), "").Result;
+                    var response = client.PostAsJsonAsync<string>(base.get_base_url() + "/api/blockchain/checkVoted?voterID=" + voterID + "&electorID=" + electorID.ToString(), "").Result;
                     status = response.Content.ReadAsAsync<bool>().Result;
                 }
                 catch (Exception ex)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("  " + ex.Message);
-                    Console.ResetColor();
                 }
             }
             return status;
+        }
+
+        public void checkCreatedSignature(int id)
+        {
+            int ma_cutri = int.Parse(Session["ma_taikhoan"].ToString());
+            Signature sn = new Signature();
+            if (!sn.checkCreated(id, ma_cutri))
+            {
+                Response.Redirect("~/CreateSignature/"+id);
+                return;
+            }
+        }
+
+        [HttpPost]
+        public string kiemtrakhoa(int id)
+        {
+            string private_key = Request["private_key"];
+            Signature st = new Signature();
+            string cypher_text = st.Get_Cypertext( id, int.Parse(Session["ma_taikhoan"].ToString()));
+            RSAEnc rs = new RSAEnc();
+            string check = rs.decrypt_with_pem(cypher_text, private_key);
+            if(check!="false")
+            {
+                return "chinhxac";
+            }
+            else
+            {
+                return "saikhoa_riengtu";
+            }
+        }
+
+        private string _ktkhoa(int id, string private_key)
+        {
+            Signature st = new Signature();
+            string cypher_text = st.Get_Cypertext(id, int.Parse(Session["ma_taikhoan"].ToString()));
+            RSAEnc rs = new RSAEnc();
+            string check = rs.decrypt_with_pem(cypher_text, private_key);
+            if (check != "false")
+            {
+                return "chinhxac";
+            }
+            else
+            {
+                return "saikhoa_riengtu";
+            }
+        }
+
+        public async Task get_number_of_vote(int id)
+        {
+            number_of_Vote = new Dictionary<string, int>();
+            string url = base.get_base_url() + "/api/blockchain/number_of_vote?electorID=" + id;
+            using (var client = new HttpClient())
+            {
+                var response = client.GetAsync(url).Result;
+                var status = response.Content.ReadAsAsync<Dictionary<string, int>>().Result;
+                number_of_Vote = status;
+            }
         }
     }
 }

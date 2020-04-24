@@ -73,7 +73,6 @@
                 <!--content inner-->
                 <div class="content__inner">
                     <div class="container overflow-hidden">
-
                         <!--progress bar-->
                         <div class="row">
                             <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
@@ -197,6 +196,7 @@
                                         <!--single form panel-->
                                         <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
                                             <h3 class="multisteps-form__title text-center">Ứng cử viên</h3>
+                                            <p class="multisteps-form__title text-center">Bạn có thể thêm ứng cử viên sau</p>
                                             <div class="multisteps-form__content">
                                                 <div class="row ds_ungvien">
                                                     <div class="col-12 col-md-4">
@@ -236,7 +236,10 @@
                                                 </div>
                                                 <div class="button-row d-flex mt-4">
                                                     <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Trước</button>
-                                                    <button class="btn btn-success ml-auto" id="xac_nhan" type="button" title="Send" disabled>Xác nhận</button>
+                                                    <div class="ml-auto">
+                                                        <button class="btn btn-success" id="xac_nhan" type="button" title="Send">Xác nhận</button>
+                                                        <a class="btn btn-success" id="tiep" title="Tiếp tục" hidden>Tiếp theo</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -323,7 +326,6 @@
     $(document).ready(function () {
         $("#xac_nhan").on("click", function () {
             var data = CKEDITOR.instances.mytextarea.getData();
-            console.log(data);
         });
     })
 

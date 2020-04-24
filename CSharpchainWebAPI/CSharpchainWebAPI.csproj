@@ -380,12 +380,11 @@
     <Compile Include="Controllers\CreateSignatureController.cs" />
     <Compile Include="Controllers\ElectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
+    <Compile Include="Controllers\NodeListController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Controllers\TestSendMailController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VotinglistController.cs" />
     <Compile Include="Controllers\VotingController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
@@ -408,6 +407,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>admin_vote.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Base58Encoding.cs" />
+    <Compile Include="Models\Digital_Signature.cs" />
     <Compile Include="Models\dm_dauphieu.cs">
       <DependentUpon>admin_vote.tt</DependentUpon>
     </Compile>
@@ -416,6 +417,7 @@
     </Compile>
     <Compile Include="Models\RSAConvert.cs" />
     <Compile Include="Models\RSAEnc.cs" />
+    <Compile Include="Models\Signature.cs" />
     <Compile Include="Models\tbl_dotbaucu.cs">
       <DependentUpon>admin_vote.tt</DependentUpon>
     </Compile>
@@ -433,14 +435,10 @@
     </Compile>
     <Compile Include="Models\UngCuVien.cs" />
     <Compile Include="Models\DotBauCu.cs" />
-    <Compile Include="Models\db.cs" />
     <Compile Include="Models\ElectionStatus.cs" />
     <Compile Include="Models\Elector.cs" />
-    <Compile Include="Models\Program.cs" />
     <Compile Include="Models\Sha256.cs" />
     <Compile Include="Models\TestSendMail.cs" />
-    <Compile Include="Controllers\ReadWriteData.cs" />
-    <Compile Include="Models\_RSA.cs" />
     <Compile Include="MyHub1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -464,15 +462,17 @@
     <Content Include="Assets\dist\css\adminlte.css" />
     <Content Include="Assets\dist\css\adminlte.min.css" />
     <Content Include="Assets\dist\css\CreateElection.css" />
+    <Content Include="Assets\dist\css\loadding.min.css" />
+    <Content Include="Assets\dist\css\loading.css" />
     <Content Include="Assets\dist\css\style.css" />
     <Content Include="Assets\dist\css\welcome.css" />
     <Content Include="Assets\dist\img\1.jpg" />
     <Content Include="Assets\dist\img\2.jpg" />
-    <Content Include="Assets\dist\img\3.jpg" />
-    <Content Include="Assets\dist\img\background-signup.jpg" />
+    <Content Include="Assets\dist\img\background-signup1.jpg" />
     <Content Include="Assets\dist\img\mrt.jpg" />
     <Content Include="Assets\dist\img\name.png" />
     <Content Include="Assets\dist\img\bg.jpg" />
+    <Content Include="Assets\dist\img\background-signup.jpg" />
     <Content Include="Assets\dist\js\config_ckediter.js" />
     <Content Include="Assets\dist\js\CreateElection.js" />
     <Content Include="Assets\dist\js\script.js" />
@@ -594,6 +594,7 @@
     <Content Include="Assets\dist\js\plugins\popper\umd\popper.min.js" />
     <Content Include="Assets\img\avata\ava1.jpg" />
     <Content Include="Assets\img\avata\ava.jpg" />
+    <Content Include="Assets\img\avata\win.png" />
     <Content Include="Assets\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Assets\plugins\bootstrap-slider\slider.css" />
     <Content Include="Assets\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -1871,8 +1872,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Welcome\Index.cshtml" />
     <Content Include="Views\Welcome\DS_DotBoPhieu.cshtml" />
@@ -1899,6 +1898,7 @@
     <Folder Include="DynamicData\FieldTemplates\" />
     <Folder Include="Views\ElectionStatus\" />
     <Folder Include="Views\Logout\" />
+    <Folder Include="Views\NodeList\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -1964,7 +1964,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61900</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44394/</IISUrl>
+          <IISUrl>http://localhost:44394/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
