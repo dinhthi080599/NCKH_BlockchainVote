@@ -377,13 +377,16 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#xac_nhan', function () {
+
+        var noidung = CKEDITOR.instances.mytextarea.getData();
         var data = {
             'ten_dot': $('#name_election').val(),
             'thoigian_bd': $('#time_start').val(),
             'thoigian_kt': $('#time_end').val(),
-            'noidung': $('.content_election').val(),
+            'noidung': noidung,
             'sophieu': $('input[name="amount_vote"]:checked').val(),
         }
+        console.log(data);
         $.ajax({
             url: "/CreateElection/them_dotbaucu",
             type: 'POST',
@@ -413,6 +416,8 @@ $(document).ready(function () {
                         title: 'Thành công',
                         text: 'Chúc mừng, bạn đã thêm đợt bầu cử thành công!',
                     })
+                    $("#tiep").removeAttr('hidden');
+                    $("#tiep").attr('href', 'Election/' + result);
                 }
             }
         });

@@ -16,8 +16,9 @@ namespace CSharpchainWebAPI.Models
     {
         public int id { get; set; }
         public string block_hash { get; set; }
-        public string signature { get; set; }
         public Nullable<int> ma_cutri { get; set; }
         public Nullable<int> ma_dotbaucu { get; set; }
+        public string public_key { get; set; }
+        public string cypher_private_key1 { get; set; }
     }
 }

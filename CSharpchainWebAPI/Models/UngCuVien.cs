@@ -20,18 +20,21 @@ namespace CSharpchainWebAPI.Models
             {
                 using (admin_voteEntities db = new admin_voteEntities())
                 {
-                    List_UCV.ForEach(
-                        n => {
-                            tbl_ungcuvien tbl_ucv = new tbl_ungcuvien()
-                            {
-                                ma_dotbaucu = n.ma_dotbaucu,
-                                sHoten = n.sHoTen,
-                                bGioitinh = n.bGioiTinh,
-                                dNgaysinh = DateTime.Parse(n.dNgaySinh)
-                            };
-                            db.tbl_ungcuvien.Add(tbl_ucv);
-                        }
-                    );
+                    if(List_UCV != null)
+                    {
+                        List_UCV.ForEach(
+                            n => {
+                                tbl_ungcuvien tbl_ucv = new tbl_ungcuvien()
+                                {
+                                    ma_dotbaucu = n.ma_dotbaucu,
+                                    sHoten = n.sHoTen,
+                                    bGioitinh = n.bGioiTinh,
+                                    dNgaysinh = DateTime.Parse(n.dNgaySinh)
+                                };
+                                db.tbl_ungcuvien.Add(tbl_ucv);
+                            }
+                        );
+                    }
                     db.SaveChanges();
                     return "them_ungcuvien_thanhcong";
                 }

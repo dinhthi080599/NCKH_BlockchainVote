@@ -12,6 +12,7 @@ namespace CSharpchainWebAPI
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
+        public static List<string>  node_list = new List<string>();
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -19,6 +20,13 @@ namespace CSharpchainWebAPI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+        public static void add_node(string new_node)
+        {
+            if (!node_list.Contains(new_node))
+            {
+                node_list.Add(new_node);
+            }
         }
     }
 }

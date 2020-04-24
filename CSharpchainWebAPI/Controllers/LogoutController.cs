@@ -25,16 +25,18 @@ namespace CSharpchainWebAPI.Controllers
             {
                 try
                 {
-                    var response = await client.PostAsJsonAsync<string>("http://localhost:8080/api/Network/Unregister?RemoveNodeUrl="+ RemoveNodeUrl, "");
+                    BaseController bc = new BaseController();
+                    string url = bc.get_base_url() + "/api/Network/Unregister?RemoveNode=" + RemoveNodeUrl;
+                    client.BaseAddress = new Uri(url);
+                    var response = await client.PostAsJsonAsync(url, "");
+                    return "Success";
                 }
                 catch (Exception ex)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("  " + ex.Message);
-                    Console.ResetColor();
+                    return "Error";
                 }
             }
-            return "string";
+
         }
     }
 }

@@ -16,7 +16,6 @@
             <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Kết quả</a>
                 <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false">Thống kê</a>
-                <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false">Danh sách cử tri</a>
             </div>
         </div>
         <div class="col-7 col-sm-9">
@@ -24,18 +23,18 @@
                 <div class="tab-pane text-left fade show active" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
                     @*<i class="fas fa-flag"></i>*@
                     <div class="col-6 align-items-stretch">
-                        <div class="card bg-light">
-                            <div class="card-body pt-0">
+                        <div class="card">
+                            <div class="card-body pt-0 p-3" style="height:230px; min-height:230px">
                                 <div class="row pt-4 pb-2">
                                     <div class="col-7">
-                                        <h2 class="lead"><b>Nguyễn Đình Thi</b></h2>
+                                        <h2 class="lead"><b class="ten_ucv">Nguyễn Đình Thi</b></h2>
                                         <p class="text-muted text-sm">
                                             <b></b>
                                             Cảm ơn đã bầu cử cho tôi!
                                         </p>
                                     </div>
                                     <div class="col-5 text-center">
-                                        <img src="~/Assets/img/avata/ava.jpg" alt="" class="img-circle img-fluid">
+                                        <img src="~/Assets/img/avata/win.png" alt="" class="img-circle img-fluid">
                                     </div>
                                 </div>
                             </div>
@@ -43,9 +42,9 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="vert-tabs-profile" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
-                    <canvas id="pieChart" style="height:230px; min-height:230px"></canvas>
-                </div>
-                <div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
+                    <div class="card p-3">
+                        <canvas id="pieChart" style="height:230px; min-height:230px"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -104,11 +103,22 @@
     $(function () {
         var electorList = @Html.Raw(Json.Encode(ViewBag.ElectorList));
         var number_of_vote = @Html.Raw(Json.Encode(ViewBag.number_of_vote));
+        var max_index = 0;
+        var _max = 0;
+        $.each(number_of_vote, function (key, value) {
+            if (value > _max) {
+                _max = value;
+                max_index = key;
+            }
+        });
         var labels = [];
         var data = [];
         for (let i = 0; i < electorList.length; i++) {
             labels[i] = electorList[i]['sHoten'];
-            data[i] = number_of_vote[electorList[i]['ma_ungcuvien']]
+            data[i] = number_of_vote[electorList[i]['ma_ungcuvien']];
+            if (electorList[i]['ma_ungcuvien'] == max_index) {
+                $(".ten_ucv").text(electorList[i]['sHoten']);
+            }
         }
         var donutData =
         {

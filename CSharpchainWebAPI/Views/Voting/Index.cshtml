@@ -2,19 +2,51 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="col-12">
-    <h2>
-        <i class="far fa-clone"></i>
-        @ViewBag.dbc.sTenDot
-    </h2>
-    <p>Chọn ứng cử viên của bạn</p>
-</div>
+<link href="~/Assets/dist/css/loadding.min.css" rel="stylesheet" />
+<link href="~/Assets/dist/css/loading.css" rel="stylesheet" />
 <div class="col-sm-12 row">
-    <div class="form-group-lg">
+    <div class="col-7 background-light">
+        <h2 class="pl-2 mb-1">
+            <i class="far fa-clone"></i>
+            @ViewBag.dbc.sTenDot
+        </h2>
+        <div class="col-12">
+            <h5 style="font-family:roboto;">Khóa công khai</h5>
+            <textarea class="miEditor publicKey" style="font-size: 12px;" disabled>@ViewBag.public_key</textarea>
+        </div>
+        <div class="col-12">
+            <h5 style="font-family:roboto;">Khóa riêng tư</h5>
+            <textarea class="miEditor privateKey" style="font-size: 12px;"></textarea>
+        </div>
+        <div class="col-12 pt-4">
+            <div class="btn btn-primary ld-ext-right kiemtrakhoa">
+                Kiểm tra khóa
+                <div class="ld ld-ring ld-spin"></div>
+            </div>
+            @if (ViewBag.voted)
+            {
+                <button class="btn btn-info disabled">Bạn đã bỏ phiếu</button>
+            }
+            else
+            {
+                <div class="btn btn-primary ld-ext-right disabled" id="confirmChange">
+                    Xác nhận
+                    <div class="ld ld-ring ld-spin"></div>
+                </div>
+                //<button class="btn btn-info disabled" id="">Xác nhận</button>
+            }
+        </div>
+    </div>
+    <div class="col-5 form-group-lg">
+        <h2>
+            Chọn ứng cử viên của bạn
+        </h2>
+        <div class="col-12">
+            <br />
+        </div>
         @foreach (var elector in ViewBag.ElectorList)
         {
             <div class="col-12">
-                <br />
                 <div class="custom-control custom-@ViewBag.dbc.type">
                     <input class="custom-control-input custom-select-lg" type="@ViewBag.dbc.type" id="@elector.ma_ungcuvien" value="@elector.ma_ungcuvien" name="elector">
                     <label for="@elector.ma_ungcuvien" id="@elector.ma_ungcuvien" class="custom-control-label font-weight-normal">
@@ -28,18 +60,6 @@
         }
     </div>
 </div>
-@if (ViewBag.voted)
-{
-    <div class="row mt-5 mb-3" style="justify-content:center;">
-        <button class="btn btn-lg btn-info disabled">Bạn đã bỏ phiếu</button>
-    </div>
-}
-else
-{
-    <div class="row mt-5 mb-3" style="justify-content:center;">
-        <button class="btn btn-lg btn-info disabled" id="confirmChange">Xác nhận</button>
-    </div>
-}
 <!-- profile elector-->
 <div class="modal" id="electorModal">
     <div class="modal-dialog modal-lg">
@@ -108,7 +128,13 @@ else
 </script>
 <script>
     $(document).ready(function () {
-
+        var kt = 1;
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
         $('input[name=elector]').on('change', function () {
             if ($('input[name=elector]:checked').length > 0) {
                 $("#confirmChange").removeClass("disabled");
@@ -139,22 +165,131 @@ else
         });
 
         $('#confirmChange').on('click', function () {
-            var list_ID = $('input[name=elector]:checked');
-            var _arrayID = [];
-            for (let i = 0; i < list_ID.length; i++) {
-                _arrayID[i] = $(list_ID[i]).val();
-            }
-            var arrayID = JSON.stringify(arrayID);
-            $.ajax({
-                url: window.location.href + "/add_vote",
-                type: 'POST',
-                data: { arrayID: _arrayID },
-                success: function (result) {
-                    if (result != "them_thatbai") {
-                    }
+            if (confirm("Bạn chắc chắn với lựa chọn của mình?")) {
+                $('#confirmChange').html('Xin chờ <div class="ld ld-ring ld-spin"></div>');
+                $(this).addClass("disabled");
+                $('#confirmChange').addClass('running');
+                var list_ID = $('input[name=elector]:checked');
+                var private_key = $('.privateKey').val();
+                var _arrayID = [];
+                for (let i = 0; i < list_ID.length; i++) {
+                    _arrayID[i] = $(list_ID[i]).val();
                 }
-            });
+                var arrayID = JSON.stringify(arrayID);
+                $.ajax({
+                    url: window.location.href + "/add_vote",
+                    type: 'POST',
+                    data: { arrayID: _arrayID, _private_key: private_key },
+                    success: function (result) {
+                    
+                        setTimeout(function () {
+                            if (result == "saikhoa_riengtu") {
+                                Toast.fire({
+                                    type: 'error',
+                                    title: ' Khóa riêng tư không khớp!',
+                                });
+                                $('#confirmChange').text('Xác nhận');
+                            }
+                            else if (result != 'them_thatbai'){
+                                //Toast.fire({
+                                //    type: 'success',
+                                //    title: 'Bầu cử thành công!',
+                                //});
+                                Swal.fire({
+                                    type: 'success',
+                                    title: 'Thành công',
+                                    text: 'Bầu cử thành công!!',
+                                    confirmButtonText: 'Ok',
+                                })
+                                //.then(function () {
+                                //    window.location.href = "/";
+                                //})
+                                $('#confirmChange').text('Bạn đã bỏ phiếu');
+                            }
+                            if (result == "them_thatbai") {
+                                $('#confirmChange').text('Xác nhận');
+                            }
+                            $('#confirmChange').removeClass('running');
+                            $('#confirmChange').addClass('disabled');
+                        }, 2000);
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        });
+
+        $('.kiemtrakhoa').on('click', function () {
+            if (kt == 1) {
+                $('.kiemtrakhoa').html('Xin chờ <div class="ld ld-ring ld-spin"></div>');
+                $('.kiemtrakhoa').addClass("disabled");
+                $('.kiemtrakhoa').addClass('running');
+                $.ajax({
+                    url: window.location.href + "/kiemtrakhoa",
+                    type: 'POST',
+                    data: { private_key: $('.privateKey').val() },
+                    success: function (result) {
+                        setTimeout(function () {
+                            if (result == 'chinhxac') {
+                                Toast.fire({
+                                    type: 'success',
+                                    title: ' Khóa riêng tư chính xác!',
+                                });
+                                $('.kiemtrakhoa').text('Đã xác thực');
+                                $('.kiemtrakhoa').removeClass('running');
+                                $('.kiemtrakhoa').removeClass('kiemtrakhoa');
+                                kt = 2;
+                            }
+                            else{
+                                setTimeout(function () {
+                                    Toast.fire({
+                                        type: 'error',
+                                        title: ' Khóa riêng tư không khớp!',
+                                    });
+                                    $('.kiemtrakhoa').html('Kiểm tra khóa <div class="ld ld-ring ld-spin"></div>');
+                                    $('.kiemtrakhoa').removeClass('running');
+                                    $('.kiemtrakhoa').removeClass('disabled');
+                                }, 2000);
+                            }
+                        }, 2000);
+                    },
+                    error: function () {
+                        setTimeout(function () {
+                            Toast.fire({
+                                type: 'error',
+                                title: ' Khóa riêng tư không khớp!',
+                            });
+                            $('.kiemtrakhoa').html('Kiểm tra khóa <div class="ld ld-ring ld-spin"></div>');
+                            $('.kiemtrakhoa').removeClass('running');
+                            $('.kiemtrakhoa').removeClass('disabled');
+                        }, 2000);
+                    }
+                });
+            }
         });
 
     });
 </script>
+
+
+<style>
+    .miEditor {
+        -moz-appearance: textfield-multiline;
+        -webkit-appearance: textarea;
+        border: 1px solid gray;
+        font: medium -moz-fixed;
+        font: -webkit-small-control;
+        height: 200px;
+        max-height: 140px;
+        min-height: 140px;
+        overflow: auto;
+        padding: 2px;
+        resize: both;
+        width: 100%;
+        resize: vertical;
+        margin: 0 auto;
+        border-radius: 5px;
+        border-color: lightgrey;
+    }
+</style>

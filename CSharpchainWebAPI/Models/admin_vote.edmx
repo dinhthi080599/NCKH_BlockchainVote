@@ -32,7 +32,7 @@
           <Property Name="dThoigianbd" Type="datetime" />
           <Property Name="dThoigiankt" Type="datetime" />
           <Property Name="sGhichu" Type="nvarchar" MaxLength="1" />
-          <Property Name="sNoiDung" Type="text" />
+          <Property Name="sNoiDung" Type="ntext" />
           <Property Name="iTrangThai" Type="int" />
           <Property Name="sHinhThuc" Type="nvarchar" MaxLength="50" />
           <Property Name="sSoPhieu" Type="nvarchar" MaxLength="50" />
@@ -50,9 +50,10 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="block_hash" Type="nvarchar" MaxLength="50" />
-          <Property Name="signature" Type="text" Nullable="false" />
+          <Property Name="cypher_private_key" Type="text" Nullable="false" />
+          <Property Name="public_key" Type="text" Nullable="false" />
           <Property Name="ma_cutri" Type="int" />
           <Property Name="ma_dotbaucu" Type="int" />
         </EntityType>
@@ -126,7 +127,7 @@
           <Property Name="dThoigianbd" Type="DateTime" Precision="3" />
           <Property Name="dThoigiankt" Type="DateTime" Precision="3" />
           <Property Name="sGhichu" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="sNoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sNoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="iTrangThai" Type="Int32" />
           <Property Name="sHinhThuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="sSoPhieu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -146,9 +147,10 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="block_hash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ma_cutri" Type="Int32" />
           <Property Name="ma_dotbaucu" Type="Int32" />
+          <Property Name="public_key" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cypher_private_key1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_taikhoan">
           <Key>
@@ -242,11 +244,12 @@
           <EntitySetMapping Name="tbl_signature">
             <EntityTypeMapping TypeName="admin_voteModel.tbl_signature">
               <MappingFragment StoreEntitySet="tbl_signature">
+                <ScalarProperty Name="cypher_private_key1" ColumnName="cypher_private_key" />
+                <ScalarProperty Name="public_key" ColumnName="public_key" />
                 <ScalarProperty Name="ma_dotbaucu" ColumnName="ma_dotbaucu" />
                 <ScalarProperty Name="ma_cutri" ColumnName="ma_cutri" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="block_hash" ColumnName="block_hash" />
-                <ScalarProperty Name="signature" ColumnName="signature" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

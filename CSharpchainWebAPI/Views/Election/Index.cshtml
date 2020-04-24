@@ -10,9 +10,12 @@
             <button id="attendVoting" type="button" class="btn btn-info">
                 Tham gia bỏ phiếu
             </button>
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newElectorModal" data-backdrop="static" data-keyboard="false">
-                Thêm ứng cử viên
-            </button>
+            @if (ViewBag.nguoiTao != null)
+            {
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newElectorModal" data-backdrop="static" data-keyboard="false">
+                    Thêm ứng cử viên
+                </button>
+            }
         </div>
         <div class="col-md-8">
             <p>
@@ -44,7 +47,27 @@
         <div id="electorListParent" class="col-sm-12 row">
             @foreach (var elector in ViewBag.ElectorList)
             {
-                <div class="col-sm-4 electorListChild">
+                <div class="col-md-4 ungvien">
+                    <div class="card shadow-sm">
+                        <div class="row card-header">
+                            <div class="col-4 text-center">
+                                <img class="profile-user-img img-fluid img-circle" src="/Assets/img/avata/ava.jpg" alt="User profile picture">
+                            </div>
+                            <div class="block col-8 pl-4 text-left">
+                                <label class="name" style="font-size: 20px;">@elector.sHoten</label>
+                                <br />
+                                <i class="sex">@elector.bGioitinh</i>
+                                <br />
+                                <a onclick="showDetail(@elector.ma_ungcuvien)" class="text-info" data-toggle="modal" data-target="#electorModal" style="cursor: pointer;">
+                                    Chi tiết
+                                    <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="col-sm-4 electorListChild">
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>@elector.sHoten</h3>
@@ -58,7 +81,7 @@
                             <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
-                </div>
+                </div>*@
             }
         </div>
     </div>
@@ -345,13 +368,36 @@
     }
 
     function appendNewElectorList(list) {
+        var html = "";
         for (let i = 0; i < list.length; i++) {
-            $("#electorListParent").append("<div id=\"electorListChild\" class=\"col-sm-4\"> <div class=\"small-box bg-success\"> <div class=\"inner\">"
-                + "<h3>" + list[i].sHoten + "</h3>"
-                + "<p>" + list[i].bGioitinh + "</p> </div> <div class=\"icon\"> <i class=\"fas fa-user\"></i> </div>"
-                + "<a onclick=\"showDetail(" + list[i].ma_ungcuvien + ")\" class=\"small-box-footer\" data-toggle=\"modal\" data-target=\"#electorModal\"> Thêm thông tin <i class=\"fas fa-arrow-circle-right\"></i>"
-                + "</a></div></div>");
+            html += `
+                <div class="col-md-4 ungvien">
+                    <div class="card shadow-sm">
+                        <div class="row card-header">
+                            <div class="col-4 text-center">
+                                <img class="profile-user-img img-fluid img-circle" src="/Assets/img/avata/ava.jpg" alt="User profile picture">
+                            </div>
+                            <div class="block col-8 pl-4 text-left">
+                                <label class="name" style="font-size: 20px;">`+ list[i].sHoten + `</label>
+                                <br />
+                                <i class="sex">`+ list[i].bGioitinh + `</i>
+                                <br />
+                                <a onclick="showDetail(` + list[i].ma_ungcuvien + `)" class="text-info" data-toggle="modal" data-target="#electorModal" style="cursor: pointer;">
+                                    Chi tiết
+                                    <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            //$("#electorListParent").append("<div id=\"electorListChild\" class=\"col-sm-4\"> <div class=\"small-box bg-success\"> <div class=\"inner\">"
+            //    + "<h3>" + list[i].sHoten + "</h3>"
+            //    + "<p>" + list[i].bGioitinh + "</p> </div> <div class=\"icon\"> <i class=\"fas fa-user\"></i> </div>"
+            //    + "<a onclick=\"showDetail(" + list[i].ma_ungcuvien + ")\" class=\"small-box-footer\" data-toggle=\"modal\" data-target=\"#electorModal\"> Thêm thông tin <i class=\"fas fa-arrow-circle-right\"></i>"
+            //    + "</a></div></div>");
         }
+        $("#electorListParent").html(html);
     }
 
     function clearModel() {

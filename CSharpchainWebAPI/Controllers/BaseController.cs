@@ -11,6 +11,7 @@ namespace CSharpchainWebAPI.Controllers
 {
     public class BaseController : Controller
     {
+        public string base_url;
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var session = Session["ma_taikhoan"];
@@ -26,6 +27,11 @@ namespace CSharpchainWebAPI.Controllers
         {
             Random random = new Random();
             return random.Next(100000, 999999);
+        }
+
+        public string get_base_url()
+        {
+            return "http://localhost:808" + Session["ma_taikhoan"].ToString();
         }
         public void SendMail(string Email, string NoiDung)
         {

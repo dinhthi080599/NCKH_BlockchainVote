@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Web;
-
+using System.Web.Mvc;
 
 namespace CSharpchainWebAPI.Models
 {
@@ -13,6 +13,8 @@ namespace CSharpchainWebAPI.Models
         public string sTenDot { get; set; }
         public string dThoiGianBD { get; set; }
         public string dThoiGianKT { get; set; }
+
+        [AllowHtml]
         public string sNoiDung { get; set; }
         public int iTrangThai { get; set; }
         public string sGhiChu { get; set; }
@@ -76,10 +78,10 @@ namespace CSharpchainWebAPI.Models
                                             + SqlFunctions.DateName("year", tbl_dotbaucu.dThoigianbd)
                                             + SqlFunctions.Replicate(" ", 2 - SqlFunctions.StringConvert((double)tbl_dotbaucu.dThoigianbd.Value.Month).TrimStart().Length)
                                             + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)tbl_dotbaucu.dThoigianbd.Value.Hour).TrimStart().Length)
-                                            + SqlFunctions.DateName("HH", tbl_dotbaucu.dThoigiankt)
+                                            + SqlFunctions.DateName("HH", tbl_dotbaucu.dThoigianbd)
                                             + SqlFunctions.Replicate(":", 2 - SqlFunctions.StringConvert((double)tbl_dotbaucu.dThoigianbd.Value.Month).TrimStart().Length)
                                             + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)tbl_dotbaucu.dThoigianbd.Value.Minute).TrimStart().Length)
-                                            + SqlFunctions.DateName("minute", tbl_dotbaucu.dThoigiankt)
+                                            + SqlFunctions.DateName("minute", tbl_dotbaucu.dThoigianbd)
                                             ,
                             dThoiGianKT = SqlFunctions.Replicate("0", 2 - SqlFunctions.DateName("dd", tbl_dotbaucu.dThoigiankt).Trim().Length)
                                             + SqlFunctions.DateName("dd", tbl_dotbaucu.dThoigiankt).Trim()
@@ -95,6 +97,7 @@ namespace CSharpchainWebAPI.Models
                                             + SqlFunctions.Replicate("0", 2 - SqlFunctions.StringConvert((double)tbl_dotbaucu.dThoigiankt.Value.Minute).TrimStart().Length)
                                             + SqlFunctions.DateName("minute", tbl_dotbaucu.dThoigiankt)
                                             ,
+                            iNguoiTao = (int)tbl_dotbaucu.iNguoiTao,
                             sNoiDung = tbl_dotbaucu.sNoiDung.ToString(),
                             sHinhThuc = tbl_dotbaucu.sHinhThuc,
                             iTrangThai = (int)tbl_dotbaucu.iTrangThai,

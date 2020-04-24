@@ -10,25 +10,63 @@
 <div class="row">
     <div class="col-12 height_30 head_content text-center pt-4">
         <i class="fas fa-user-lock fa-8x text-light"></i>
-        <h2 class="text-light pt-4">Tạo khóa riêng tư</h2>
+        <h2 class="text-light">Tạo khóa riêng tư</h2>
     </div>
-    <div class="row col-12 pt-4">
-        <div class="col-md-6 pl-4">
-            <h5 style="font-family:roboto;">Khóa công khai</h5>
-            <textarea class="miEditor" disabled>@ViewBag._publicKeyString</textarea>
+    <div class="col-12" style="background-color: white;">
+        <div class="row">
+            <div class="col-md-6 p-4">
+                <h5 style="font-family:roboto;">Khóa công khai</h5>
+                <textarea class="miEditor publicKey" style="font-size: 12px;" disabled></textarea>
+            </div>
+            <div class="col-md-6 p-4">
+                <h5 style="font-family:roboto;">Khóa riêng tư</h5>
+                <textarea class="miEditor privateKey" style="font-size: 12px;" disabled></textarea>
+            </div>
         </div>
-        <div class="col-md-6 pl-4">
-            <h5 style="font-family:roboto;">Khóa riêng tư</h5>
-            <textarea class="miEditor">@ViewBag._privateKeyString</textarea>
+        <div class="col-12 pl-4 pb-2">
+            <form action="5/Download" method="post" class="form">
+                <button type="button" class="btn btn-info create_signature">Tạo khóa</button>
+                <button type="submit" class="btn btn-success taikhoa" value="" name="private_key">Tải khóa</button>
+                <button type="button" class="btn btn-success bophieu" hidden><a href="/Voting/@ViewBag.id" class="text-white">Bỏ phiếu</a></button>
+            </form>
         </div>
-    </div>
-    <div class="col-12 pl-4">
-        <button class="btn btn-info">Tạo khóa</button>
-        <button class="btn btn-success">Lưu khóa</button>
     </div>
 </div>
 
 <script>
+    $(document).ready(function () {
+        $(".form").attr('action', window.location.href + "/download");
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        $(".create_signature").on('click', function () {
+            $.ajax({
+                url: window.location.href + "/get_signature",
+                type: 'POST',
+                success: function (result) {
+                    if (result.length > 0) {
+                        $(".privateKey").val(result[0]);
+                        $(".taikhoa").val(result[0]);
+                        $(".publicKey").val(result[1]);
+                        $(".bophieu").removeAttr("hidden");
+                        Swal.fire(
+                            'Tạo khóa thành công!',
+                            'Hãy lưu lại private key để thực hiện việc bỏ phiếu',
+                            'success'
+                        );
+                        $('.create_signature').prop('disabled', true);
+                    }
+                    else {
+                    }
+                }
+            });
+        });
+    });
+
+
     (function($){
         $.fn.fullHeight_30 = function(){
             var self = this;
@@ -61,9 +99,9 @@
         border: 1px solid gray;
         font: medium -moz-fixed;
         font: -webkit-small-control;
-        height: 240px;
-        max-height: 240px;
-        min-height: 240px;
+        height: 210px;
+        max-height: 210px;
+        min-height: 210px;
         overflow: auto;
         padding: 2px;
         resize: both;

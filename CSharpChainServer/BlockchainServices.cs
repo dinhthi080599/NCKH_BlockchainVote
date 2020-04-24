@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSharpChainServer;
+using System.Net.Http;
 
 namespace CSharpChainServer
 {
@@ -17,17 +18,19 @@ namespace CSharpChainServer
 				return blockchain;
 			}
 		}
-        public object Program { get; private set; }
         private Blockchain blockchain;
         public BlockchainServices()
         {
-            // generate initial blockchain with genesis block
-            blockchain = new Blockchain();
-            // calculate hash of genesis block
-            Block genesisBlock = blockchain.Chain[0];
+            ReadWriteData rw = new ReadWriteData();     // phương thức giúp ghi dữ liệu vào tệp
+            blockchain = new Blockchain();              // khởi tạo đối tượng blockchain
+            Block genesisBlock = blockchain.Chain[0];   // sau khi khởi tạo thì chuỗi sẽ có khối nguyên thủy
+            // khởi tạo đối tượng block service chứa các đoạn mã sinh ra hash cho khối
             BlockServices blockServices = new BlockServices(genesisBlock);
-            string genesisBlockHash = blockServices.BlockHash();
+            // lấy mã cho khối
+            string genesisBlockHash = blockServices.BlockHash();  
             blockchain.Chain[0].Hash = genesisBlockHash;
+            // tự lưu khối vào file
+            rw.write(blockchain.Chain[0]);
         }
         public BlockchainServices(List<Block> chain)
         {
@@ -68,19 +71,19 @@ namespace CSharpChainServer
 		{
 			return blockchain.PendingTransactions;
 		}
-        public Block MineBlock(string miningRewardAddress)
-		{
-			// add mining reward transaction to block
-			Transaction trans = new Transaction("SYSTEM", miningRewardAddress, blockchain.MiningReward, "Mining reward");
-			blockchain.PendingTransactions.Add(trans);
-        	Block block = new Block(DateTime.Now, blockchain.PendingTransactions, LatestBlock().Hash);
-			var blockServices = new BlockServices(block);
-			blockServices.MineBlock(blockchain.Difficulty);
-			blockchain.Chain.Add(block);
-            //clear pending transactions (all pending transactions are in a block
-			blockchain.PendingTransactions = new List<Transaction>();
-			return block;
-        }
+  //      public Block MineBlock(string miningRewardAddress)
+		//{
+		//	// add mining reward transaction to block
+		//	Transaction trans = new Transaction("SYSTEM", miningRewardAddress, blockchain.MiningReward, "Mining reward");
+		//	blockchain.PendingTransactions.Add(trans);
+  //      	Block block = new Block(DateTime.Now, blockchain.PendingTransactions, LatestBlock().Hash);
+		//	var blockServices = new BlockServices(block);
+		//	blockServices.MineBlock(blockchain.Difficulty);
+		//	blockchain.Chain.Add(block);
+  //          //clear pending transactions (all pending transactions are in a block
+		//	blockchain.PendingTransactions = new List<Transaction>();
+		//	return block;
+  //      }
         public Block MineBlock()
         {
             ReadWriteData rw = new ReadWriteData();
@@ -130,31 +133,6 @@ namespace CSharpChainServer
                 }
             }
             return balance;
-        }
-        public Dictionary<int, int> number_of_vote(int voteParty)
-        {
-            Dictionary<int, int> number_of_vote = new Dictionary<int, int>();
-            foreach (Block block in blockchain.Chain)
-            {
-                if(block.Vote.Count > 0)
-                {
-                    foreach (Vote vote in block.Vote)
-                    {
-                        if (vote.voteParty == voteParty)
-                        {
-                            if(number_of_vote.ContainsKey(int.Parse(vote.voterID)))
-                            {
-                                number_of_vote[int.Parse(vote.voterID)]++;
-                            }
-                            else
-                            {
-                                number_of_vote[int.Parse(vote.voterID)] = 1;
-                            }
-                        }
-                    }
-                }
-            }
-            return number_of_vote;
         }
     }
 }

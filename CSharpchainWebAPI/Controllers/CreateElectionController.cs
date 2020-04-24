@@ -15,13 +15,15 @@ namespace CSharpchainWebAPI.Controllers
         }
 
         [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
         public string them_dotbaucu()
         {
             DotBauCu dbc = new DotBauCu();
             dbc.sTenDot = Request["ten_dot"];
             dbc.dThoiGianBD = Request["thoigian_bd"];
             dbc.dThoiGianKT = Request["thoigian_kt"];
-            dbc.sNoiDung = Request["noidung"];
+            dbc.sNoiDung = Request["noidung"].ToString();
             dbc.iTrangThai = 1; 
             dbc.sHinhThuc = Request["hinhthuc"];
             dbc.sSoPhieu = Request["sophieu"];

@@ -4,41 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CSharpChainNetwork;
 
 namespace CSharpChainNetwork.Controllers
 {
 	public class NetworkController : ApiController
 	{
 		[HttpGet]
-		public string Ping()
+		public string Ping() // kiểm tra kết nối
 		{
-			return "  Network Contoller Ping";
+			return " Network Contoller Ping";
 		}
-
 		[HttpPost]
-		public void Register([FromBody]string NewNodeUrl)
+		public void Register([FromBody]string NewNode) // đăng ký node mới
 		{
 			Console.ForegroundColor = ConsoleColor.Cyan ;
-			Console.WriteLine("");
-			Console.WriteLine($"  API notification received: node-register {NewNodeUrl} ");
-			Console.WriteLine("  Register new node: " + NewNodeUrl);
-			Program.nodeServices.AddNode(NewNodeUrl);
+			Console.WriteLine($"Node mới được thêm vào mạng: {NewNode} ");
+			Program1.nodeServices.AddNode(NewNode);
 			Console.ResetColor();
-			Program.ShowCommandLine();
 		}
-
 		[HttpPost]
-		public void Unregister(string RemoveNodeUrl)
+		public void Unregister(string RemoveNode)   // xóa node khỏi mạng
 		{
 			Console.ForegroundColor = ConsoleColor.Cyan ;
-			Console.WriteLine("");
-			Console.WriteLine($"  API notification received: node-unregister {RemoveNodeUrl} ");
-			Console.WriteLine("    Unregister new node: " + RemoveNodeUrl);
-			Program.nodeServices.RemoveNode(RemoveNodeUrl);
+			Console.WriteLine($"Node đã bị xóa khỏi mạng: {RemoveNode}");
+			Program1.nodeServices.RemoveNode(RemoveNode);
 			Console.ResetColor();
-			Program.ShowCommandLine();
 		}
-
-
 	}
 }
