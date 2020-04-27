@@ -33,7 +33,7 @@ namespace CSharpChainNetwork
 			Console.Write("CSharpChain> ");
 			Console.ResetColor();
 		}
-		static void Main(string[] args)
+		static void Main1(string[] args)
         {
             #region
             Console.OutputEncoding = Encoding.UTF8;
