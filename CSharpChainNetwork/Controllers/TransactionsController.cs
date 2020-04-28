@@ -20,17 +20,17 @@ namespace CSharpChainNetwork.Controllers
 		{
 			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.WriteLine($"API notification received: transactions-add {Transaction.Description} ");
-			var foundTransaction = Program1.blockchainServices.PendingTransactions().Where(pt => pt.Description == Transaction.Description).FirstOrDefault();
+			var foundTransaction = Program.blockchainServices.PendingTransactions().Where(pt => pt.Description == Transaction.Description).FirstOrDefault();
 			if (foundTransaction==null)
 			{
 				Console.WriteLine($"    Transaction: {Transaction.Amount} from {Transaction.SenderAddress} to {Transaction.ReceiverAddress}.");
-				Program1.blockchainServices.AddTransaction(Transaction);
+				Program.blockchainServices.AddTransaction(Transaction);
 			} else
 			{
 				Console.WriteLine($"    Transaction already exists on this node.");
 			}
 			Console.ResetColor();
-			Program1.ShowCommandLine();
+			Program.ShowCommandLine();
 		}
 	}
 }

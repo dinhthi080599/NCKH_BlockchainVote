@@ -20,7 +20,7 @@ namespace CSharpChainNetwork.Controllers
 		[HttpGet]
 		public int Length()
 		{
-			return Program1.blockchainServices.BlockchainLength();
+			return Program.blockchainServices.BlockchainLength();
 		} // lấy độ dài blockchain
 		[HttpGet]
 		public Block GetBlock(int Id)
@@ -29,9 +29,9 @@ namespace CSharpChainNetwork.Controllers
 			Console.WriteLine("");
 			Console.WriteLine($"  API notification received: blockchain-getBlock {Id} ");
 			Console.WriteLine("    Get block.");
-			var block = Program1.blockchainServices.get_block(Id);
+			var block = Program.blockchainServices.get_block(Id);
 			Console.ResetColor();
-			Program1.ShowCommandLine();
+			Program.ShowCommandLine();
 			return block;
         } // lấy khối chỉ định
         [HttpGet]
@@ -41,32 +41,32 @@ namespace CSharpChainNetwork.Controllers
             Console.WriteLine("");
             Console.WriteLine($"  API notification received: blockchain-getBlockchain() ");
             Console.WriteLine("    Get entire blockchain.");
-            var blockChain = Program1.blockchainServices.Blockchain;
+            var blockChain = Program.blockchainServices.Blockchain;
             Console.ResetColor();
-            Program1.ShowCommandLine();
+            Program.ShowCommandLine();
             return blockChain;
         } // lấy toàn bộ blockchain
         [HttpGet]
         public List<String> NodeList()
         {
-            return Program1.nodeServices.Nodes;
+            return Program.nodeServices.Nodes;
         } // danh sách các node trong mạng
         
         [HttpGet]
         public int BlockchainLength()
         {
-            return Program1.blockchainServices.Blockchain.Chain.Count();
+            return Program.blockchainServices.Blockchain.Chain.Count();
         }
         [HttpGet]
         public Block Block(int id)
         {
-            return Program1.blockchainServices.Blockchain.Chain[id];
+            return Program.blockchainServices.Blockchain.Chain[id];
         }
 
         [HttpPost]
         public Boolean checkVoted(string voterID, int electorID)
         {
-            List<Block> chain = Program1.blockchainServices.Blockchain.Chain;
+            List<Block> chain = Program.blockchainServices.Blockchain.Chain;
             foreach(Block block in chain)
             {
                 foreach(Vote vote in block.Vote)
@@ -85,7 +85,7 @@ namespace CSharpChainNetwork.Controllers
         {
             Digital_Signature digital_Signature = new Digital_Signature();
             Dictionary<string, int> number_of_vote = new Dictionary<string, int>();
-            foreach (Block block in Program1.blockchainServices.Blockchain.Chain)
+            foreach (Block block in Program.blockchainServices.Blockchain.Chain)
             {
                 if (block.Vote.Count > 0)
                 {
@@ -114,13 +114,13 @@ namespace CSharpChainNetwork.Controllers
         public string AddNode(String node)
         {
             // Program.start_newhost(node);
-            List<string> add_node = Program1.nodeServices.AddNodeAPI(node);
-            Program1.NetworkBlockchainUpdate();
+            List<string> add_node = Program.nodeServices.AddNodeAPI(node);
+            Program.NetworkBlockchainUpdate();
             foreach(var _node in add_node)
             {
-                Program1.NetworkRegister(_node);
+                Program.NetworkRegister(_node);
             }
-            Program1.node_id = node;
+            Program.node_id = node;
             //if (add_node == "NodeAdded")
             //{
             //    Console.WriteLine("Connected: " + node);
@@ -130,8 +130,8 @@ namespace CSharpChainNetwork.Controllers
         [HttpPost]
         public string MineBlock()
         {
-            Block block = Program1.blockchainServices.MineBlock();
-            Program1.NetworkBlockchainMine(block);
+            Block block = Program.blockchainServices.MineBlock();
+            Program.NetworkBlockchainMine(block);
             Console.WriteLine("Mined Block!");
             return "MinedBlock";
         } // tạo khối
@@ -143,16 +143,16 @@ namespace CSharpChainNetwork.Controllers
             Console.WriteLine($"  API notification received: blockchain-newBlock {NewBlock.Hash} ");
             Console.WriteLine("    Add new block.");
 
-            Program1.blockchainServices.Blockchain.Chain.Add(NewBlock);
+            Program.blockchainServices.Blockchain.Chain.Add(NewBlock);
             // check if the blockchain is valid
-            if (!Program1.blockchainServices.isBlockchainValid())
+            if (!Program.blockchainServices.isBlockchainValid())
             {
                 Console.WriteLine("    Blockchain with new block added is not valid. Undoing block.");
-                Program1.blockchainServices.Blockchain.Chain.Remove(NewBlock);
+                Program.blockchainServices.Blockchain.Chain.Remove(NewBlock);
                 Console.WriteLine("    Try refresing with the longest blockchain");
             }
             Console.ResetColor();
-            Program1.ShowCommandLine();
+            Program.ShowCommandLine();
         }
     }
 }

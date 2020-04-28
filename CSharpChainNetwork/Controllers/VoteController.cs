@@ -21,7 +21,7 @@ namespace CSharpChainNetwork.Controllers
             int count_list = list_vote.Count();
             foreach(Vote vote in list_vote)
             {
-                Program1.blockchainServices.AddVote(vote);
+                Program.blockchainServices.AddVote(vote);
             }
             Console.WriteLine("Added: " + count_list.ToString() + " vote");
             return count_list.ToString() + "added";
@@ -29,13 +29,13 @@ namespace CSharpChainNetwork.Controllers
         [HttpGet]
         public List<Vote> GetPenddingVote()         // lấy các phiếu bầu chưa được xác nhận
         {
-            return Program1.blockchainServices.Blockchain.PendingVote;
+            return Program.blockchainServices.Blockchain.PendingVote;
         }
         [HttpGet]
         public Dictionary<int, int> result_of_vote(int electorID) // trả về kết quả của một cuộc bầu cử
         {
             Dictionary<int, int> result = new Dictionary<int, int>();
-            List<Block> chain = Program1.blockchainServices.Blockchain.Chain;
+            List<Block> chain = Program.blockchainServices.Blockchain.Chain;
             foreach(Block block in chain)
             {
                 foreach(Vote vote in block.Vote)
