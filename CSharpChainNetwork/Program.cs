@@ -407,45 +407,45 @@ namespace CSharpChainNetwork
 					Console.ResetColor();
 				}
 
-				Console.WriteLine($"Blockchain dài nhất được tìm thấy tại node {maxNode} có chiều dài: {maxLength}.");
 				if (blockchainServices.BlockchainLength() >= maxLength)
 				{
 					Console.WriteLine($"Không tìm thấy node nào có độ dài lớn hơn.");
-					Console.WriteLine();
-					return;
 				}
-
-				// get missing blocks
-				int lengthBlock = blockchainServices.BlockchainLength();
-				try
+				else
 				{
-					for (int i = lengthBlock; i < maxLength; i++)
+					Console.WriteLine($"Blockchain dài nhất được tìm thấy tại node {maxNode} có chiều dài: {maxLength}.");
+					// get missing blocks
+					int lengthBlock = blockchainServices.BlockchainLength();
+					try
 					{
-						ReadWriteData rWD = new ReadWriteData();
-						Block newBlock;
-						Console.WriteLine($"Get block {i} tại node: {maxNode}...");
-						var response = await client.GetAsync("http://localhost:808" + maxNode + $"/api/blockchain/getblock?id={i}");
-						newBlock = JsonConvert.DeserializeObject<Block>(await response.Content.ReadAsStringAsync());
-						// Console.Write(await response.Content.ReadAsStringAsync());
-						blockchainServices.Blockchain.Chain.Add(newBlock);
-						if (!blockchainServices.isBlockchainValid())
+						for (int i = lengthBlock; i < maxLength; i++)
 						{
-							blockchainServices.Blockchain.Chain.Remove(newBlock);
-							Console.WriteLine($"Sau khi thêm block[{i}] blockchain không còn có hiệu lực thêm nữa. Hủy cập nhật...");
-							break;
-						}
-						else
-						{
-							rWD.write(newBlock);
+							ReadWriteData rWD = new ReadWriteData();
+							Block newBlock;
+							Console.WriteLine($"Get block {i} tại node: {maxNode}...");
+							var response = await client.GetAsync("http://localhost:808" + maxNode + $"/api/blockchain/getblock?id={i}");
+							newBlock = JsonConvert.DeserializeObject<Block>(await response.Content.ReadAsStringAsync());
+							// Console.Write(await response.Content.ReadAsStringAsync());
+							blockchainServices.Blockchain.Chain.Add(newBlock);
+							if (!blockchainServices.isBlockchainValid())
+							{
+								blockchainServices.Blockchain.Chain.Remove(newBlock);
+								Console.WriteLine($"Sau khi thêm block[{i}] blockchain không còn có hiệu lực thêm nữa. Hủy cập nhật...");
+								break;
+							}
+							else
+							{
+								rWD.write(newBlock);
+							}
 						}
 					}
-				}
-				catch (Exception)
-				{
+					catch (Exception)
+					{
 
-					throw;
-				}
-				Console.WriteLine($"Đã cập nhật: " + (maxLength - lengthBlock) + " khối");
+						throw;
+					}
+					Console.WriteLine($"Đã cập nhật: " + (maxLength - lengthBlock) + " khối");
+				}	
 			}
 		}
 
