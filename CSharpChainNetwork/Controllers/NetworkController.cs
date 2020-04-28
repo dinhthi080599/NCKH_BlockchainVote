@@ -20,7 +20,7 @@ namespace CSharpChainNetwork.Controllers
 		{
 			Console.ForegroundColor = ConsoleColor.Cyan ;
 			Console.WriteLine($"Node mới được thêm vào mạng: {NewNode} ");
-			Program1.nodeServices.AddNode(NewNode);
+			Program.nodeServices.AddNode(NewNode);
 			Console.ResetColor();
 		}
 		[HttpPost]
@@ -28,7 +28,7 @@ namespace CSharpChainNetwork.Controllers
 		{
 			Console.ForegroundColor = ConsoleColor.Cyan ;
 			Console.WriteLine($"Node đã bị xóa khỏi mạng: {RemoveNode}");
-			Program1.nodeServices.RemoveNode(RemoveNode);
+			Program.nodeServices.RemoveNode(RemoveNode);
 			Console.ResetColor();
 		}
 	}

@@ -144,7 +144,6 @@
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Digital_Signature.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Program1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
