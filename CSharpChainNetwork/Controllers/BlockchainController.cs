@@ -113,14 +113,15 @@ namespace CSharpChainNetwork.Controllers
         [HttpPost]
         public string AddNode(String node)
         {
+            Program.node_id = node;
             // Program.start_newhost(node);
             List<string> add_node = Program.nodeServices.AddNodeAPI(node);
             Program.NetworkBlockchainUpdate();
             foreach(var _node in add_node)
             {
+                if(_node != node)
                 Program.NetworkRegister(_node);
             }
-            Program.node_id = node;
             //if (add_node == "NodeAdded")
             //{
             //    Console.WriteLine("Connected: " + node);
