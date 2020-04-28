@@ -1,46 +1,53 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <div class="col-5">
-        <div class="card card-primary card-outline">
-            <div class="card-header">
-                <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle"
-                         src="~/Assets/img/avata/ava.jpg"
-                         alt="User profile picture">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-5">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <div class="text-center">
+                        <img class="profile-user-img img-fluid img-circle"
+                             src="~/Assets/img/avata/ava.jpg"
+                             alt="User profile picture">
+                    </div>
+                    <h3 class="profile-username text-center">@ViewBag.account.userAccount</h3>
                 </div>
-                <h3 class="profile-username text-center">@ViewBag.account.userAccount</h3>
+                <div class="card-body box-profile">
+                    <strong><i class="fas fa-birthday-cake"></i> Ngày sinh</strong>
+                    <p class="text-muted">
+                        @ViewBag.account.sNgaysinh
+                    </p>
+                    <hr />
+                    <strong><i class="fas fa-venus-mars"></i> Giới tính</strong>
+                    <p class="text-muted">
+                        @ViewBag.account.sGioitinh
+                    </p>
+                    <hr />
+                    <strong><i class="fas fa-mobile-alt"></i> Số điện thoại</strong>
+                    <p class="text-muted">
+                        @ViewBag.account.sSodienthoai
+                    </p>
+                    <hr />
+                    <strong><i class="far fa-envelope"></i> Email</strong>
+                    <p class="text-muted">
+                        @ViewBag.account.sEmail
+                    </p>
+                    <hr />
+                    <strong><i class="far fa-envelope"></i> Địa chỉ</strong>
+                    <p class="text-muted">
+                        @ViewBag.account.sDiachi
+                    </p>
+                    <hr />
+                    <button id="@ViewBag.account.Id" type="button" class="btn btn-primary w-100" data-toggle="modal"
+                            data-target="#editInfoModal" data-backdrop="static" data-keyboard="false" onclick="setID(this.id)">
+                        Sửa thông tin
+                    </button>
+                </div>
+                <!-- /.card-body -->
             </div>
-            <div class="card-body box-profile">
-                <strong><i class="fas fa-birthday-cake"></i> Ngày sinh</strong>
-                <p class="text-muted">
-                    @ViewBag.account.sNgaysinh
-                </p>
-                <hr>
-                <strong><i class="fas fa-venus-mars"></i> Giới tính</strong>
-                <p class="text-muted">
-                    @ViewBag.account.sGioitinh
-                </p>
-                <hr>
-                <strong><i class="fas fa-mobile-alt"></i> Số điện thoại</strong>
-                <p class="text-muted">
-                    @ViewBag.account.sSodienthoai
-                </p>
-                <hr>
-                <strong><i class="far fa-envelope"></i> Email</strong>
-                <p class="text-muted">
-                    @ViewBag.account.sEmail
-                </p>
-                <strong><i class="far fa-envelope"></i> Địa chỉ</strong>
-                <p class="text-muted">
-                    @ViewBag.account.sDiachi
-                </p>
-            </div>
-            <!-- /.card-body -->
         </div>
-    </div>
-    <div class="col-7">
+        <div class="col-7">
             <div class="card card-primary card-outline">
                 <div class="card-header">
                     @*<h2>Số đợt bỏ phiếu đã tham gia: <a>@ViewBag.soDot</a></h2>*@
@@ -62,3 +69,192 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="editInfoModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 text-primary">Sửa đổi thông tin</h4>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-sm-12 form-group row">
+                        <label class="col-sm-2 col-form-label font-weight-normal">Họ tên</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="txtName" placeholder="Nguyễn Văn XHF">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group row">
+                        <label class="col-sm-2 col-form-label font-weight-normal">Giới tính</label>
+                        <div class="col-sm-10 input-group">
+                            <select style="-webkit-appearance:none;" class="custom-select" id="txtGender">
+                                <option value="Nam">Nam</option>
+                                <option value="Nu">Nữ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group row">
+                        <label class="col-sm-2 col-form-label font-weight-normal">Ngày sinh</label>
+                        <div class="col-sm-10 input-group">
+                            <input class="form-control" id="txtBirthday" name="txtBirthday" type="text" onkeypress="changeDate()" />
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-calendar-week"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group row">
+                        <label class="col-sm-2 col-form-label font-weight-normal">Số điện thoại</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="txtSDT">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group row">
+                        <label class="col-sm-2 col-form-label font-weight-normal">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="txtEmail">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group row">
+                        <label class="col-sm-2 col-form-label font-weight-normal">Địa chỉ</label>
+                        <div class="col-sm-10">
+                            <textarea style="resize:none;" class="form-control" id="txtAddress"> </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="editInfo" type="button" class="btn btn-success">Xác nhận</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script>
+    var currentId;
+    $(document).ready(function () {
+        $('#txtBirthday').datepicker({
+            format: 'dd/mm/yyyy',
+            uiLibrary: 'bootstrap'
+        });
+
+        $("#editInfo").on("click", function () {
+            let x = currentId;
+            let name = $("#txtName").val().trim();
+            let gender = $("#txtGender").val();
+            let birthday = $("#txtBirthday").val();
+            let sdt = $("#txtSDT").val();
+            let email = $("#txtEmail").val();
+            let address = $("#txtAddress").val();
+            $.ajax({
+                url: window.location.href + "/EditInfor",
+                type: "POST",
+                data: { id: x, Name: name.trim(), Birthday: birthday, Address: address.trim(), Email: email.trim(), Gender: gender, Phone: sdt }
+            }).then(function (result) {
+                if (result) {
+                    alert("Thành công");
+                    location.reload();
+                    //$('#editInfoModal').modal('hide');
+                } else {
+                    alert("Thất bại");
+                }
+            });
+        });
+    });
+
+    function changeDate() {
+        setTimeout(() => {
+            const value = $("#txtBirthday").val();
+            if (value && value.length === 8) {
+                if (value.indexOf("-") === -1 && value.indexOf("/") === -1) {
+                    const returnDate = replaceDate(value);
+                    if (returnDate && returnDate.length > 0) {
+                        $('#txtBirthday').datepicker('update', returnDate);
+                        //const dateParts = returnDate.split("/");
+                        //$("#newElectorNs").val(new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]));
+                    }
+                }
+            }
+        }, 200);
+    };
+
+    function replaceDate(date) {
+        date = date.toLowerCase();
+        var patt = new RegExp(
+            'q|w|e|r|t|y|u|i|o|p|a|s|d|f|g|h|j|k|l|z|x|c|v|b|n|m'
+        );
+        let returnDate = '';
+        if (
+            date.indexOf('-') === -1 &&
+            date.indexOf('/') === -1 &&
+            patt.test(date) === false
+        ) {
+            let day;
+            let month;
+            let year;
+            if (date.length === 8) {
+                day = date.substr(0, 2);
+                month = date.substr(2, 2);
+                year = date.substr(4, 4);
+            } else if (date.length === 6) {
+                day = date.substr(0, 2);
+                month = date.substr(2, 2);
+                year = date.substr(4, 2);
+                if (parseInt(year, 0) < 50) {
+                    year = parseInt('20' + year, 0);
+                } else {
+                    year = parseInt('19' + year, 0);
+                }
+            }
+            if (parseInt(day, 0) > 31) {
+                day = 30;
+            }
+            if (parseInt(month, 0) > 12) {
+                month = 12;
+            }
+            if (parseInt(year, 0) > 3000) {
+                year = 2020;
+            }
+            returnDate = day + '/' + month + '/' + year;
+        } else {
+            returnDate = date;
+        }
+        return returnDate;
+    };
+
+    //function validateForm(code, str) {
+    //    let result = true;
+    //    if (str == "") {
+    //        result = false;
+    //    } else {
+    //        if (code == "email") {
+    //            var re = /^(([^<>()[\]\\.,;:\s@@\"]+(\.[^<>()[\]\\.,;:\s@@\"]+)*)|(\".+\"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //            if (re.test(str)) result = true;
+    //            else {
+    //                console.log("email");
+    //                result = false;
+    //            }
+    //        }
+    //        if (code == "date") {
+    //            let condition = moment().diff(moment(str + '', 'DD/MM/YYYY'), 'years');
+    //            if (condition.toString().toLowerCase() == 'nan' || condition < 18) result = false;
+    //            else {
+    //                console.log("email");
+    //                result = true;
+    //            }
+    //        }
+    //        if (code == "name") {
+    //            if (str.split(' ').length < 2) result = false;
+    //            else {
+    //                result = true;
+    //                console.log("email");
+    //            }
+    //        }
+    //    }
+    //    return result;
+    //};
+
+    function setID(value) {
+        currentId = parseInt(value);
+    };
+</script>
