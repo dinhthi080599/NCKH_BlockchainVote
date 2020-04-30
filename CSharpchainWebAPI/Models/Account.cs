@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +11,7 @@ namespace CSharpchainWebAPI.Models
 {
     public class Account
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string userName { get; set; }
         public string passWord { get; set; }
         public string userAccount { get; set; }
@@ -28,6 +30,7 @@ namespace CSharpchainWebAPI.Models
                 a = ctx.tbl_taikhoan
                     .Select(s => new Account()
                     {
+                        Id = s.ma_taikhoan,
                         userAccount = s.sHovaten.ToString(),
                         sDiachi = s.sDiachi.ToString(),
                         sGioitinh = s.bGgioitinh == true ? "Nam" : "Nu",
@@ -43,6 +46,35 @@ namespace CSharpchainWebAPI.Models
         {
             HashSet<long> list_voted = new HashSet<long>();
             return list_voted;
+        }
+
+        public bool EditAccountInfo(long id, string name, string gender, string birthday, string sdt, string email, string address)
+        {
+            try
+            {
+                using (admin_voteEntities db = new admin_voteEntities())
+                {
+                    var account = db.Set<tbl_taikhoan>().FirstOrDefault(x => x.ma_taikhoan == id);
+                    if (name.Length != 0)
+                        account.sHovaten = name;
+                    account.bGgioitinh = gender == "Nam" ? true : false;
+                    if (birthday.Length != 0)
+                        account.dNgaysinh = DateTime.ParseExact(birthday, "dd/mm/yyyy", CultureInfo.InvariantCulture);
+                    if (sdt.Length != 0)
+                        account.sSdt = sdt;
+                    if (email.Length != 0)
+                        account.sEmail = email;
+                    if (address.Length != 0)
+                        account.sDiachi = address;
+                    db.Set<tbl_taikhoan>().AddOrUpdate(account);
+                    db.SaveChanges();
+                }
+            }
+            catch (InvalidCastException e)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
