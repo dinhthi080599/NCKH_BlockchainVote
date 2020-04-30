@@ -28,5 +28,9 @@ namespace CSharpchainWebAPI
                 node_list.Add(new_node);
             }
         }
+        public static void rm_node(string node)
+        {
+            node_list.Remove(node);
+        }
     }
 }
